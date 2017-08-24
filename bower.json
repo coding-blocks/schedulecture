@@ -1,0 +1,20 @@
+{
+  "name": "Schedulecture",
+  "homepage": "https://github.com/aayusharora/Schedulecture",
+  "authors": [
+    "aayusharora <aayush113002@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "fullcalendar": "^3.4.0"
+  }
+}
