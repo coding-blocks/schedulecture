@@ -1,14 +1,12 @@
 /**
- * Created by tech4GT on 8/25/17.
+ * Created by abhishekyadav on 25/08/17.
  */
-
 const models = require('../models')
 
-module.exports = {
-    createNew : function (name,desc,done) {
-        models.courses.create({
-            name : name,
-            desc : desc
+modules.exports={
+    createNew : function (name,done) {
+        models.centres.create({
+            name : name
         }).then(function (data) {
             done(data)
         }).catch(function (err) {
@@ -16,7 +14,7 @@ module.exports = {
         });
     },
     getAll : function (done) {
-        models.courses.findAll({
+        models.centres.findAll({
         }).then(function (data) {
             done(data)
         }).catch(function (err) {
@@ -24,7 +22,7 @@ module.exports = {
         });
     },
     search : function (id, done) {
-        models.courses.findOne({
+        models.centres.findOne({
             where : {
                 id : id
             }
@@ -35,7 +33,7 @@ module.exports = {
         });
     },
     edit : function (id,obj, done) {
-        models.courses.findOne({
+        models.centres.findOne({
             where : {
                 id : id
             }
@@ -62,5 +60,4 @@ module.exports = {
             if(err) throw err;
         });
     }
-
 }

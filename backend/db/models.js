@@ -2,10 +2,11 @@
  * Created by tech4GT on 8/25/17.
  */
 const Sequelize = require('sequelize');
+const dbconfig = require('../../dbconfig.json')
 
-const sequelize = new Sequelize('db', 'user', 'pass', {
-    dialect: 'postgres',
-    port: 5432,
+const sequelize = new Sequelize(dbconfig.db, dbconfig.user, dbconfig.password, {
+    dialect: dbconfig.dialect,
+    port: dbconfig.port,
 
     pool: {
         min: 0,

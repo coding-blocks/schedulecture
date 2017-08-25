@@ -39,6 +39,6 @@ $(document).ready(function () {
       })
 
   };
-
+// Draggable added
   draggableItem();
 });
