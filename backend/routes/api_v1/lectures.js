@@ -8,7 +8,10 @@ const db = require('../../db');
 
 
 router.post('/new',function (req,res) {
-    db.actions.courses.createNew(req.body.name,req.body.desc,function (data) {
+    req.body.date = JSON.parse(req.body.date)
+    req.body.startTime = JSON.parse(req.body.startTime)
+    req.body.endTime = JSON.parse(req.body.endTime)
+    db.actions.lectures.createNew(req.body.name,req.body.date,startTime,endTime,topic,function (data) {
         res.send(data);
     })
 
@@ -16,7 +19,7 @@ router.post('/new',function (req,res) {
 
 
 router.get('/',function (req,res) {
-    db.actions.courses.getAll(function(data){
+    db.actions.lectures.getAll(function(data){
         res.send(data);
     })
 });
@@ -32,7 +35,7 @@ router.put('/',function (req, res) {
 
 
 router.get('/:id',function (req,res) {
-    db.actions.search(req.param.id,function (data) {
+    db.actions.lectures.search(req.param.id,function (data) {
         res.send(data);
     })
 });
@@ -40,18 +43,16 @@ router.get('/:id',function (req,res) {
 
 
 router.put('/:id',function (req,res) {
-    db.actions.put(req.param.id,function(data){
+    db.actions.lectures.edit(req.param.id,req.body.values,function(data){
         res.send(data);
     })
 });
 
 router.delete('/:id',function (req,res) {
-    db.actions.deleteCourse(req.param.id,function(data){
+    db.actions.lectures.deleteLecture(req.param.id,function(data){
         res.send(data);
     })
 });
-
-
 
 
 
