@@ -6,8 +6,11 @@
 const express = require('express');
 
 const app = express();
+const bp = require('body-parser')
 
-// const api_v1 = require('./backend/routes/api_v1')
+app.use(bp.json())
+app.use(bp.urlencoded({extended : true}))
+const api_v1 = require('./backend/routes/api_v1')
 
 
 app.use('/', express.static(__dirname + "/frontend"));

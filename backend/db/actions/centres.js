@@ -3,7 +3,7 @@
  */
 const models = require('../models')
 
-modules.exports={
+module.exports={
     createNew : function (name,done) {
         models.centres.create({
             name : name

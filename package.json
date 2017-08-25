@@ -22,6 +22,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.15.4",
     "mysql": "^2.14.1",
+    "mysql2": "^1.4.1",
     "passport": "^0.4.0",
     "passport-oneauth": "^1.0.2",
     "pg": "^7.2.0",
