@@ -7,29 +7,37 @@ const router = express.Router();
 
 
 router.post('/new',function (req,res) {
-    res.send("posting a batch");
+    db.actions.centres.createNew(req.body.name,function (data) {
+        res.send(data);
+    })
 });
 
 
 router.get('/',function (req,res) {
-    res.send("getting all batches");
+    db.actions.centres.getAll(function(data){
+        res.send(data);
+    })
 });
 
 
 router.get('/:id',function (req,res) {
-    res.send("getting a batch");
+    db.actions.centres.search(req.params.id,function (data) {
+        res.send(data);
+    })
 });
 
 
 
 router.put('/:id',function (req,res) {
-    res.send("putting a batch");
-
+    db.actions.centres.put(req.param.id,req.body.values,function(data){
+        res.send(data);
+    })
 });
 
 router.delete('/:id',function (req,res) {
-    res.send("deleting a batch");
-
+    db.actions.centres.deleteCentre(req.param.id,function(data){
+        res.send(data);
+    })
 });
 
 
