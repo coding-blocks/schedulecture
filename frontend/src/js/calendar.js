@@ -15,6 +15,13 @@ $(document).ready(function () {
     fixedWeekCount: false,
     height: 500,
     editable: true,
+    events: [
+      {
+        id: 1,
+        title: 'abc',
+        start: new Date()
+      }
+    ]
 
   })
 
