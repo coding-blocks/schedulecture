@@ -4,30 +4,37 @@
 
 const express = require('express');
 const router = express.Router();
+const db = require('../../db');
 
 
-route.post('/new',function (req,res) {
-    res.send("posting a batch");
+router.post('/new',function (req,res) {
+    db.actions.batches.newBatch(req.body.name,req.body.startDate,req.body.enddate,req.body.size,req.body.courseId,req.body.centreId,function (data) {
+        res.send(data);
+    })
 });
 
 
-route.get('/',function (req,res) {
-    res.send("getting all batches");
+router.get('/',function (req,res) {
+    db.actions.batches.getAll(function(data){
+        res.send(data);
+    })
 });
 
 
-route.get('/:id',function (req,res) {
-    res.send("getting a batch");
+router.get('/:id',function (req,res) {
+    db.actions.batches.search(req.param.id,function (data) {
+        res.send(data);
+    })
 });
 
 
 
-route.put('/:id',function (req,res) {
+router.put('/:id',function (req,res) {
     res.send("putting a batch");
 
 });
 
-route.delete('/:id',function (req,res) {
+router.delete('/:id',function (req,res) {
     res.send("deleting a batch");
 
 });

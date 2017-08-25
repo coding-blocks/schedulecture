@@ -7,7 +7,7 @@ const db = require('../../db');
 
 
 
-route.post('/new',function (req,res) {
+router.post('/new',function (req,res) {
     db.actions.courses.createNew(req.body.name,req.body.desc,function (data) {
         res.send(data);
     })
@@ -15,14 +15,14 @@ route.post('/new',function (req,res) {
 });
 
 
-route.get('/',function (req,res) {
+router.get('/',function (req,res) {
     db.actions.courses.getAll(function(data){
         res.send(data);
     })
 });
 
 
-route.get('/:id',function (req,res) {
+router.get('/:id',function (req,res) {
     db.actions.search(req.param.id,function (data) {
         res.send(data);
     })
@@ -30,13 +30,13 @@ route.get('/:id',function (req,res) {
 
 
 
-route.put('/:id',function (req,res) {
+router.put('/:id',function (req,res) {
     db.actions.put(req.param.id,function(data){
         res.send(data);
     })
 });
 
-route.delete('/:id',function (req,res) {
+router.delete('/:id',function (req,res) {
     db.actions.deleteCourse(req.param.id,function(data){
         res.send(data);
     })
