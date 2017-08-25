@@ -2,6 +2,6 @@
   "db" : "scheduledb",
   "user" : "root",
   "password" : "MyNewPass",
-  "dialect" : "mysql",
+  "dialect" : "postgres",
   "port" : 3306
 }

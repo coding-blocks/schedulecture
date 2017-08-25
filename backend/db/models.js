@@ -5,14 +5,14 @@ const Sequelize = require('sequelize');
 const dbconfig = require('../../dbconfig.json')
 
 const sequelize = new Sequelize(dbconfig.db, dbconfig.user, dbconfig.password, {
-    dialect: dbconfig.dialect,
-    port: dbconfig.port,
+  dialect: dbconfig.dialect,
+  port: dbconfig.port,
 
-    pool: {
-        min: 0,
-        max: 5,
-        idle: 1000
-    }
+  pool: {
+    min: 0,
+    max: 5,
+    idle: 1000
+  }
 });
 const courses = sequelize.define('course',{
     id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -66,6 +66,7 @@ rooms.hasMany(lectures)
 sequelize.sync()
 
 module.exports = {
+
    courses,
     batches,
     lectures,
@@ -73,5 +74,3 @@ module.exports = {
     users,
     centres,
 }
-
-
