@@ -14,9 +14,31 @@ $(document).ready(function () {
     },
     fixedWeekCount: false,
     editable: true,
-    droppable:true
-
+    droppable:true,
+    height: 500,
+    events: [
+      {
+        id: 1,
+        title: 'abc',
+        start: new Date()
+      }
+    ]
   })
 
 
+  var draggableItem  = function () {
+
+      var lecture  = $("#draggable");
+      lecture.data('event',{
+          title: "Lecture:1"
+      });
+      lecture.draggable({
+          zIndex: 999,
+          revert:true,
+          revertDuration:0
+      })
+
+  };
+
+  draggableItem();
 });
