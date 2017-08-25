@@ -63,15 +63,19 @@ $(document).ready(function () {
 
   var draggableItem = function () {
 
-    var lecture = $("#draggable");
-    lecture.data('event', {
-      title: "Lecture:1"
-    });
-    lecture.draggable({
-      zIndex: 999,
-      revert: true,
-      revertDuration: 0
+
+    var lecture = $("#draggable > p");
+    lecture.each(function () {
+      $(this).data('event', {
+        title: "Lecture:1"
+      });
+      $(this).draggable({
+        zIndex: 999,
+        revert: true,
+        revertDuration: 0
+      })
     })
+
 
   };
 // Draggable added

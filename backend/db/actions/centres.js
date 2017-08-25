@@ -49,8 +49,8 @@ modules.exports={
             if(err) throw err;
         });
     },
-    deleteCourse : function (id, done) {
-        model.courses.destroy({
+    deleteCentre : function (id, done) {
+        model.centres.destroy({
             where : {
                 id : id
             }

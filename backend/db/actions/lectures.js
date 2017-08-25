@@ -1,14 +1,16 @@
 /**
  * Created by tech4GT on 8/25/17.
  */
-
 const models = require('../models')
 
 module.exports = {
-    createNew : function (name,desc,done) {
-        models.courses.create({
+    createNew : function (name,date,startTime,endTime,topic) {
+        models.lectures.create({
             name : name,
-            desc : desc
+            date : date,
+            startTime: startTime,
+            endTime : endTime,
+            topic : topic
         }).then(function (data) {
             done(data)
         }).catch(function (err) {
@@ -16,7 +18,7 @@ module.exports = {
         });
     },
     getAll : function (done) {
-        models.courses.findAll({
+        models.lectures.findAll({
         }).then(function (data) {
             done(data)
         }).catch(function (err) {
@@ -24,7 +26,7 @@ module.exports = {
         });
     },
     search : function (id, done) {
-        models.courses.findOne({
+        models.lectures.findOne({
             where : {
                 id : id
             }
@@ -35,7 +37,7 @@ module.exports = {
         });
     },
     edit : function (id,obj, done) {
-        models.courses.findOne({
+        models.lectures.findOne({
             where : {
                 id : id
             }
@@ -51,7 +53,7 @@ module.exports = {
             if(err) throw err;
         });
     },
-    deleteCourse : function (id, done) {
+    deleteLecture : function (id, done) {
         models.courses.destroy({
             where : {
                 id : id
