@@ -8,10 +8,9 @@ const db = require('../../db');
 
 
 router.post('/new',function (req,res) {
-    req.body.date = JSON.parse(req.body.date)
-    req.body.startTime = JSON.parse(req.body.startTime)
-    req.body.endTime = JSON.parse(req.body.endTime)
-    db.actions.lectures.createNew(req.body.name,req.body.date,startTime,req.body.endTime,req.body.topic,function (data) {
+    // req.body.startTime = JSON.parse(req.body.startTime).getTime()
+    // req.body.endTime = JSON.parse(req.body.endTime).getTime()
+    db.actions.lectures.createNew(req.body.name,req.body.date,req.body.startTime,req.body.endTime,req.body.topic,function (data) {
         res.send(data);
     })
 
@@ -35,7 +34,7 @@ router.put('/',function (req, res) {
 
 
 router.get('/:id',function (req,res) {
-    db.actions.lectures.search(req.param.id,function (data) {
+    db.actions.lectures.search(req.params.id,function (data) {
         res.send(data);
     })
 });
@@ -43,13 +42,14 @@ router.get('/:id',function (req,res) {
 
 
 router.put('/:id',function (req,res) {
-    db.actions.lectures.edit(req.param.id,req.body.values,function(data){
+
+    db.actions.lectures.edit(req.params.id,req.body.values,function(data){
         res.send(data);
     })
 });
 
 router.delete('/:id',function (req,res) {
-    db.actions.lectures.deleteLecture(req.param.id,function(data){
+    db.actions.lectures.deleteLecture(req.params.id,function(data){
         res.send(data);
     })
 });

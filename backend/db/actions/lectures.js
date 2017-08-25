@@ -4,7 +4,7 @@
 const models = require('../models')
 
 module.exports = {
-    createNew : function (name,date,startTime,endTime,topic) {
+    createNew : function (name,date,startTime,endTime,topic,done) {
         models.lectures.create({
             name : name,
             date : date,
@@ -37,17 +37,15 @@ module.exports = {
         });
     },
     edit : function (id,obj, done) {
-        models.lectures.findOne({
+        models.lectures.update(obj,
+            {
             where : {
                 id : id
-            }
+            },
+            returning:true
         }).then(function (data) {
-            data.update(obj).then(function (resData) {
-                done({
-                    "status" : resData
-                })
-            }).catch(function (err) {
-                if(err) throw err;
+            done({
+                "status" : data
             })
         }).catch(function (err) {
             if(err) throw err;
