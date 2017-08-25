@@ -29,7 +29,7 @@ router.get('/:id',function (req,res) {
 
 
 router.put('/:id',function (req,res) {
-    db.actions.centres.put(req.param.id,function(data){
+    db.actions.centres.put(req.param.id,req.body.values,function(data){
         res.send(data);
     })
 });
