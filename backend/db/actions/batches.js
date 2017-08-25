@@ -2,7 +2,7 @@
  *
  * Created by tech4GT on 8/25/17.
  */
-const models = require('/backend/db/models')
+const models = require('../models')
 module.exports = {
 
     newBatch: function (name, startDate, endDate, size, courseId, centreId, done) {
