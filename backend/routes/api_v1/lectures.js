@@ -42,13 +42,6 @@ route.delete('/:id',function (req,res) {
     })
 });
 
-router.get('/:id/batches',function (req,res) {
-
-})
-
-router.put('/:id/batches',function (req,res) {
-
-})
 
 
 

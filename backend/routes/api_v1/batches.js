@@ -32,6 +32,12 @@ route.delete('/:id',function (req,res) {
 
 });
 
+router.get('/:id/lectures',function(req,res){
+
+})
+router.put('/:id/lectures',function(req,res){
+
+})
 
 
 module.exports = router;
