@@ -63,7 +63,7 @@ centres.hasMany(rooms)
 
 lectures.belongsTo(rooms)
 rooms.hasMany(lectures)
-sequelize.sync({force : true})
+sequelize.sync()
 
 module.exports = {
    courses,
