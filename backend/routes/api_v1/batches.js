@@ -8,7 +8,7 @@ const db = require('../../db');
 
 
 router.post('/new',function (req,res) {
-    db.actions.batches.newBatch(req.body.name,req.body.startDate,req.body.enddate,req.body.size,req.body.courseId,req.body.centreId,function (data) {
+    db.actions.batches.newBatch(req.body.name,req.body.startDate,req.body.endDate,req.body.size,req.body.courseId,req.body.centreId,function (data) {
         res.send(data);
     })
 });
