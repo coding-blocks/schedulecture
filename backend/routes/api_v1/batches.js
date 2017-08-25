@@ -22,7 +22,7 @@ router.get('/',function (req,res) {
 
 
 router.get('/:id',function (req,res) {
-    db.actions.batches.search(req.param.id,function (data) {
+    db.actions.batches.search(req.params.id,function (data) {
         res.send(data);
     })
 });
@@ -30,20 +30,16 @@ router.get('/:id',function (req,res) {
 
 
 router.put('/:id',function (req,res) {
-    res.send("putting a batch");
+    db.actions.batches.edit(req.params.id,req.body.values,data=>res.send(data))
 
 });
 
 router.delete('/:id',function (req,res) {
-    res.send("deleting a batch");
-
+    db.actions.batches.edit(req.params.id,(data)=>res.send(data))
 });
 
 router.get('/:id/lectures',function(req,res){
-
-})
-router.put('/:id/lectures',function(req,res){
-
+    db.actions.batches.getlectures(req.params.id,data=>res.send(data))
 })
 
 

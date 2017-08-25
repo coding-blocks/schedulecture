@@ -52,7 +52,7 @@ module.exports = {
         });
     },
     deleteCourse : function (id, done) {
-        model.courses.destroy({
+        models.courses.destroy({
             where : {
                 id : id
             }
