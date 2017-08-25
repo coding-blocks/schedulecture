@@ -12,7 +12,9 @@ $(document).ready(function () {
       center: 'title',
       right: 'month,agendaWeek,agendaDay'
     },
-    fixedWeekCount: false
+    fixedWeekCount: false,
+    height: 500,
+    editable: true,
 
   })
 
