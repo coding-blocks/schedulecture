@@ -3,11 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>ScheduleLecture</title>
+    <link rel='stylesheet' href='/bower_components/fullcalendar/dist/fullcalendar.css' />
+    <link rel='stylesheet' href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
     <link rel='stylesheet' href='/bower_components/fullcalendar/dist/fullcalendar.css'/>
     <link rel='stylesheet' href="/bower_components/jquery-ui/themes/base/jquery-ui.css"/>
+
 </head>
 <body>
-<div id='calendar' style="width: 600px"></div>
+
+<div class="well container">
+    <div class="row">
+        <div class="col-md-12"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 schedule">
+            <div id='calendar'></div>
+        </div>
+    </div>
+</div>
+
 
 <script src='/bower_components/jquery/dist/jquery.js'></script>
 <script src='/bower_components/moment/moment.js'></script>
