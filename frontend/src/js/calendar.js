@@ -14,12 +14,15 @@ $(document).ready(function () {
     },
     fixedWeekCount: false,
     height: 500,
+    droppable: true,
+    draggable: true,
     editable: true,
     events: [
       {
         id: 1,
         title: 'abc',
-        start: new Date()
+        start: new Date(),
+        stick: true
       }
     ]
 
