@@ -1,7 +1,7 @@
 {
-  "db" : "postgres",
-  "user" : "tech4GT",
-  "password" : "Cool@Man6",
-  "dialect" : "postgres",
-  "port" : 5432
+  "db" : "scheduledb",
+  "user" : "root",
+  "password" : "MyNewPass",
+  "dialect" : "mysql",
+  "port" : 3306
 }

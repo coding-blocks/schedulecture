@@ -11,7 +11,7 @@ router.post('/new',function (req,res) {
     req.body.date = JSON.parse(req.body.date)
     req.body.startTime = JSON.parse(req.body.startTime)
     req.body.endTime = JSON.parse(req.body.endTime)
-    db.actions.lectures.createNew(req.body.name,req.body.date,startTime,endTime,topic,function (data) {
+    db.actions.lectures.createNew(req.body.name,req.body.date,startTime,req.body.endTime,req.body.topic,function (data) {
         res.send(data);
     })
 
@@ -27,7 +27,7 @@ router.get('/',function (req,res) {
 router.put('/',function (req, res) {
     (function(callback) {
         req.body.lectures.forEach(function (x) {
-            db.actions.lectures.edit(x.id,x,)
+            db.actions.lectures.edit(x.id,x)
         })
         callback();
     })(data=>res.send(data))
