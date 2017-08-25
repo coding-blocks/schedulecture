@@ -21,6 +21,15 @@ router.get('/',function (req,res) {
     })
 });
 
+router.put('/',function (req, res) {
+    (function(callback) {
+        req.body.lectures.forEach(function (x) {
+            db.actions.lectures.edit(x.id,x,)
+        })
+        callback();
+    })(data=>res.send(data))
+})
+
 
 router.get('/:id',function (req,res) {
     db.actions.search(req.param.id,function (data) {
