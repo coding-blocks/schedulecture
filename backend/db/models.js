@@ -5,49 +5,49 @@ const Sequelize = require('sequelize');
 const dbconfig = require('../../dbconfig.json')
 
 const sequelize = new Sequelize(dbconfig.db, dbconfig.user, dbconfig.password, {
-    dialect: dbconfig.dialect,
-    port: dbconfig.port,
+  dialect: dbconfig.dialect,
+  port: dbconfig.port,
 
-    pool: {
-        min: 0,
-        max: 5,
-        idle: 1000
-    }
+  pool: {
+    min: 0,
+    max: 5,
+    idle: 1000
+  }
 });
 
 const courses = sequelize.define({
-    id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
-    name : Sequelize.STRING,
-    desc : Sequelize.STRING
+  id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+  name: Sequelize.DataTypes.STRING,
+  desc: Sequelize.DataTypes.STRING
 });
 const batches = sequelize.define({
-    id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
-    name : Sequelize.STRING,
-    startDate : Sequelize.DATE,
-    endDate : Sequelize.DATE,
-    size : Sequelize.INTEGER
+  id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
+  name: Sequelize.STRING,
+  startDate: Sequelize.DATE,
+  endDate: Sequelize.DATE,
+  size: Sequelize.INTEGER
 });
 const lectures = sequelize.define({
-    id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
-    name : Sequelize.STRING,
-    date : Sequelize.DATE,
-    startTime : Sequelize.TIME,
-    endTime : Sequelize.TIME,
-    topic : Sequelize.STRING
+  id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
+  name: Sequelize.STRING,
+  date: Sequelize.DATE,
+  startTime: Sequelize.TIME,
+  endTime: Sequelize.TIME,
+  topic: Sequelize.STRING
 });
 const rooms = sequelize.define({
-    id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
-    name : Sequelize.STRING,
-    capacity : Sequelize.INTEGER
+  id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
+  name: Sequelize.STRING,
+  capacity: Sequelize.INTEGER
 });
 const centres = sequelize.define({
-    id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
-    name : Sequelize.STRING,
+  id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
+  name: Sequelize.STRING,
 });
 const user = sequelize.define({
-    id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
-    name : Sequelize.STRING,
-    email : Sequelize.STRING
+  id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
+  name: Sequelize.STRING,
+  email: Sequelize.STRING
 });
 
 batches.belongsTo(courses)
@@ -67,12 +67,12 @@ rooms.hasMany(lectures)
 
 
 module.exports = {
-   courses,
-    batches,
-    lectures,
-    rooms,
-    user,
-    centres,
+  courses,
+  batches,
+  lectures,
+  rooms,
+  user,
+  centres
 }
 
-sequelize.sync()
+sequelize.sync();

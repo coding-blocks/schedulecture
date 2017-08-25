@@ -2,6 +2,30 @@
  * Created by aayusharora on 8/25/17.
  */
 $(document).ready(function () {
+  var events = [];
+  var draggableItem = function () {
+
+
+    var lecture = $("#draggable > p");
+    lecture.each(function () {
+      $(this).data('event', {
+        title: "Lecture:1",
+        start: $.fullCalendar.moment()
+      });
+
+      $(this).draggable({
+        zIndex: 999,
+        revert: true,
+        revertDuration: 0
+      })
+      console.log();
+      events.push($(this).data().event);
+    })
+
+
+  };
+
+  draggableItem();
 
   // page is now ready, initialize the calendar...
 
@@ -16,26 +40,16 @@ $(document).ready(function () {
     editable: true,
     droppable: true,
     height: 500,
-    events: [
-      {
-        id: 1,
-        title: 'abc',
-        start: new Date(),
-        stick: true
-      }
-    ],
-    eventDragStop: function (event, jsEvent, ui, view) {
+    events: events,
+    eventDrop: function (event, delta, revertFunction, jsEvent, ui, view) {
       console.log("1")
       if (isEventOverDiv(jsEvent.clientX, jsEvent.clientY)) {
-
-        event.start = view.currentRange.start._d;
-        event.end = view.currentRange.end._d;
-        console.log(view);
         console.log(event.start);
-        console.log(event.end);
         $('#calendar').fullCalendar('updateEvent', event);
-
       }
+    },
+    drop: function (date) {
+      console.log(2);
     }
   });
 
@@ -61,23 +75,4 @@ $(document).ready(function () {
   }
 
 
-  var draggableItem = function () {
-
-
-    var lecture = $("#draggable > p");
-    lecture.each(function () {
-      $(this).data('event', {
-        title: "Lecture:1"
-      });
-      $(this).draggable({
-        zIndex: 999,
-        revert: true,
-        revertDuration: 0
-      })
-    })
-
-
-  };
-// Draggable added
-  draggableItem();
 });
