@@ -3,33 +3,53 @@
  */
 const express = require('express');
 const router = express.Router();
-
-
-route.post('/new',function (req,res) {
-    res.send("posting a course");
-});
-
-
-route.get('/',function (req,res) {
-    res.send("getting all courses");
-});
-
-
-route.get('/:id',function (req,res) {
-    res.send("getting a course");
-});
+const db = require('../../db');
 
 
 
-route.put('/:id',function (req,res) {
-    res.send("putting a course");
+router.post('/new',function (req,res) {
+    db.actions.courses.createNew(req.body.name,req.body.desc,function (data) {
+        res.send(data);
+    })
 
 });
 
-route.delete('/:id',function (req,res) {
-    res.send("deleting a course");
 
+router.get('/',function (req,res) {
+    db.actions.courses.getAll(function(data){
+        res.send(data);
+    })
 });
+
+
+router.get('/:id',function (req,res) {
+    db.actions.search(req.param.id,function (data) {
+        res.send(data);
+    })
+});
+
+
+
+router.put('/:id',function (req,res) {
+    db.actions.put(req.param.id,function(data){
+        res.send(data);
+    })
+});
+
+router.delete('/:id',function (req,res) {
+    db.actions.deleteCourse(req.param.id,function(data){
+        res.send(data);
+    })
+});
+
+router.get('/:id/batches',function (req,res) {
+
+})
+
+router.put('/:id/batches',function (req,res) {
+
+})
+
 
 
 

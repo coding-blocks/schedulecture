@@ -1,28 +1,29 @@
 /**
  * Created by abhishekyadav on 25/08/17.
  */
-
 const express = require('express');
 const router = express.Router();
 const db = require('../../db');
 
 
+
 router.post('/new',function (req,res) {
-    db.actions.batches.newBatch(req.body.name,req.body.startDate,req.body.enddate,req.body.size,req.body.courseId,req.body.centreId,function (data) {
+    db.actions.courses.createNew(req.body.name,req.body.desc,function (data) {
         res.send(data);
     })
+
 });
 
 
 router.get('/',function (req,res) {
-    db.actions.batches.getAll(function(data){
+    db.actions.courses.getAll(function(data){
         res.send(data);
     })
 });
 
 
 router.get('/:id',function (req,res) {
-    db.actions.batches.search(req.param.id,function (data) {
+    db.actions.search(req.param.id,function (data) {
         res.send(data);
     })
 });
@@ -30,21 +31,19 @@ router.get('/:id',function (req,res) {
 
 
 router.put('/:id',function (req,res) {
-    res.send("putting a batch");
-
+    db.actions.put(req.param.id,function(data){
+        res.send(data);
+    })
 });
 
 router.delete('/:id',function (req,res) {
-    res.send("deleting a batch");
-
+    db.actions.deleteCourse(req.param.id,function(data){
+        res.send(data);
+    })
 });
 
-router.get('/:id/lectures',function(req,res){
 
-})
-router.put('/:id/lectures',function(req,res){
 
-})
 
 
 module.exports = router;

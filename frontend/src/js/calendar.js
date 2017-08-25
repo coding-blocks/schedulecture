@@ -13,10 +13,9 @@ $(document).ready(function () {
       right: 'month,agendaWeek,agendaDay'
     },
     fixedWeekCount: false,
-    height: 500,
-    droppable: true,
-    draggable: true,
     editable: true,
+    droppable:true,
+    height: 500,
     events: [
       {
         id: 1,
@@ -25,7 +24,22 @@ $(document).ready(function () {
         stick: true
       }
     ]
-
   })
 
+
+  var draggableItem  = function () {
+
+      var lecture  = $("#draggable");
+      lecture.data('event',{
+          title: "Lecture:1"
+      });
+      lecture.draggable({
+          zIndex: 999,
+          revert:true,
+          revertDuration:0
+      })
+
+  };
+// Draggable added
+  draggableItem();
 });
