@@ -23,7 +23,7 @@ router.get('/',function (req,res) {
 
 
 router.get('/:id',function (req,res) {
-    db.actions.search(req.param.id,function (data) {
+    db.actions.courses.search(req.param.id,function (data) {
         res.send(data);
     })
 });
@@ -31,13 +31,13 @@ router.get('/:id',function (req,res) {
 
 
 router.put('/:id',function (req,res) {
-    db.actions.put(req.param.id,function(data){
+    db.actions.courses.put(req.param.id,function(data){
         res.send(data);
     })
 });
 
 router.delete('/:id',function (req,res) {
-    db.actions.deleteCourse(req.param.id,function(data){
+    db.actions.courses.deleteCourse(req.param.id,function(data){
         res.send(data);
     })
 });
