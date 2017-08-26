@@ -12,7 +12,8 @@ router.post('/new',function (req,res) {
     req.body.date = new Date(req.body.date)
     req.body.startTime = new Date(req.body.startTime)
     req.body.endTime = new Date(req.body.endTime)
-    db.actions.lectures.createNew(req.body.name,req.body.date,req.body.startTime,req.body.endTime,req.body.topic,function (data) {
+    db.actions.lectures.createNew(req.body.name,req.body.date,req.body.startTime,req.body.endTime,req.body.topic,req.body.batchId,
+        req.body.roomId,function (data) {
         res.send(data);
     })
 

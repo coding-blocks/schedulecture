@@ -38,6 +38,7 @@ module.exports={
                 id : id
             }
         }).then(function (data) {
+                console.log(data);
             data.update(obj).then(function (resData) {
                 done({
                     "status" : resData
@@ -50,7 +51,7 @@ module.exports={
         });
     },
     deleteCentre : function (id, done) {
-        model.centres.destroy({
+        models.centres.destroy({
             where : {
                 id : id
             }
