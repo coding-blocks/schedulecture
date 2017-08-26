@@ -32,7 +32,7 @@ router.get('/:id',function (req,res) {
 
 router.put('/:id',function (req,res) {
 
-    db.actions.courses.edit(req.params.id,req.body.values,function(data){
+    db.actions.courses.edit(req.params.id,JSON.parse(req.body.values),function(data){
         res.send(data);
     })
 });
