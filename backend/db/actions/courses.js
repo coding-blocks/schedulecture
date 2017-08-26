@@ -61,6 +61,32 @@ module.exports = {
         }).catch(function (err) {
             if(err) throw err;
         });
+    },
+    getlectures : function (id, done) {
+        models.courses.findOne({
+            where : {
+                id : id
+            },
+            include:[{
+                model:models.batches,
+                include:[{
+                    model:models.lectures
+                }]
+            }]
+        }).then(function (data) {
+            var arr=[];
+            var batches=data.dataValues.batches;
+            for(var i in batches){
+                var lectures=batches[i].lectures;
+                for(var j in lectures){
+                    arr.push(lectures[j].dataValues);
+                }
+            }
+            done(arr);
+
+        }).catch(function (err) {
+            if(err) throw err;
+        });
     }
 
 }

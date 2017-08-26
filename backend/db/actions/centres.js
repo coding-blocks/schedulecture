@@ -38,7 +38,6 @@ module.exports={
                 id : id
             }
         }).then(function (data) {
-                console.log(data);
             data.update(obj).then(function (resData) {
                 done({
                     "status" : resData

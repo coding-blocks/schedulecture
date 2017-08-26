@@ -28,7 +28,7 @@ router.get('/',function (req,res) {
 
 router.put('/',function (req, res) {
     (function(callback) {
-        JSON.parse(req.body.lectures).forEach(function (x) {
+        (req.body.lectures).forEach(function (x) {
             db.actions.lectures.edit(x.id,x,()=>{})
         })
         callback();
@@ -47,14 +47,17 @@ router.get('/:id',function (req,res) {
 
 
 router.put('/:id',function (req,res) {
-    db.actions.lectures.edit(req.params.id,JSON.parse(req.body.values),function(data){
+    db.actions.lectures.edit(req.params.id,req.body.values,function(data){
         res.send(data);
     })
 });
 
 router.delete('/:id',function (req,res) {
     db.actions.lectures.deleteLecture(req.params.id,function(data){
-        res.send(data);
+        if(data>0){
+            return res.status(200).send({success: true});
+        }
+        return res.status(204).send();
     })
 });
 
