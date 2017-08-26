@@ -57,7 +57,7 @@ module.exports = {
                 id : id
             }
         }).then(function (data) {
-            done(data)
+            done(!!JSON.stringify(data))
         }).catch(function (err) {
             if(err) throw err;
         });

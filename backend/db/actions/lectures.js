@@ -4,13 +4,16 @@
 const models = require('../models')
 
 module.exports = {
-    createNew : function (name,date,startTime,endTime,topic,done) {
+
+    createNew : function (name,date,startTime,endTime,topic,batchId,roomId,done) {
         models.lectures.create({
             name : name,
             date : date,
             startTime: startTime,
             endTime : endTime,
-            topic : topic
+            topic : topic,
+            batchId : batchId,
+            roomId : roomId
         }).then(function (data) {
             done(data)
         }).catch(function (err) {
@@ -44,20 +47,22 @@ module.exports = {
             },
             returning:true
         }).then(function (data) {
-            done({
-                "status" : data
+            data.update(obj).then(function (resData) {
+                done(resData)
+            }).catch(function (err) {
+                if(err) throw err;
             })
         }).catch(function (err) {
             if(err) throw err;
         });
     },
     deleteLecture : function (id, done) {
-        models.courses.destroy({
+        models.lectures.destroy({
             where : {
                 id : id
             }
         }).then(function (data) {
-            done(data)
+            done(JSON.stringify(data))
         }).catch(function (err) {
             if(err) throw err;
         });
