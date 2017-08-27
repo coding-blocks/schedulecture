@@ -30,14 +30,18 @@ router.get('/:id',function (req,res) {
 
 
 router.put('/:id',function (req,res) {
-    db.actions.centres.put(req.param.id,req.body.values,function(data){
+    db.actions.centres.edit(req.params.id,JSON.parse(req.body.values),function(data){
         res.send(data);
     })
 });
 
 router.delete('/:id',function (req,res) {
-    db.actions.centres.deleteCentre(req.param.id,function(data){
-        res.send(data);
+    db.actions.centres.deleteCentre(req.params.id,function(data){
+        if(data>0){
+            return res.status(200).send({success: true});
+        }
+        return res.status(204).send();
+
     })
 });
 

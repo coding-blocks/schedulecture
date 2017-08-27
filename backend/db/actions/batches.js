@@ -5,11 +5,11 @@
 const models = require('../models')
 module.exports = {
 
-    newBatch: function (name, startDate, endDate, size, courseId, centreId, done) {
-        models.batches.findOne({
+    newBatch: function (name, startDate, endDate, size, courseId, centerId, done) {
+        models.batches.create({
             name: name,
-            startDate: JSON.parse(startDate),
-            endDate: JSON.parse(endDate),
+            startDate: startDate,
+            endDate: endDate,
             size: size,
             courseId: courseId,
             centerId: centerId
@@ -20,14 +20,14 @@ module.exports = {
         });
     },
     getAll: function (done) {
-        models.batches.finAdAll({}).then(function (data) {
+        models.batches.findAll({}).then(function (data) {
             done(data)
         }).catch(function (err) {
             if (err) throw err;
         });
     },
     search: function (id, done) {
-        db.models.batches.findOne({
+        models.batches.findOne({
             where: {
                 id: id
             }
@@ -56,7 +56,7 @@ module.exports = {
             if(err) throw err;
         });
     },
-    deleteCourse : function (id, done) {
+    deleteBatch : function (id, done) {
         models.batches.destroy({
             where : {
                 id : id
@@ -70,7 +70,7 @@ module.exports = {
     getlectures : function (id, done) {
         models.lectures.findAll({
             where : {
-                lectureId : id
+                batchId : id
             }
         }).then(function (data) {
             done(data)

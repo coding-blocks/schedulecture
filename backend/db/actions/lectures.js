@@ -40,15 +40,16 @@ module.exports = {
         });
     },
     edit : function (id,obj, done) {
-        models.lectures.update(obj,
+        models.lectures.findOne(
             {
             where : {
                 id : id
-            },
-            returning:true
+            }
         }).then(function (data) {
             data.update(obj).then(function (resData) {
-                done(resData)
+                done({
+                    "status" : resData
+                })
             }).catch(function (err) {
                 if(err) throw err;
             })
@@ -62,7 +63,7 @@ module.exports = {
                 id : id
             }
         }).then(function (data) {
-            done(JSON.stringify(data))
+            done(data)
         }).catch(function (err) {
             if(err) throw err;
         });

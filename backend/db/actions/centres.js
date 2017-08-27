@@ -50,7 +50,7 @@ module.exports={
         });
     },
     deleteCentre : function (id, done) {
-        model.centres.destroy({
+        models.centres.destroy({
             where : {
                 id : id
             }
