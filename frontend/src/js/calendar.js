@@ -17,8 +17,7 @@ $(document).ready(function () {
         zIndex: 999,
         revert: true,
         revertDuration: 0
-      })
-      console.log();
+      });
       events.push($(this).data().event);
     })
 
@@ -42,7 +41,7 @@ $(document).ready(function () {
     height: 500,
     events: events,
     eventDrop: function (event, delta, revertFunction, jsEvent, ui, view) {
-      console.log("1")
+      console.log("1");
       if (isEventOverDiv(jsEvent.clientX, jsEvent.clientY)) {
         console.log(event.start);
         $('#calendar').fullCalendar('updateEvent', event);
@@ -50,6 +49,7 @@ $(document).ready(function () {
     },
     drop: function (date) {
       console.log(2);
+      console.log(date);
     }
   });
 
