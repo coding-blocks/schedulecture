@@ -35,7 +35,12 @@ router.put('/:id',function (req,res) {
 });
 
 router.delete('/:id',function (req,res) {
-    db.actions.batches.edit(req.params.id,(data)=>res.send(data))
+    db.actions.batches.deleteBatch(req.params.id,function (data) {
+        if(data>0){
+            return res.status(200).send({success: true});
+        }
+        return res.status(204).send();
+    })
 });
 
 router.get('/:id/lectures',function(req,res){

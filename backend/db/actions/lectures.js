@@ -4,13 +4,16 @@
 const models = require('../models')
 
 module.exports = {
-    createNew : function (name,date,startTime,endTime,topic) {
+
+    createNew : function (name,date,startTime,endTime,topic,batchId,roomId,done) {
         models.lectures.create({
             name : name,
             date : date,
             startTime: startTime,
             endTime : endTime,
-            topic : topic
+            topic : topic,
+            batchId : batchId,
+            roomId : roomId
         }).then(function (data) {
             done(data)
         }).catch(function (err) {
@@ -37,7 +40,8 @@ module.exports = {
         });
     },
     edit : function (id,obj, done) {
-        models.lectures.findOne({
+        models.lectures.findOne(
+            {
             where : {
                 id : id
             }
@@ -54,7 +58,7 @@ module.exports = {
         });
     },
     deleteLecture : function (id, done) {
-        models.courses.destroy({
+        models.lectures.destroy({
             where : {
                 id : id
             }

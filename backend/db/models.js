@@ -30,8 +30,8 @@ const lectures = sequelize.define('lecture',{
     id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name : Sequelize.DataTypes.STRING,
     date : Sequelize.DataTypes.DATE,
-    startTime : Sequelize.DataTypes.TIME,
-    endTime : Sequelize.DataTypes.TIME,
+    startTime : Sequelize.DataTypes.DATE,
+    endTime : Sequelize.DataTypes.DATE,
     topic : Sequelize.DataTypes.STRING
 });
 const rooms = sequelize.define('room',{
