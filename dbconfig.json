@@ -1,7 +1,7 @@
 {
   "db" : "scheduledb",
-  "user" : "root",
-  "password" : "MyNewPass",
-  "dialect" : "mysql",
-  "port" : 3306
+  "user" : "schedulecture",
+  "password" : "schedulecture",
+  "dialect" : "postgres",
+  "port" : 5432
 }
