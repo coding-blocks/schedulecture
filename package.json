@@ -1,31 +1,32 @@
 {
   "name": "schedulecture",
   "version": "1.0.0",
-  "description": "",
+  "description": "Link to API DOCS",
   "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "bower": "^1.8.0",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.4",
+    "passport": "^0.4.0",
+    "passport-oneauth": "^1.0.3",
+    "pg": "^7.2.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.8.0"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tech4GT/Schedulecture.git"
+    "url": "git+https://github.com/coding-blocks/schedulecture.git"
   },
-  "author": "Varun Gupta <varun.gupta1798@gmail.com> (http://codingblocks.com)",
+  "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tech4GT/Schedulecture/issues"
+    "url": "https://github.com/coding-blocks/schedulecture/issues"
   },
-  "homepage": "https://github.com/tech4GT/Schedulecture#readme",
-  "dependencies": {
-    "body-parser": "^1.17.2",
-    "cookie-parser": "^1.4.3",
-    "express": "^4.15.4",
-    "mysql": "^2.14.1",
-    "mysql2": "^1.4.1",
-    "passport": "^0.4.0",
-    "passport-oneauth": "^1.0.2",
-    "pg": "^7.2.0",
-    "sequelize": "^4.7.5"
-  }
+  "homepage": "https://github.com/coding-blocks/schedulecture#readme"
 }
