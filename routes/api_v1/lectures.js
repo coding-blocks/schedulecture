@@ -19,6 +19,22 @@ const db = require('../../db');
  * @apiParam {number} roomId room id of lecture
  * @apiSuccessExample {json} Success-Response:
  *
+ * {
+    "success": true,
+    "data": {
+        "id": 8,
+        "name": "Lecture 9",
+        "date": "2016-09-15T03:30:00.000Z",
+        "startTime": "2016-09-15T03:30:00.000Z",
+        "endTime": "2016-09-15T03:30:00.000Z",
+        "topic": "Broadcast receivers",
+        "batchId": 7,
+        "roomId": null,
+        "updatedAt": "2017-09-04T18:57:44.614Z",
+        "createdAt": "2017-09-04T18:57:44.614Z"
+    }
+}
+ *
  *
  */
 router.post('/new', function (req, res) {
@@ -41,7 +57,7 @@ router.post('/new', function (req, res) {
             }
             else {
                 if (lecture) {
-                    res.status(201).send({success: true, data: course.get()});
+                    res.status(201).send({success: true, data: lecture.get()});
                 } else {
                     res.status(400).send({
                         success: false
@@ -65,7 +81,83 @@ router.post('/new', function (req, res) {
  * @apiSuccessExample {json} Success-Response:
  *
  *
- *
+ *{
+    "success": true,
+    "data": [
+        {
+            "id": 2,
+            "name": "Lecture 4",
+            "date": "2016-09-15T03:30:00.000Z",
+            "startTime": "2016-09-15T03:30:00.000Z",
+            "endTime": "2016-09-15T03:30:00.000Z",
+            "topic": "Actifsvssfvfv",
+            "createdAt": "2017-09-04T18:19:53.405Z",
+            "updatedAt": "2017-09-04T18:19:53.405Z",
+            "batchId": 7,
+            "roomId": null
+        },
+        {
+            "id": 3,
+            "name": "Lecture 5",
+            "date": "2016-09-15T03:30:00.000Z",
+            "startTime": "2016-09-15T03:30:00.000Z",
+            "endTime": "2016-09-15T03:30:00.000Z",
+            "topic": "Actifsvssfvfv",
+            "createdAt": "2017-09-04T18:20:47.552Z",
+            "updatedAt": "2017-09-04T18:20:47.552Z",
+            "batchId": 7,
+            "roomId": null
+        },
+        {
+            "id": 4,
+            "name": "Lecture 6",
+            "date": "2016-09-15T03:30:00.000Z",
+            "startTime": "2016-09-15T03:30:00.000Z",
+            "endTime": "2016-09-15T03:30:00.000Z",
+            "topic": "Fragments",
+            "createdAt": "2017-09-04T18:55:36.882Z",
+            "updatedAt": "2017-09-04T18:55:36.882Z",
+            "batchId": 7,
+            "roomId": null
+        },
+        {
+            "id": 5,
+            "name": "Lecture 6",
+            "date": "2016-09-15T03:30:00.000Z",
+            "startTime": "2016-09-15T03:30:00.000Z",
+            "endTime": "2016-09-15T03:30:00.000Z",
+            "topic": "Fragments",
+            "createdAt": "2017-09-04T18:56:38.928Z",
+            "updatedAt": "2017-09-04T18:56:38.928Z",
+            "batchId": 7,
+            "roomId": null
+        },
+        {
+            "id": 7,
+            "name": "Lecture 8",
+            "date": "2016-09-15T03:30:00.000Z",
+            "startTime": "2016-09-15T03:30:00.000Z",
+            "endTime": "2016-09-15T03:30:00.000Z",
+            "topic": "Activities",
+            "createdAt": "2017-09-04T18:57:10.053Z",
+            "updatedAt": "2017-09-04T18:57:10.053Z",
+            "batchId": 7,
+            "roomId": null
+        },
+        {
+            "id": 8,
+            "name": "Lecture 9",
+            "date": "2016-09-15T03:30:00.000Z",
+            "startTime": "2016-09-15T03:30:00.000Z",
+            "endTime": "2016-09-15T03:30:00.000Z",
+            "topic": "Broadcast receivers",
+            "createdAt": "2017-09-04T18:57:44.614Z",
+            "updatedAt": "2017-09-04T18:57:44.614Z",
+            "batchId": 7,
+            "roomId": null
+        }
+    ]
+}
  *
  */
 router.get('/', function (req, res) {
@@ -76,7 +168,7 @@ router.get('/', function (req, res) {
                 success: false
                 , code: "500"
                 , error: {
-                    message: "Could not get all the courses(Internal Server Error)."
+                    message: "Could not get all the lectures(Internal Server Error)."
                 }
             })
         }
@@ -98,11 +190,13 @@ router.get('/', function (req, res) {
 
 
 /**
- * @api {put} /api/v1/courses/:id PUT /api/v1/courses/:id
+ * @api {put} /api/v1/lectures/ PUT /api/v1/lectures/
  * @apiName EditLecture
  * @apiGroup Lecture
  * @apiParam {Object} values updated Lecture object
  * @apiSuccessExample {json} Success-Response:
+ *
+ * {success:true}
  */
 router.put('/', function (req, res) {
     (function (callback) {
@@ -121,6 +215,21 @@ router.put('/', function (req, res) {
  * @apiParam {number} id
  * @apiSuccessExample {json} Success-Response:
  *
+ * {
+    "success": true,
+    "data": {
+        "id": 7,
+        "name": "Lecture 8",
+        "date": "2016-09-15T03:30:00.000Z",
+        "startTime": "2016-09-15T03:30:00.000Z",
+        "endTime": "2016-09-15T03:30:00.000Z",
+        "topic": "Activities",
+        "createdAt": "2017-09-04T18:57:10.053Z",
+        "updatedAt": "2017-09-04T18:57:10.053Z",
+        "batchId": 7,
+        "roomId": null
+    }
+}
  */
 
 router.get('/:id', function (req, res) {
@@ -131,13 +240,13 @@ router.get('/:id', function (req, res) {
                 success: false
                 , code: "500"
                 , error: {
-                    message: `Could not get the course with id ${req.params.id} (Internal Server Error).`
+                    message: `Could not get the lecture with id ${req.params.id} (Internal Server Error).`
                 }
             })
         }
         else {
             if (lecture) {
-                res.status(200).send({success: true, data: course.get()});
+                res.status(200).send({success: true, data: lecture.get()});
             } else {
                 res.status(404).send({
                     success: false
@@ -158,6 +267,22 @@ router.get('/:id', function (req, res) {
  * @apiGroup Lecture
  * @apiParam {Object} values updated Lecture object
  * @apiSuccessExample {json} Success-Response:
+ *
+ * {
+    "success": true,
+    "data": {
+        "id": 7,
+        "name": "Lecture 6",
+        "date": "2016-09-15T03:30:00.000Z",
+        "startTime": "2016-09-15T03:30:00.000Z",
+        "endTime": "2016-09-15T03:30:00.000Z",
+        "topic": "updated object",
+        "createdAt": "2017-09-04T18:57:10.053Z",
+        "updatedAt": "2017-09-04T18:59:34.881Z",
+        "batchId": "7",
+        "roomId": null
+    }
+}
  */
 router.put('/:id', function (req, res) {
     db.actions.lectures.edit(req.params.id, req.body.values, function (err, lecture) {
@@ -193,6 +318,10 @@ router.put('/:id', function (req, res) {
  * @apiGroup Lecture
  * @apiParam {number} id
  * @apiSuccessExample {json} Success-Response:
+ *
+ * {
+    "success": true
+}
  */
 router.delete('/:id', function (req, res) {
     db.actions.lectures.deleteLecture(req.params.id, function (err, lectureDeleted) {

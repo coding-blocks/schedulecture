@@ -14,11 +14,15 @@ const db = require('../../db');
  * @apiParam {string} name
  * @apiSuccessExample {json} Success-Response:
  * {
-    "id": 1,
-    "name": "PitamPura",
-    "updatedAt": "2017-09-04T17:35:27.545Z",
-    "createdAt": "2017-09-04T17:35:27.545Z"
+    "success": true,
+    "data": {
+        "id": 2,
+        "name": "Dwarka",
+        "updatedAt": "2017-09-04T18:42:59.639Z",
+        "createdAt": "2017-09-04T18:42:59.639Z"
+    }
 }
+ *
  *
  */
 router.post('/new', function (req, res) {
@@ -54,6 +58,25 @@ router.post('/new', function (req, res) {
  * @api {get} /api/v1/centres GET /api/v1/centres
  * @apiName GetCentres
  * @apiGroup Centre
+ * @apiSuccessExample {json} Success-Response:
+ *
+ * {
+    "success": true,
+    "data": [
+        {
+            "id": 1,
+            "name": "PitamPura",
+            "createdAt": "2017-09-04T17:35:27.545Z",
+            "updatedAt": "2017-09-04T17:35:27.545Z"
+        },
+        {
+            "id": 2,
+            "name": "Dwarka",
+            "createdAt": "2017-09-04T18:42:59.639Z",
+            "updatedAt": "2017-09-04T18:42:59.639Z"
+        }
+    ]
+}
  *
  */
 router.get('/', function (req, res) {
@@ -70,7 +93,7 @@ router.get('/', function (req, res) {
         }
         else {
             if (centres.length !== 0) {
-                res.status(200).send({success: true, data: centres.map((course) => centre.get())});
+                res.status(200).send({success: true, data: centres.map((centre) => centre.get())});
             } else {
                 res.status(404).send({
                     success: false
@@ -89,6 +112,18 @@ router.get('/', function (req, res) {
  * @apiName GetCentresById
  * @apiGroup Centre
  * @apiParam {number} id
+ * @apiSuccessExample {json} Success-Response:
+ *
+ * {
+    "success": true,
+    "data": {
+        "id": 1,
+        "name": "PitamPura",
+        "createdAt": "2017-09-04T17:35:27.545Z",
+        "updatedAt": "2017-09-04T17:35:27.545Z"
+    }
+}
+ *
  *
  */
 router.get('/:id', function (req, res) {
@@ -125,6 +160,17 @@ router.get('/:id', function (req, res) {
  * @apiName EditCentre
  * @apiGroup Centre
  * @apiParam {Object} values updated centre object
+ * @apiSuccessExample {json} Success-Response:
+ *
+ * {
+    "success": true,
+    "data": {
+        "id": 2,
+        "name": "Dwarka Sec-11",
+        "createdAt": "2017-09-04T18:42:59.639Z",
+        "updatedAt": "2017-09-04T18:44:31.624Z"
+    }
+}
  */
 router.put('/:id', function (req, res) {
     db.actions.centres.edit(req.params.id, req.body.values, function (err, centre) {
@@ -161,6 +207,11 @@ router.put('/:id', function (req, res) {
  * @apiName DeleteCentre
  * @apiGroup Centre
  * @apiParam {number} id
+ * @apiSuccessExample {json} Success-Response:
+ *
+ * {
+    "success": true
+}
  */
 router.delete('/:id', function (req, res) {
     db.actions.centres.deleteCentre(req.params.id, function (err, centreDeleted) {

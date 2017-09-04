@@ -269,10 +269,104 @@ router.delete('/:id', function (req, res) {
     })
 });
 
+/**
+* @api {put} /api/v1/batches/:id/lectures PUT /api/v1/batches/:id/lectures
+* @apiName GetLecturesOfBatchById
+* @apiGroup Batch
+* @apiParam {Number} id batch by id
+ * @apiSuccessExample {json} Success-Response:
+ *
+ *{
+    "success": true,
+    "data": [
+        {
+            "id": 2,
+            "name": "Lecture 4",
+            "date": "2016-09-15T03:30:00.000Z",
+            "startTime": "2016-09-15T03:30:00.000Z",
+            "endTime": "2016-09-15T03:30:00.000Z",
+            "topic": "Actifsvssfvfv",
+            "createdAt": "2017-09-04T18:19:53.405Z",
+            "updatedAt": "2017-09-04T18:19:53.405Z",
+            "batchId": 7,
+            "roomId": null
+        },
+        {
+            "id": 3,
+            "name": "Lecture 5",
+            "date": "2016-09-15T03:30:00.000Z",
+            "startTime": "2016-09-15T03:30:00.000Z",
+            "endTime": "2016-09-15T03:30:00.000Z",
+            "topic": "Actifsvssfvfv",
+            "createdAt": "2017-09-04T18:20:47.552Z",
+            "updatedAt": "2017-09-04T18:20:47.552Z",
+            "batchId": 7,
+            "roomId": null
+        },
+        {
+            "id": 4,
+            "name": "Lecture 6",
+            "date": "2016-09-15T03:30:00.000Z",
+            "startTime": "2016-09-15T03:30:00.000Z",
+            "endTime": "2016-09-15T03:30:00.000Z",
+            "topic": "Fragments",
+            "createdAt": "2017-09-04T18:55:36.882Z",
+            "updatedAt": "2017-09-04T18:55:36.882Z",
+            "batchId": 7,
+            "roomId": null
+        },
+        {
+            "id": 5,
+            "name": "Lecture 6",
+            "date": "2016-09-15T03:30:00.000Z",
+            "startTime": "2016-09-15T03:30:00.000Z",
+            "endTime": "2016-09-15T03:30:00.000Z",
+            "topic": "Fragments",
+            "createdAt": "2017-09-04T18:56:38.928Z",
+            "updatedAt": "2017-09-04T18:56:38.928Z",
+            "batchId": 7,
+            "roomId": null
+        },
+        {
+            "id": 7,
+            "name": "Lecture 6",
+            "date": "2016-09-15T03:30:00.000Z",
+            "startTime": "2016-09-15T03:30:00.000Z",
+            "endTime": "2016-09-15T03:30:00.000Z",
+            "topic": "updated object",
+            "createdAt": "2017-09-04T18:57:10.053Z",
+            "updatedAt": "2017-09-04T18:59:34.881Z",
+            "batchId": 7,
+            "roomId": null
+        }
+    ]
+}
+ */
 router.get('/:id/lectures', function (req, res) {
-    db.actions.batches.getlectures(req.params.id, function (err, data) {
-        res.send(data);
-    })
+    db.actions.batches.getlectures(req.params.id, function (err, lectures) {
+        if (err) {
+            console.log("ERROR" + err);
+            res.status(500).send({
+                success: false
+                , code: "500"
+                , error: {
+                    message: "Could not get all the lectures(Internal Server Error)."
+                }
+            })
+        }
+        else {
+            if (lectures.length !== 0) {
+                res.status(200).send({success: true, data: lectures.map((lecture) => lecture.get())});
+            } else {
+                res.status(404).send({
+                    success: false
+                    , code: "404"
+                    , error: {
+                        message: "There are no lectures."
+                    }
+                })
+            }
+        }    })
 });
 
 
