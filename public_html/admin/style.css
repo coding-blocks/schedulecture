@@ -1,5 +1,7 @@
 #side-menu {
-
+    height: 100vh;
+    position: fixed;
+    background-color: #343a40;
 }
 
 .lecture {
@@ -17,4 +19,8 @@
     border-bottom: 2px solid lightgray;
     overflow: hidden;
     z-index: 1;
+}
+
+#calendar{
+    margin-top: 20px;
 }

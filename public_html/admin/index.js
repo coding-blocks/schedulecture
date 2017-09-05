@@ -29,8 +29,6 @@ $(document).ready(function () {
 
   draggableItem();
 
-  // page is now ready, initialize the calendar...
-
   $('#calendar').fullCalendar({
     // put your options and callbacks here
     schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
@@ -110,8 +108,6 @@ $(document).ready(function () {
     }
   });
 
-  $('#side-menu').css('height', $('body').height() + 'px');
-
   var isEventOverDiv = function (x, y) {
 
     const $tbody = $('tbody.fc-body');
@@ -133,7 +129,3 @@ $(document).ready(function () {
 
 
 });
-
-$(window).resize(function () {
-  $('#side-menu').css('height', $('body').height() + 'px');
-})
