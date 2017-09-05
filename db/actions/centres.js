@@ -5,7 +5,7 @@ const models = require('../models')
 
 module.exports={
     createNew : function (name,done) {
-        models.centres.create({
+        models.Centres.create({
             name : name
         }).then(function (data) {
             done(data)
@@ -14,7 +14,7 @@ module.exports={
         });
     },
     getAll : function (done) {
-        models.centres.findAll({
+        models.Centres.findAll({
         }).then(function (data) {
             done(data)
         }).catch(function (err) {
@@ -22,7 +22,7 @@ module.exports={
         });
     },
     search : function (id, done) {
-        models.centres.findOne({
+        models.Centres.findOne({
             where : {
                 id : id
             }
@@ -33,7 +33,7 @@ module.exports={
         });
     },
     edit : function (id,obj, done) {
-        models.centres.findOne({
+        models.Centres.findOne({
             where : {
                 id : id
             }
@@ -50,7 +50,7 @@ module.exports={
         });
     },
     deleteCentre : function (id, done) {
-        models.centres.destroy({
+        models.Centres.destroy({
             where : {
                 id : id
             }
