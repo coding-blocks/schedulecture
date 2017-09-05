@@ -1,7 +1,23 @@
 #side-menu {
-    height: 100vh;
-    position: fixed;
+    /*height: 100vh;*/
+    /*position: fixed;*/
     background-color: #343a40;
+}
+
+.container-fluid{
+    margin: 0;
+    padding: 0;
+}
+
+.row{
+    margin: 0;
+}
+
+.row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:         flex;
 }
 
 .lecture {
