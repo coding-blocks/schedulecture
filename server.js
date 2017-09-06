@@ -8,8 +8,8 @@ const app = express();
 const bp = require('body-parser')
 
 app.use(bp.json())
-app.use(bp.urlencoded({extended : true}))
-const api_v1 = require('./routes/api_v1')
+app.use(bp.urlencoded({extended : true}));
+const api_v1 = require('./routes/api_v1');
 
 
 app.use('/', express.static(__dirname + "/public_html"));
