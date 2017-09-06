@@ -1,7 +1,7 @@
 {
-  "DB" : "scheduledb",
-  "USER" : "schedulecture",
-  "PASSWORD" : "schedulecture",
-  "DIALECT" : "postgres",
-  "PORT" : 5432
+  "DB": "scheduledb",
+  "USER": "schedulecture",
+  "PASSWORD": "schedulecture",
+  "DIALECT": "postgres",
+  "HOST": "localhost"
 }
