@@ -2,11 +2,21 @@
  * Created by tech4GT on 8/25/17.
  */
 const Sequelize = require('sequelize');
-const dbconfig = require('../../dbconfig.json')
 
-const sequelize = new Sequelize(dbconfig.db, dbconfig.user, dbconfig.password, {
-  dialect: dbconfig.dialect,
-  port: dbconfig.port,
+var dbconfig;
+try {
+  dbconfig = require('./../dbconfig.json');
+} catch (e) {
+  console.error('Create your own db file lazybones');
+  dbconfig = require('../dbconfig-sample.json');
+}
+
+const DATABASE_URL = process.env.DATABASE_URL || ('postgres://' + dbconfig.USER + ":" + dbconfig.PASSWORD + "@" + dbconfig.HOST + ":5432/" + dbconfig.DB);
+
+
+const sequelize = new Sequelize(DATABASE_URL, {
+  host: dbconfig.HOST,
+  dialect: dbconfig.DIALECT,
 
   pool: {
     min: 0,
@@ -14,63 +24,66 @@ const sequelize = new Sequelize(dbconfig.db, dbconfig.user, dbconfig.password, {
     idle: 1000
   }
 });
-const courses = sequelize.define('course',{
-    id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name : Sequelize.DataTypes.STRING,
-    desc : Sequelize.DataTypes.STRING
+
+const Courses = sequelize.define('course', {
+  id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+  name: Sequelize.DataTypes.STRING,
+  desc: Sequelize.DataTypes.STRING
 });
-const batches = sequelize.define('batch',{
-    id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name : Sequelize.DataTypes.STRING,
-    startDate : Sequelize.DataTypes.DATE,
-    endDate : Sequelize.DataTypes.DATE,
-    size : Sequelize.DataTypes.INTEGER
+const Batches = sequelize.define('batch', {
+  id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+  name: Sequelize.DataTypes.STRING,
+  startDate: Sequelize.DataTypes.DATE,
+  endDate: Sequelize.DataTypes.DATE,
+  size: Sequelize.DataTypes.INTEGER,
 });
-const lectures = sequelize.define('lecture',{
-    id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name : Sequelize.DataTypes.STRING,
-    date : Sequelize.DataTypes.DATE,
-    startTime : Sequelize.DataTypes.DATE,
-    endTime : Sequelize.DataTypes.DATE,
-    topic : Sequelize.DataTypes.STRING
+const Lectures = sequelize.define('lecture', {
+  id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+  name: Sequelize.DataTypes.STRING,
+  date: Sequelize.DataTypes.DATE,
+  startTime: Sequelize.DataTypes.DATE,
+  endTime: Sequelize.DataTypes.DATE,
+  topic: Sequelize.DataTypes.STRING
 });
-const rooms = sequelize.define('room',{
-    id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name : Sequelize.DataTypes.STRING,
-    capacity : Sequelize.DataTypes.INTEGER
+const Rooms = sequelize.define('room', {
+  id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+  name: Sequelize.DataTypes.STRING,
+  capacity: Sequelize.DataTypes.INTEGER
 });
-const centres = sequelize.define('centre',{
-    id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name : Sequelize.DataTypes.STRING,
+const Centres = sequelize.define('centre', {
+  id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+  name: Sequelize.DataTypes.STRING,
 });
-const users = sequelize.define('user',{
-    id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name : Sequelize.DataTypes.STRING,
-    email : Sequelize.DataTypes.STRING
+const Users = sequelize.define('user', {
+  id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+  name: Sequelize.DataTypes.STRING,
+  email: Sequelize.DataTypes.STRING
 });
 
-batches.belongsTo(courses)
-courses.hasMany(batches)
+Batches.belongsTo(Courses);
+Courses.hasMany(Batches);
 
-lectures.belongsTo(batches)
-batches.hasMany(lectures)
+Lectures.belongsTo(Batches);
+Batches.hasMany(Lectures);
 
-batches.belongsTo(centres)
-centres.hasMany(batches)
+Batches.belongsTo(Centres);
+Centres.hasMany(Batches);
 
-rooms.belongsTo(centres)
-centres.hasMany(rooms)
+Rooms.belongsTo(Centres);
+Centres.hasMany(Rooms);
 
-lectures.belongsTo(rooms)
-rooms.hasMany(lectures)
-sequelize.sync()
+Lectures.belongsTo(Rooms);
+Rooms.hasMany(Lectures);
+
+sequelize.sync({force: false}).then(function () {
+  console.log("Database Configured");
+});
 
 module.exports = {
-
-   courses,
-    batches,
-    lectures,
-    rooms,
-    users,
-    centres,
-}
+  Courses,
+  Batches,
+  Lectures,
+  Rooms,
+  Users,
+  Centres
+};
