@@ -1,23 +1,21 @@
+
+.container-fluid {
+    padding: 0;
+    margin: 0;
+}
+
 #side-menu {
     /*height: 100vh;*/
     /*position: fixed;*/
     background-color: #343a40;
 }
 
-.container-fluid{
-    margin: 0;
-    padding: 0;
-}
-
-.row{
-    margin: 0;
-}
-
-.row-eq-height {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display:         flex;
+.header-bar {
+    background-color: #343a40;
+    z-index: 10;
+    height: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .lecture {
