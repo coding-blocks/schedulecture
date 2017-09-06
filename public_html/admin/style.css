@@ -34,6 +34,17 @@
     overflow: hidden;
     z-index: 1;
 }
+ul{
+    padding-left: 20px;
+}
+
+li > ul {
+    display: none;
+}
+
+li:hover > ul{
+    display: block;
+}
 
 #calendar{
     margin-top: 20px;
