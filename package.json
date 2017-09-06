@@ -18,6 +18,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
+    "apidoc": "apidoc -i routes/ -o docs/",
     "postinstall": "cd public_html ; ./../node_modules/.bin/bower install"
   },
   "repository": {
