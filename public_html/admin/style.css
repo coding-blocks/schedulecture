@@ -42,9 +42,6 @@ li > ul {
     display: none;
 }
 
-li:hover > ul{
-    display: block;
-}
 
 #calendar{
     margin-top: 20px;
