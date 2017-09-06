@@ -3,6 +3,7 @@
  */
 $(document).ready(function () {
 
+
   var events = [];
   var draggableItem = function () {
 
@@ -125,7 +126,6 @@ $(document).ready(function () {
     return false;
 
   }
-
 
 
 });
