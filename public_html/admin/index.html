@@ -8,6 +8,7 @@
     <link rel='stylesheet' href='./../bower_components/fullcalendar/dist/fullcalendar.css'/>
     <link rel='stylesheet' href="./../bower_components/jquery-ui/themes/base/jquery-ui.css"/>
     <link rel="stylesheet" href='./../bower_components/fullcalendar-scheduler/dist/scheduler.css'>
+    <link rel="stylesheet" href="./../bower_components/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./../admin/style.css">
 </head>
 <body>
@@ -59,27 +60,27 @@
         <div class="col-sm-2 col-12">
             <!--empty for search text box later-->
         </div>
-        <div class="col-sm-5 mt-auto mb-auto">
-            <button id="showCentreModal" class="btn btn-info" data-toggle="modal" data-target="#centreModal"
+        <div class="col-sm-5 mt-auto mb-auto pl-auto pr-auto">
+            <a class="btn btn-info" href="#"
+               style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
+                Calender
+            </a>
+            <a class="btn btn-info" href="centres.html"
                     style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
-                Add Centre
-            </button>
-            <button class=" btn btn-info"
+                Centres
+            </a>
+            <a class=" btn btn-info" href="courses.html"
                     style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
-                Add Room
-            </button>
-            <button class=" btn btn-info"
+                Courses
+            </a>
+            <a class=" btn btn-info" href="teachers.html"
                     style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
-                Add Teacher
-            </button>
-            <button class=" btn btn-info"
+                Teachers
+            </a>
+            <a class=" btn btn-info" href="batches.html"
                     style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
-                Add Course
-            </button>
-            <button class=" btn btn-info"
-                    style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
-                Add Batch
-            </button>
+                Batches
+            </a>
         </div>
         <div id="userDetails" class="dropdown col-sm-3 col-12 align-middle header-dropdown text-center mt-auto mb-auto">
             <!--<img src="/images/boy.png" class="img-circle header-profile-img">-->
@@ -94,118 +95,70 @@
     <div class="row no-gutters">
         <div id="side-menu" class="col-sm-2" style="padding: 0">
 
+
+
+
+
             <hr style="margin: 0; border-top: solid 1px #999">
 
-            <div style="padding: 15px; color: #aaa;font-size: 16px">
+            <div style="padding: 15px; color: #eee;font-size: 16px">
                 Centre: &nbsp;
-                <select style="background-color: #343a40; color: #aaa;padding: 3px">
+                <select style="background-color: #343a40; color: #eee;padding: 3px">
                     <option>Pitampura</option>
                     <option>Dwarka</option>
                     <option>Gurgaon</option>
                     <option>Greater Noida</option>
                 </select>
             </div>
-            <div style="padding: 15px; color: #aaa; font-size: 16px;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div style="padding: 15px; color: #eee; font-size: 16px;" id="sidebar">
                 Courses:
-                <ul style="list-style-type: none; color: #aaa; margin-top: 5px">
-                    <li style="padding: 5px">
-                        Launchpad
-                        <ul style="list-style-type: none; color: #aaa;">
-                            <li>
-                                Lecture1
-                            </li>
-                            <li>
-                                Lecture2
-                            </li>
-                            <li>
-                                Lecture3
-                            </li>
-                        </ul>
-                    </li>
-                    <li style="padding: 5px">
-                        Crux
-                    </li>
-                    <li style="padding: 5px">
-                        Pandora
-                    </li>
-                    <li style="padding: 5px">
-                        Elixir
-                    </li>
-                    <li style="padding: 5px">
-                        Perceptron
-                    </li>
-                </ul>
-                <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-                    <li class="nav-item" data-placement="right" title="Components">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse"
-                           href="#collapseComponents" data-parent="#exampleAccordion" aria-expanded="true">
-                            <span class="nav-link-text">
-                Launchpad</span>
-                        </a>
-                        <ul class="sidenav-second-level collapse" id="collapseComponents">
-                            <li>
-                                <a href="static-nav.html">Lecture 1</a>
-                            </li>
-                            <li>
-                                <a href="#">Lecture 2</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse"
-                           href="#collapseExamplePages" data-parent="#exampleAccordion">
-                            <i class="fa fa-fw fa-file"></i>
-                            <span class="nav-link-text">
-                Example Pages</span>
-                        </a>
-                        <ul class="sidenav-second-level collapse" id="collapseExamplePages">
-                            <li>
-                                <a href="login.html">Login Page</a>
-                            </li>
-                            <li>
-                                <a href="register.html">Registration Page</a>
-                            </li>
-                            <li>
-                                <a href="forgot-password.html">Forgot Password Page</a>
-                            </li>
-                            <li>
-                                <a href="blank.html">Blank Page</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti"
-                           data-parent="#exampleAccordion">
-                            <i class="fa fa-fw fa-sitemap"></i>
-                            <span class="nav-link-text">
-                Menu Levels</span>
-                        </a>
-                        <ul class="sidenav-second-level collapse" id="collapseMulti">
-                            <li>
-                                <a href="#">Second Level Item</a>
-                            </li>
-                            <li>
-                                <a href="#">Second Level Item</a>
-                            </li>
-                            <li>
-                                <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2">Third
-                                    Level</a>
-                                <ul class="sidenav-third-level collapse" id="collapseMulti2">
-                                    <li>
-                                        <a href="#">Third Level Item</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Third Level Item</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                <div class="list-group panel" style="background-color: #343a40">
+                    <a href="#menu1" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false"> <span class="hidden-sm-down">Launchpad</span> </a>
+                    <div class="collapse" id="menu1">
+                        <a href="#" class="list-group-item" data-parent="#menu1" draggable="true">Lecture 1</a>
+                        <a href="#" class="list-group-item" data-parent="#menu1" draggable="true">Lecture 2</a>
+                        <a href="#" class="list-group-item" data-parent="#menu1" draggable="true">Lecture 3</a>
+                    </div>
+                    <a href="#menu2" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false"> <span class="hidden-sm-down">Crux</span> </a>
+                    <div class="collapse" id="menu2">
+                        <a href="#" class="list-group-item" data-parent="#menu1" draggable="true">Lecture 1</a>
+                        <a href="#" class="list-group-item" data-parent="#menu1" draggable="true">Lecture 2</a>
+                        <a href="#" class="list-group-item" data-parent="#menu1" draggable="true">Lecture 3</a>
+                    </div>
+                    <a href="#menu3" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false"> <span class="hidden-sm-down">Pandora</span> </a>
+                    <div class="collapse" id="menu3">
+                        <a href="#" class="list-group-item" data-parent="#menu1" draggable="true">Lecture 1</a>
+                        <a href="#" class="list-group-item" data-parent="#menu1" draggable="true">Lecture 2</a>
+                        <a href="#" class="list-group-item" data-parent="#menu1" draggable="true">Lecture 3</a>
+                    </div>
+                    <a href="#menu4" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false"> <span class="hidden-sm-down">Elixir</span> </a>
+                    <div class="collapse" id="menu4">
+                        <a href="#" class="list-group-item" data-parent="#menu1" draggable="true">Lecture 1</a>
+                        <a href="#" class="list-group-item" data-parent="#menu1" draggable="true">Lecture 2</a>
+                        <a href="#" class="list-group-item" data-parent="#menu1" draggable="true">Lecture 3</a>
+                    </div>
+
+                </div>
             </div>
 
         </div>
-        <div class="col-sm-10 ml-md-auto wrapper" style="padding: 10px">
+        <div class="col-sm-10 ml-md-auto wrapper" style="padding: 10px; background-color: #F4F6F9">
             <div id='calendar'></div>
         </div>
     </div>
@@ -224,3 +177,125 @@
 <script src="/admin/index.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 col-xs-1 p-l-0 p-r-0 collapse in" id="sidebar">
+            <div class="list-group panel">
+                <a href="#menu1" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="hidden-sm-down">Item 1</span> </a>
+                <div class="collapse" id="menu1">
+                    <a href="#menu1sub1" class="list-group-item" data-toggle="collapse" aria-expanded="false">Subitem 1 </a>
+                    <div class="collapse" id="menu1sub1">
+                        <a href="#" class="list-group-item" data-parent="#menu1sub1">Subitem 1 a</a>
+                        <a href="#" class="list-group-item" data-parent="#menu1sub1">Subitem 2 b</a>
+                        <a href="#menu1sub1sub1" class="list-group-item" data-toggle="collapse" aria-expanded="false">Subitem 3 c </a>
+                        <div class="collapse" id="menu1sub1sub1">
+                            <a href="#" class="list-group-item" data-parent="#menu1sub1sub1">Subitem 3 c.1</a>
+                            <a href="#" class="list-group-item" data-parent="#menu1sub1sub1">Subitem 3 c.2</a>
+                        </div>
+                        <a href="#" class="list-group-item" data-parent="#menu1sub1">Subitem 4 d</a>
+                        <a href="#menu1sub1sub2" class="list-group-item" data-toggle="collapse"  aria-expanded="false">Subitem 5 e </a>
+                        <div class="collapse" id="menu1sub1sub2">
+                            <a href="#" class="list-group-item" data-parent="#menu1sub1sub2">Subitem 5 e.1</a>
+                            <a href="#" class="list-group-item" data-parent="#menu1sub1sub2">Subitem 5 e.2</a>
+                        </div>
+                    </div>
+                    <a href="#" class="list-group-item" data-parent="#menu1">Subitem 2</a>
+                    <a href="#" class="list-group-item" data-parent="#menu1">Subitem 3</a>
+                </div>
+                <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-film"></i> <span class="hidden-sm-down">Item 2</span></a>
+                <a href="#menu3" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false"><i class="fa fa-book"></i> <span class="hidden-sm-down">Item 3 </span></a>
+                <div class="collapse" id="menu3">
+                    <a href="#" class="list-group-item" data-parent="#menu3">3.1</a>
+                    <a href="#menu3sub2" class="list-group-item" data-toggle="collapse" aria-expanded="false">3.2 </a>
+                    <div class="collapse" id="menu3sub2">
+                        <a href="#" class="list-group-item" data-parent="#menu3sub2">3.2 a</a>
+                        <a href="#" class="list-group-item" data-parent="#menu3sub2">3.2 b</a>
+                        <a href="#" class="list-group-item" data-parent="#menu3sub2">3.2 c</a>
+                    </div>
+                    <a href="#" class="list-group-item" data-parent="#menu3">3.3</a>
+                </div>
+                <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-heart"></i> <span class="hidden-sm-down">Item 4</span></a>
+                <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-list"></i> <span class="hidden-sm-down">Item 5</span></a>
+                <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-clock-o"></i> <span class="hidden-sm-down">Link</span></a>
+                <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-th"></i> <span class="hidden-sm-down">Link</span></a>
+                <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-gear"></i> <span class="hidden-sm-down">Link</span></a>
+                <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-calendar"></i> <span class="hidden-sm-down">Link</span></a>
+                <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-envelope"></i> <span class="hidden-sm-down">Link</span></a>
+                <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-bar-chart-o"></i> <span class="hidden-sm-down">Link</span></a>
+                <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-star"></i> <span class="hidden-sm-down">Link</span></a>
+            </div>
+        </div>
+        <main class="col-md-9 col-xs-11 p-l-2 p-t-2">
+            <a href="#sidebar" data-toggle="collapse"><i class="fa fa-navicon fa-lg"></i></a>
+            <hr>
+            <div class="page-header">
+                <h1>Bootstrap 4 Sidebar Menu</h1>
+            </div>
+            <p class="lead">A responsive, multi-level vertical accordion.</p>
+        </main>
+    </div>
+</div>-->

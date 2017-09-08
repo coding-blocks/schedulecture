@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ScheduleLecture</title>
+    <link rel='stylesheet' href='./../bower_components/fullcalendar/dist/fullcalendar.css'/>
+    <link rel='stylesheet' href="./../bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel='stylesheet' href='./../bower_components/fullcalendar/dist/fullcalendar.css'/>
+    <link rel='stylesheet' href="./../bower_components/jquery-ui/themes/base/jquery-ui.css"/>
+    <link rel="stylesheet" href='./../bower_components/fullcalendar-scheduler/dist/scheduler.css'>
+    <link rel="stylesheet" href="./../bower_components/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./../admin/style.css">
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row no-gutters align-content-center header-bar" id="header-bar">
+        <div class="col-sm-2 col-12">
+            <div style="color: white; font-size: 22px;padding: 5px; padding-left: 15px">
+                SCHEDULECTURE
+            </div>
+        </div>
+        <div class="col-sm-3 col-12">
+            <!--empty for search text box later-->
+        </div>
+        <div class="col-sm-4 mt-auto mb-auto pl-auto pr-auto">
+            <button id="showCentreModal" class="btn btn-info" data-toggle="modal" href="#centreModal"
+                    style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
+                Centres
+            </button>
+            <button class=" btn btn-info"
+                    style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
+                Courses
+            </button>
+            <button class=" btn btn-info"
+                    style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
+                Teachers
+            </button>
+            <button class=" btn btn-info"
+                    style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
+                Batches
+            </button>
+        </div>
+        <div id="userDetails" class="dropdown col-sm-3 col-12 align-middle header-dropdown text-center mt-auto mb-auto">
+            <!--<img src="/images/boy.png" class="img-circle header-profile-img">-->
+            <span id="name" style=" color: white;">Hey Priyanshu!</span>&nbsp;&nbsp;<button class=" btn btn-info"
+                                                                                            style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #02B3E4">
+            Logout
+        </button>
+            </span>
+        </div>
+    </div>
+
+    <div class="row no-gutters">
+
+    </div>
+</div>
+
+
+<script src='./../bower_components/jquery/dist/jquery.js'></script>
+<script src='./../bower_components/moment/moment.js'></script>
+<script src='./../bower_components/fullcalendar/dist/fullcalendar.js'></script>
+<script src="./../bower_components/jquery-ui/jquery-ui.js"></script>
+<script src='./../bower_components/fullcalendar-scheduler/dist/scheduler.js'></script>
+<script src="./../bower_components/popper.js/dist/umd/popper.js"></script>
+<script src="./../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+
+<script src="/admin/batches.js"></script>
+</body>
+</html>
