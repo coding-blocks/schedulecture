@@ -13,27 +13,30 @@
 <body>
 
 <div id="centreModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header" style="">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: #02B3E4;color: white;">
+            <div class="modal-header">
                 <h4 class="modal-title ml-auto mr-auto">Add Centre</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body " style="background-color: white">
 
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active">
                         <div class="row" style="color: red; text-align: center" id="addCentreError"></div>
                         <div class="row">
-                            <form class="form" id="addCentreForm">
-                                <div class="form-group col-xs-12 text-center">
-                                    <input type="text" name="centreName" class="form-control" placeholder="Name"
+                            <form class="form ml-auto mr-auto" id="addCentreForm">
+                                <div class="form-group col-xs-12">
+                                    <input type="text" name="centreName" class="form-control text-center"
+                                           placeholder="Name"
                                            id="addCentreInput" required>
                                 </div>
 
 
                                 <div class="form-group col-xs-12 text-center">
-                                    <button class="btn color network-name" id="addCentreSubmit">Submit</button>
+                                    <button class="btn btn-info network-name" id="addCentreSubmit"
+                                            style="cursor: pointer; background-color: #02B3E4">Submit
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -134,7 +137,8 @@
                 </ul>
                 <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
                     <li class="nav-item" data-placement="right" title="Components">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion"  aria-expanded="true">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse"
+                           href="#collapseComponents" data-parent="#exampleAccordion" aria-expanded="true">
                             <span class="nav-link-text">
                 Launchpad</span>
                         </a>
@@ -148,7 +152,8 @@
                         </ul>
                     </li>
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse"
+                           href="#collapseExamplePages" data-parent="#exampleAccordion">
                             <i class="fa fa-fw fa-file"></i>
                             <span class="nav-link-text">
                 Example Pages</span>
@@ -169,7 +174,8 @@
                         </ul>
                     </li>
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti"
+                           data-parent="#exampleAccordion">
                             <i class="fa fa-fw fa-sitemap"></i>
                             <span class="nav-link-text">
                 Menu Levels</span>
@@ -182,7 +188,8 @@
                                 <a href="#">Second Level Item</a>
                             </li>
                             <li>
-                                <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2">Third Level</a>
+                                <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2">Third
+                                    Level</a>
                                 <ul class="sidenav-third-level collapse" id="collapseMulti2">
                                     <li>
                                         <a href="#">Third Level Item</a>
