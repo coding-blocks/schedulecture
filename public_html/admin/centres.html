@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="./../bower_components/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./../admin/style.css">
 </head>
-<body style="background-color: #F4F6F9">
+<body>
 
 <div class="container-fluid">
     <div class="row no-gutters align-content-center header-bar" id="header-bar">
@@ -20,26 +20,30 @@
                 SCHEDULECTURE
             </div>
         </div>
-        <div class="col-sm-3 col-12">
+        <div class="col-sm-2 col-12">
             <!--empty for search text box later-->
         </div>
-        <div class="col-sm-4 mt-auto mb-auto pl-auto pr-auto">
-            <button id="showCentreModal" class="btn btn-info" data-toggle="modal" href="#centreModal"
-                    style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
+        <div class="col-sm-5 mt-auto mb-auto pl-auto pr-auto">
+            <a class="btn btn-info" href="index.html"
+               style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
+                Calender
+            </a>
+            <a class="btn btn-info" href="#"
+               style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
                 Centres
-            </button>
-            <button class=" btn btn-info"
-                    style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
+            </a>
+            <a class=" btn btn-info" href="courses.html"
+               style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
                 Courses
-            </button>
-            <button class=" btn btn-info"
-                    style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
+            </a>
+            <a class=" btn btn-info" href="teachers.html"
+               style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
                 Teachers
-            </button>
-            <button class=" btn btn-info"
-                    style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
+            </a>
+            <a class=" btn btn-info" href="batches.html"
+               style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
                 Batches
-            </button>
+            </a>
         </div>
         <div id="userDetails" class="dropdown col-sm-3 col-12 align-middle header-dropdown text-center mt-auto mb-auto">
             <!--<img src="/images/boy.png" class="img-circle header-profile-img">-->
@@ -53,25 +57,70 @@
 </div>
 
 <div class="container" style="margin-top: 30px">
+    <div class="row titlerow text-center">
+        <div class="col-sm-12">
+            <div class="row title">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <h1 style="margin: 0">CENTRES</h1>
+                </div>
+                <div class="col-sm-2 mt-auto mb-auto">
+                    <button class=" btn btn-success" href="batches.html"
+                            style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer;">
+                        Add Centre
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row minicourses">
 
         <ul class="minicourses-list" id="minicourses-list">
-            <li class="minicourses-list-li col-3" style="height: 50px">
-                <div class="minicourses-list-li-div"></div>
+            <li class="minicourses-list-li col-3" style="height: auto">
+                <div class="minicourses-list-li-div">
+                    <div style="height: 120px; background-color: yellow">
+                    </div>
+                    <div class="text-center"  style="padding-top: 10px">
+                        <h3>Pitampura</h3>
+                        <p>Centre Head: Priyanshu Aggarwal<br> Mob: XXXXXXXXXX</p>
+                    </div>
+                </div>
 
             </li>
-            <li class="minicourses-list-li col-3" style="height: 50px">
-                <div class="minicourses-list-li-div"></div>
+            <li class="minicourses-list-li col-3" style="height: auto">
+                <div class="minicourses-list-li-div">
+                    <div style="height: 120px; background-color: yellow">
+                    </div>
+                    <div class="text-center"  style="padding-top: 10px">
+                        <h3>Dwarka</h3>
+                        <p>Centre Head: Rajesh Sachdev<br> Mob: XXXXXXXXXX</p>
+                    </div>
+                </div>
 
             </li>
-            <li class="minicourses-list-li col-3" style="height: 50px">
-                <div class="minicourses-list-li-div"></div>
+            <li class="minicourses-list-li col-3" style="height: auto">
+                <div class="minicourses-list-li-div">
+                    <div style="height: 120px; background-color: yellow">
+                    </div>
+                    <div class="text-center"  style="padding-top: 10px">
+                        <h3>Gurgaon</h3>
+                        <p>Centre Head: Priyanshu Aggarwal<br> Mob: XXXXXXXXXX</p>
+                    </div>
+                </div>
 
             </li>
-            <li class="minicourses-list-li col-3" style="height: 50px">
-                <div class="minicourses-list-li-div"></div>
+            <li class="minicourses-list-li col-3" style="height: auto">
+                <div class="minicourses-list-li-div">
+                    <div style="height: 120px; background-color: yellow">
+                    </div>
+                    <div class="text-center" style="padding-top: 10px">
+                        <h3>Greater Noida</h3>
+                        <p>Centre Head: Priyanshu Aggarwal<br> Mob: XXXXXXXXXX</p>
+                    </div>
+                </div>
 
             </li>
+
         </ul>
     </div>
 </div>
