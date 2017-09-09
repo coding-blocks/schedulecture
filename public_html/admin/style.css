@@ -200,7 +200,7 @@ ul{
     background-color: white;
     box-shadow: #DDD 0 0 8px 1px ;
     border-radius: .125rem;
-    cursor: pointer;
+    /*cursor: pointer;*/
 }
 
 #minicourses-list > li{
