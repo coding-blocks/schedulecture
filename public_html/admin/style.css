@@ -206,3 +206,7 @@ ul{
 #minicourses-list > li{
     float: left;
 }
+
+a{
+    cursor: pointer;
+}
