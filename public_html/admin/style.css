@@ -202,11 +202,13 @@ ul{
 
 .minicourses-list-li-div{
     width: 100%;
-    height: 200px;
+    /*padding-top: 10px;*/
+    height: auto;
     border-bottom: solid 2px #EEE;
     background-color: white;
     box-shadow: #DDD 0 0 8px 1px ;
     border-radius: .125rem;
+    cursor: pointer;
 }
 
 #minicourses-list > li{

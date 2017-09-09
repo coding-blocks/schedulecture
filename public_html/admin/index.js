@@ -5,7 +5,7 @@ $(document).ready(function () {
   var events = [];
   var draggableItem = function () {
 
-
+console.log(moment().startOf('day'));
     var lecture = $(".collapse > a");
     lecture.each(function () {
       $(this).data('event', {
