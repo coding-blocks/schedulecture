@@ -41,6 +41,8 @@ $(document).ready(function () {
     fixedWeekCount: false,
     editable: true,
     droppable: true,
+    minTime: "07:00:00",
+    maxTime: "22:00:00",
     //height: 500,
     events: events,
     dayClick: function (date, jsEvent, view, resourceObj) {

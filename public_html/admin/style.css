@@ -1,4 +1,8 @@
 
+body{
+    background-color: #F4F6F9
+}
+
 .container-fluid {
     padding: 0;
     margin: 0;
@@ -156,6 +160,24 @@ ul{
 
 }
 
+.title{
+    background-color: white;
+    box-shadow: #DDD 0 0 8px 1px ;
+    border-radius: .125rem;
+    height: auto;
+    padding: 10px;
+
+}
+
+.titlerow{
+    /*background-color: white;*/
+    height: auto;
+    padding: 30px;
+    padding-top: 0;
+    padding-bottom: 0;
+    /*box-shadow: #DDD 0 0 8px 1px ;*/
+    /*border-radius: .125rem;*/
+}
 
 .minicourses{
     /*background-color: white;*/
