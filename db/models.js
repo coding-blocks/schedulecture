@@ -4,6 +4,7 @@
 const Sequelize = require('sequelize');
 const dbconfig = require('./../dbconfig.json')
 
+
 const sequelize = new Sequelize(dbconfig.db, dbconfig.user, dbconfig.password, {
   dialect: dbconfig.dialect,
   port: dbconfig.port,

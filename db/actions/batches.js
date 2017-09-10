@@ -12,18 +12,18 @@ module.exports = {
             endDate: endDate,
             size: size,
             courseId: courseId,
-            centerId: centerId
+            centreId: centreId
         }).then(function (data) {
-            done(data)
+            done(null,data)
         }).catch(function (err) {
-            if (err) throw err
+            if (err) done(err);
         });
     },
     getAll: function (done) {
         models.Batches.findAll({}).then(function (data) {
             done(data)
         }).catch(function (err) {
-            if (err) throw err;
+            if (err) done(err);
         });
     },
     search: function (id, done) {
@@ -32,11 +32,10 @@ module.exports = {
                 id: id
             }
         }).then(function (data) {
-            done(data)
+            done(null,data);
         }).
-        catch
-        (function (err) {
-            if (err) throw err;
+        catch(function (err) {
+            if (err) done(err);
         });
     },
     edit : function (id,obj, done) {
@@ -45,15 +44,16 @@ module.exports = {
                 id : id
             }
         }).then(function (data) {
+            if(!data){
+                return done(null,null)
+            }
             data.update(obj).then(function (resData) {
-                done({
-                    "status" : resData
-                })
+                done(null,resData);
             }).catch(function (err) {
-                if(err) throw err;
+                if(err) done(err);
             })
         }).catch(function (err) {
-            if(err) throw err;
+            if(err) done(err);
         });
     },
     deleteBatch : function (id, done) {
@@ -62,9 +62,9 @@ module.exports = {
                 id : id
             }
         }).then(function (data) {
-            done(data)
+            done(null,data)
         }).catch(function (err) {
-            if(err) throw err;
+            if(err) done(err);
         });
     },
     getlectures : function (id, done) {
@@ -73,9 +73,9 @@ module.exports = {
                 batchId : id
             }
         }).then(function (data) {
-            done(data)
+            done(null,data)
         }).catch(function (err) {
-            if(err) throw err;
+            if(err) done(err);
         });
     }
 }
