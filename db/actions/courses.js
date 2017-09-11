@@ -5,10 +5,12 @@
 const models = require('../models')
 
 module.exports = {
-    createNew : function (name,desc,done) {
+    createNew : function (name,desc,lect,hours,done) {
         models.courses.create({
             name : name,
-            desc : desc
+            desc : desc,
+            lect : lect,
+            hours : hours
         }).then(function (data) {
             done(null,data)
         }).catch(function (err) {

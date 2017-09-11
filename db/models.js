@@ -17,7 +17,9 @@ const sequelize = new Sequelize(dbconfig.db, dbconfig.user, dbconfig.password, {
 const courses = sequelize.define('course',{
     id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name : Sequelize.DataTypes.STRING,
-    desc : Sequelize.DataTypes.STRING
+    desc : Sequelize.DataTypes.STRING,
+    lect : Sequelize.DataTypes.INTEGER,
+    hours : Sequelize.DataTypes.INTEGER
 });
 const batches = sequelize.define('batch',{
     id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
