@@ -5,6 +5,6 @@ module.exports = {
     courses : require('./courses'),
     centres : require('./centres'),
     lectures : require('./lectures'),
-    batches : require('./batches')
-
+    batches : require('./batches'),
+    rooms : require('./rooms')
 }
