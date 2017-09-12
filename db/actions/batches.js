@@ -11,6 +11,7 @@ module.exports = {
             startDate: startDate,
             endDate: endDate,
             size: size,
+            status : "active",
             courseId: courseId,
             centreId: centreId
         }).then(function (data) {
@@ -20,7 +21,30 @@ module.exports = {
         });
     },
     getAll: function (done) {
-        models.batches.findAll({}).then(function (data) {
+        models.batches.findAll({
+        }).then(function (data) {
+            done(null,data)
+        }).catch(function (err) {
+            if (err) done(err);
+        });
+    },
+    getAllActive: function (done) {
+        models.batches.findAll({
+            where : {
+                status : "active"
+            }
+        }).then(function (data) {
+            done(null,data)
+        }).catch(function (err) {
+            if (err) done(err);
+        });
+    },
+    getAllArchived: function (done) {
+        models.batches.findAll({
+            where : {
+                status : "archived"
+            }
+        }).then(function (data) {
             done(null,data)
         }).catch(function (err) {
             if (err) done(err);
@@ -56,6 +80,26 @@ module.exports = {
             if(err) done(err);
         });
     },
+    archiveBatch : function (id, done) {
+        models.batches.findOne({
+            where : {
+                id : id
+            }
+        }).then(function (data) {
+            if(!data){
+                return done(null,null)
+            }
+            data.update({
+                status : "archived"
+            }).then(function (resData) {
+                done(null,resData);
+            }).catch(function (err) {
+                if(err) done(err);
+            })
+        }).catch(function (err) {
+            if(err) done(err);
+        });
+    },
     deleteBatch : function (id, done) {
         models.batches.destroy({
             where : {
@@ -67,7 +111,7 @@ module.exports = {
             if(err) done(err);
         });
     },
-    getlectures : function (id, done) {
+    getLectures : function (id, done) {
         models.lectures.findAll({
             where : {
                 batchId : id

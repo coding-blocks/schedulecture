@@ -26,7 +26,8 @@ const batches = sequelize.define('batch',{
     name : Sequelize.DataTypes.STRING,
     startDate : Sequelize.DataTypes.DATE,
     endDate : Sequelize.DataTypes.DATE,
-    size : Sequelize.DataTypes.INTEGER
+    size : Sequelize.DataTypes.INTEGER,
+    status : Sequelize.DataTypes.STRING
 });
 const lectures = sequelize.define('lecture',{
     id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
