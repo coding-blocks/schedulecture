@@ -4,9 +4,11 @@
 const models = require('../models')
 
 module.exports = {
-    createNew: function (name, done) {
+    createNew: function (name, head, phone, done) {
         models.centres.create({
-            name: name
+            name: name,
+            head : head,
+            phone : phone
         }).then(function (data) {
             done(null, data)
         }).catch(function (err) {
@@ -14,7 +16,8 @@ module.exports = {
         });
     },
     getAll: function (done) {
-        models.centres.findAll({}).then(function (data) {
+        models.centres.findAll({
+        }).then(function (data) {
             done(null, data)
         }).catch(function (err) {
             if (err) done(err);

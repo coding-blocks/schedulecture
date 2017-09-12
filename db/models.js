@@ -44,6 +44,8 @@ const rooms = sequelize.define('room',{
 const centres = sequelize.define('centre',{
     id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name : Sequelize.DataTypes.STRING,
+    head : Sequelize.DataTypes.STRING,
+    phone : {type: Sequelize.DataTypes.STRING(12), isNumeric: true}
 });
 const users = sequelize.define('user',{
     id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
