@@ -125,7 +125,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/active', function (req, res) {
-    db.actions.batches.getAllActive(function (err, activeBatches) {
+    db.actions.batches.getAllwithStatus("active", function (err, activeBatches) {
         if (err) {
             console.log("ERROR" + err);
             res.status(500).send({
@@ -153,7 +153,7 @@ router.get('/active', function (req, res) {
 });
 
 router.get('/archived', function (req, res) {
-    db.actions.batches.getAllArchived(function (err, archivedBatches) {
+    db.actions.batches.getAllwithStatus("archived", function (err, archivedBatches) {
         if (err) {
             console.log("ERROR" + err);
             res.status(500).send({

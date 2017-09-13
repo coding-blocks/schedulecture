@@ -28,21 +28,10 @@ module.exports = {
             if (err) done(err);
         });
     },
-    getAllActive: function (done) {
+    getAllwithStatus: function (status, done) {
         models.batches.findAll({
             where : {
-                status : "active"
-            }
-        }).then(function (data) {
-            done(null,data)
-        }).catch(function (err) {
-            if (err) done(err);
-        });
-    },
-    getAllArchived: function (done) {
-        models.batches.findAll({
-            where : {
-                status : "archived"
+                status : status
             }
         }).then(function (data) {
             done(null,data)
