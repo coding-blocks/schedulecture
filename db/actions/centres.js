@@ -74,5 +74,17 @@ module.exports = {
             if(err)
                 done(err);
         })
+    },
+    getRooms : function (id, done) {
+        models.rooms.findAll({
+            where : {
+                centreId : id
+            }
+        }).then(function(data) {
+            done(null, data);
+        }).catch(function(err) {
+            if(err)
+                done(err);
+        })
     }
 }

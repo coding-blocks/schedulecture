@@ -274,5 +274,35 @@ router.get('/:id/batches', function (req, res) {
     })
 });
 
+//get all rooms
+router.get('/:id/rooms', function(req, res) {
+    db.actions.centres.getRooms(req.params.id, function(err, rooms){
+        if(err){
+            console.log("ERROR" + err);
+            res.status(500).send({
+                success : false,
+                code : "500",
+                error : {
+                    message : `Could not find the rooms for centre with id ${req.params.id} (Internal Server Error).`
+                }
+            });
+        } else {
+            if(rooms.length !== 0){
+                res.status(200).send({
+                    success : true,
+                    data : rooms.map((room) => room.get())
+                });
+            } else {
+                res.status(404).send({
+                    success : false,
+                    code : "404",
+                    error : {
+                        message : `There are no rooms for centre with id ${req.params.id}.`
+                    }
+                })
+            }
+        }
+    })
+})
 
 module.exports = router;
