@@ -433,7 +433,7 @@ router.get('/:id/lectures', function (req, res) {
                 success: false
                 , code: "500"
                 , error: {
-                    message: "Could not get all the lectures(Internal Server Error)."
+                    message: `Could not find the lectures for batch with id ${req.params.id} (Internal Server Error).`
                 }
             })
         }
@@ -445,11 +445,12 @@ router.get('/:id/lectures', function (req, res) {
                     success: false
                     , code: "404"
                     , error: {
-                        message: "There are no lectures."
+                        message: `There are no lectures for batch with id ${req.params.id}.`
                     }
                 })
             }
-        }    })
+        }
+    })
 });
 
 

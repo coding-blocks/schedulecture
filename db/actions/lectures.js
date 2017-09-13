@@ -40,8 +40,7 @@ module.exports = {
         });
     },
     edit : function (id,obj, done) {
-        models.lectures.findOne(
-            {
+        models.lectures.findOne({
             where : {
                 id : id
             }

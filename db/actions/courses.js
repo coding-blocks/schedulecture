@@ -64,6 +64,17 @@ module.exports = {
         }).catch(function (err) {
             if(err) done(err);
         });
+    },
+    getBatches : function(id, done) {
+        models.batches.findAll({
+            where : {
+                courseId : id
+            }
+        }).then(function(data){
+            done(null, data);
+        }).catch(function(err){
+            if(err)
+                done(err);
+        })
     }
-
 }

@@ -239,7 +239,37 @@ router.delete('/:id', function (req, res) {
     })
 });
 
+// get all batches
+router.get('/:id/batches', function (req, res) {
+    db.actions.courses.getBatches(req.params.id, function(err, batches) {
+        if(err){
+            console.log("ERROR" + err);
+            res.status(500).send({
+                success : false,
+                code : "500",
+                error : {
+                    message : `Could not find the batches for course with id ${req.params.id} (Internal Server Error).`
+                }
+            });
+        } else {
+            if(batches.length !== 0){
+                res.status(200).send({
+                    success : true,
+                    data : batches.map((batch) => batch.get())
+                });
+            } else {
+                res.status(404).send({
+                    success : false,
+                    code : "404",
+                    error : {
+                        message : `There are no batches for course with id ${req.params.id}.`
+                    }
 
+                })
+            }
+        }
+    })
+});
 
 
 module.exports = router;
