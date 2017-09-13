@@ -64,5 +64,16 @@ module.exports = {
         }).catch(function (err) {
             if (err) done(err);
         });
+    },
+    getLectures : function (id, done) {
+        models.lectures.findAll({
+            where : {
+                roomId : id
+            }
+        }).then(function (data) {
+            done(null,data)
+        }).catch(function (err) {
+            if(err) done(err);
+        });
     }
 }

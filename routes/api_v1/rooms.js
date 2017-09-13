@@ -153,5 +153,37 @@ router.delete('/:id', function (req, res) {
     })
 });
 
+//get lectures
+router.get('/:id/lectures', function (req, res) {
+    db.actions.rooms.getLectures(req.params.id, function (err, lectures) {
+        if (err) {
+            console.log("ERROR" + err);
+            res.status(500).send({
+                success: false,
+                code: "500",
+                error: {
+                    message: `Could not find the lectures for room with id ${req.params.id} (Internal Server Error).`
+                }
+            });
+        }
+        else {
+            if (lectures.length !== 0) {
+                res.status(200).send({
+                    success: true,
+                    data: lectures.map((lecture) => lecture.get())
+                });
+            } else {
+                res.status(404).send({
+                    success: false,
+                    code: "404",
+                    error: {
+                        message: `There are no lectures for room with id ${req.params.id}.`
+                    }
+                });
+            }
+        }
+    })
+});
+
 
 module.exports = router;
