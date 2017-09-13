@@ -54,6 +54,12 @@ const users = sequelize.define('user',{
     name : Sequelize.DataTypes.STRING,
     email : Sequelize.DataTypes.STRING
 });
+const teachers = sequelize.define('teacher',{
+    id : {type : Sequelize.DataTypes.INTEGER, primaryKey : true, autoIncrement : true},
+    name : Sequelize.DataTypes.STRING,
+    email : Sequelize.DataTypes.STRING,
+    contact : {type : Sequelize.DataTypes.STRING(12), isNumeric : true}
+});
 
 batches.belongsTo(courses)
 courses.hasMany(batches)
@@ -69,14 +75,21 @@ centres.hasMany(rooms)
 
 lectures.belongsTo(rooms)
 rooms.hasMany(lectures)
+
+batches.belongsTo(teachers);
+teachers.hasMany(batches);
+
+lectures.belongsTo(teachers);
+teachers.hasMany(lectures);
+
 sequelize.sync()
 
 module.exports = {
-
-   courses,
+    courses,
     batches,
     lectures,
     rooms,
     users,
     centres,
-}
+    teachers
+};

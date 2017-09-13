@@ -34,7 +34,8 @@ const db = require('../../db');
 }
  */
 router.post('/new', function (req, res) {
-    db.actions.batches.newBatch(req.body.name, req.body.startDate, req.body.endDate, req.body.size, req.body.courseId, req.body.centreId, function (err, batch) {
+    db.actions.batches.newBatch(req.body.name, req.body.startDate, req.body.endDate, req.body.size, req.body.courseId,
+        req.body.centreId, req.body.teacherId, function (err, batch) {
         if (err) {
             console.log(err);
             res.status(500).send({
@@ -97,7 +98,7 @@ router.post('/new', function (req, res) {
  *
  */
 router.get('/', function (req, res) {
-    db.actions.batches.getAll(function (err, batches) {
+    db.actions.batches.getAll({},function (err, batches) {
         if (err) {
             console.log("ERROR" + err);
             res.status(500).send({
@@ -125,7 +126,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/active', function (req, res) {
-    db.actions.batches.getAllwithStatus("active", function (err, activeBatches) {
+    db.actions.batches.getAll({status : "active"}, function (err, activeBatches) {
         if (err) {
             console.log("ERROR" + err);
             res.status(500).send({
@@ -153,7 +154,7 @@ router.get('/active', function (req, res) {
 });
 
 router.get('/archived', function (req, res) {
-    db.actions.batches.getAllwithStatus("archived", function (err, archivedBatches) {
+    db.actions.batches.getAll({status : "archived"}, function (err, archivedBatches) {
         if (err) {
             console.log("ERROR" + err);
             res.status(500).send({

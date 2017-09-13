@@ -5,7 +5,7 @@ const models = require('../models')
 
 module.exports = {
 
-    createNew : function (name,date,startTime,endTime,topic,batchId,roomId,done) {
+    createNew : function (name,date,startTime,endTime,topic,batchId,roomId,teacherId,done) {
         models.lectures.create({
             name : name,
             date : date,
@@ -13,7 +13,8 @@ module.exports = {
             endTime : endTime,
             topic : topic,
             batchId : batchId,
-            roomId : roomId
+            roomId : roomId,
+            teacherId : teacherId
         }).then(function (data) {
             done(null,data);
         }).catch(function (err) {

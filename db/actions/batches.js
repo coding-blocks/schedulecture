@@ -5,34 +5,25 @@
 const models = require('../models')
 module.exports = {
 
-    newBatch: function (name, startDate, endDate, size, courseId, centreId, done) {
+    newBatch: function (name, startDate, endDate, size, courseId, centreId, teacherId, done) {
         models.batches.create({
             name: name,
             startDate: startDate,
             endDate: endDate,
             size: size,
             status : "active",
-            courseId: courseId,
-            centreId: centreId
+            courseId : courseId,
+            centreId : centreId,
+            teacherId : teacherId
         }).then(function (data) {
             done(null,data)
         }).catch(function (err) {
             if (err) done(err);
         });
     },
-    getAll: function (done) {
+    getAll: function (conditions, done) {
         models.batches.findAll({
-        }).then(function (data) {
-            done(null,data)
-        }).catch(function (err) {
-            if (err) done(err);
-        });
-    },
-    getAllwithStatus: function (status, done) {
-        models.batches.findAll({
-            where : {
-                status : status
-            }
+            where : conditions
         }).then(function (data) {
             done(null,data)
         }).catch(function (err) {
