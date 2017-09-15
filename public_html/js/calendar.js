@@ -41,7 +41,7 @@ $(document).ready(function () {
     fixedWeekCount: false,
     editable: true,
     droppable: true,
-    height: 500,
+    //height: 500,
     events: events,
     dayClick: function (date, jsEvent, view, resourceObj) {
       $('#calendar').fullCalendar('changeView', 'agendaOneDay', date);

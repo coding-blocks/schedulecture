@@ -6,7 +6,7 @@ const models = require('../models')
 module.exports = {
 
     createNew : function (name,date,startTime,endTime,topic,batchId,roomId,done) {
-        models.lectures.create({
+        models.Lectures.create({
             name : name,
             date : date,
             startTime: startTime,
@@ -21,7 +21,7 @@ module.exports = {
         });
     },
     getAll : function (done) {
-        models.lectures.findAll({
+        models.Lectures.findAll({
         }).then(function (data) {
             done(null,data)
         }).catch(function (err) {
@@ -29,7 +29,7 @@ module.exports = {
         });
     },
     search : function (id, done) {
-        models.lectures.findOne({
+        models.Lectures.findOne({
             where : {
                 id : id
             }
@@ -40,7 +40,7 @@ module.exports = {
         });
     },
     edit : function (id,obj, done) {
-        models.lectures.findOne(
+        models.Lectures.findOne(
             {
             where : {
                 id : id
@@ -59,7 +59,7 @@ module.exports = {
         });
     },
     deleteLecture : function (id, done) {
-        models.lectures.destroy({
+        models.Lectures.destroy({
             where : {
                 id : id
             }
