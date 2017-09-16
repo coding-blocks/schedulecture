@@ -2,19 +2,28 @@
  * Created by tech4GT on 8/25/17.
  */
 const Sequelize = require('sequelize');
-const dbconfig = require('./../dbconfig.json')
+
+var dbconfig;
+try {
+  dbconfig = require('./../dbconfig.json');
+} catch (e) {
+  console.error('Create your own db file lazybones');
+  dbconfig = require('../dbconfig-sample.json');
+}
+
+const DATABASE_URL = process.env.DATABASE_URL || ('postgres://' + dbconfig.USER + ":" + dbconfig.PASSWORD + "@" + dbconfig.HOST + ":5432/" + dbconfig.DB);
 
 
-const sequelize = new Sequelize(dbconfig.db, dbconfig.user, dbconfig.password, {
-  dialect: dbconfig.dialect,
-  port: dbconfig.port,
-
+const sequelize = new Sequelize(DATABASE_URL, {
+  host: dbconfig.HOST,
+  dialect: dbconfig.DIALECT,
   pool: {
     min: 0,
     max: 5,
     idle: 1000
   }
 });
+
 const Courses = sequelize.define('course', {
   id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   name: Sequelize.DataTypes.STRING,
@@ -25,7 +34,7 @@ const Batches = sequelize.define('batch', {
   name: Sequelize.DataTypes.STRING,
   startDate: Sequelize.DataTypes.DATE,
   endDate: Sequelize.DataTypes.DATE,
-  size: Sequelize.DataTypes.INTEGER
+  size: Sequelize.DataTypes.INTEGER,
 });
 const Lectures = sequelize.define('lecture', {
   id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -70,11 +79,10 @@ sequelize.sync({force: false}).then(function () {
 });
 
 module.exports = {
-
   Courses,
   Batches,
   Lectures,
   Rooms,
   Users,
-  Centres,
-}
+  Centres
+};

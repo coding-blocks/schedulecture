@@ -1,0 +1,8 @@
+/**
+ * Created by bhavyaagg on 9/06/17.
+ */
+
+{
+  "name": "CB Schedulecture",
+  "addons": ["heroku-postgresql:hobby-dev"]
+}

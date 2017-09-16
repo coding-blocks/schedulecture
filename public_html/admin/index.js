@@ -2,15 +2,14 @@
  * Created by apoorvaagupta on 9/05/17.
  */
 $(document).ready(function () {
-
   var events = [];
   var draggableItem = function () {
 
-
-    var lecture = $("#draggable > p");
+console.log(moment().startOf('day'));
+    var lecture = $(".collapse > a");
     lecture.each(function () {
       $(this).data('event', {
-        title: "Lecture:1",
+        title:  $.trim($(this).text()),
         start: moment().startOf('day'),
         stick: true,
         resourceId: 'a'
@@ -21,13 +20,15 @@ $(document).ready(function () {
         revert: true,
         revertDuration: 0
       });
-      events.push($(this).data().event);
+
     })
 
 
   };
 
   draggableItem();
+
+  // page is now ready, initialize the calendar...
 
   $('#calendar').fullCalendar({
     // put your options and callbacks here
@@ -40,6 +41,9 @@ $(document).ready(function () {
     fixedWeekCount: false,
     editable: true,
     droppable: true,
+    minTime: "07:00:00",
+    maxTime: "22:00:00",
+    //height: 500,
     events: events,
     dayClick: function (date, jsEvent, view, resourceObj) {
       $('#calendar').fullCalendar('changeView', 'agendaOneDay', date);
@@ -101,9 +105,12 @@ $(document).ready(function () {
     },
     drop: function (date, jsEvent, ui, resourceId) {
       console.log(2);
-      console.log(date);
-      console.log(resourceId)
-      console.log(($('#calendar').fullCalendar('clientEvents')));
+      // console.log(date);
+      // console.log(resourceId)
+      // console.log(($('#calendar').fullCalendar('clientEvents')));
+
+      console.log("heyyyy "+ this);
+      $(this).remove();
 
     }
   });
@@ -125,7 +132,6 @@ $(document).ready(function () {
     return false;
 
   }
-
 
 
 });
