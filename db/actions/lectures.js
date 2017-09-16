@@ -15,17 +15,17 @@ module.exports = {
             batchId : batchId,
             roomId : roomId
         }).then(function (data) {
-            done(data)
+            done(null,data);
         }).catch(function (err) {
-            if(err) throw err;
+            if(err) done(err);
         });
     },
     getAll : function (done) {
         models.Lectures.findAll({
         }).then(function (data) {
-            done(data)
+            done(null,data)
         }).catch(function (err) {
-            if(err) throw err;
+            if(err) done(err);
         });
     },
     search : function (id, done) {
@@ -34,9 +34,9 @@ module.exports = {
                 id : id
             }
         }).then(function (data) {
-            done(data)
+            done(null,data)
         }).catch(function (err) {
-            if(err) throw err;
+            if(err) done(err);
         });
     },
     edit : function (id,obj, done) {
@@ -46,15 +46,16 @@ module.exports = {
                 id : id
             }
         }).then(function (data) {
+            if(!data){
+                return done(null,null);
+            }
             data.update(obj).then(function (resData) {
-                done({
-                    "status" : resData
-                })
+                done(null,resData);
             }).catch(function (err) {
-                if(err) throw err;
+                if(err) done(err);
             })
         }).catch(function (err) {
-            if(err) throw err;
+            if(err) done(err);
         });
     },
     deleteLecture : function (id, done) {
@@ -63,9 +64,9 @@ module.exports = {
                 id : id
             }
         }).then(function (data) {
-            done(data)
+            done(null,data)
         }).catch(function (err) {
-            if(err) throw err;
+            if(err) done(err);
         });
     }
 

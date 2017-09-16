@@ -17,7 +17,6 @@ const DATABASE_URL = process.env.DATABASE_URL || ('postgres://' + dbconfig.USER 
 const sequelize = new Sequelize(DATABASE_URL, {
   host: dbconfig.HOST,
   dialect: dbconfig.DIALECT,
-
   pool: {
     min: 0,
     max: 5,
