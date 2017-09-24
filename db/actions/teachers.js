@@ -7,7 +7,7 @@ const models = require('../models');
 module.exports = {
 
     createTeacher : function (name, email, contact, done) {
-        models.teachers.create({
+        models.Teachers.create({
             name : name,
             email : email,
             contact : contact
@@ -18,7 +18,7 @@ module.exports = {
         })
     },
     getAll : function (done) {
-        models.teachers.findAll({
+        models.Teachers.findAll({
         }).then(function (data) {
             done(null, data)
         }).catch(function (err) {
@@ -26,7 +26,7 @@ module.exports = {
         });
     },
     search : function (id, done) {
-        models.teachers.findOne({
+        models.Teachers.findOne({
             where : {
                 id : id
             }
@@ -37,7 +37,7 @@ module.exports = {
         });
     },
     edit : function (id,obj, done) {
-        models.teachers.findOne({
+        models.Teachers.findOne({
             where : {
                 id : id
             }
@@ -55,7 +55,7 @@ module.exports = {
         });
     },
     deleteTeacher : function (id, done) {
-        models.teachers.destroy({
+        models.Teachers.destroy({
             where : {
                 id : id
             }

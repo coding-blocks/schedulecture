@@ -5,7 +5,7 @@ const models = require('../models')
 
 module.exports = {
     createNew: function (name, head, phone, done) {
-        models.centres.create({
+        models.Centres.create({
             name: name,
             head : head,
             phone : phone
@@ -15,18 +15,18 @@ module.exports = {
             if (err) done(err);
         });
     },
-    getAll: function (done) {
-        models.centres.findAll({
+    getAll : function (done) {
+        models.Centres.findAll({
         }).then(function (data) {
             done(null, data)
         }).catch(function (err) {
             if (err) done(err);
         });
     },
-    search: function (id, done) {
-        models.centres.findOne({
-            where: {
-                id: id
+    search : function (id, done) {
+        models.Centres.findOne({
+            where : {
+                id : id
             }
         }).then(function (data) {
             done(null, data)
@@ -34,10 +34,10 @@ module.exports = {
             if (err) done(err);
         });
     },
-    edit: function (id, obj, done) {
-        models.centres.findOne({
-            where: {
-                id: id
+    edit : function (id,obj, done) {
+        models.Centres.findOne({
+            where : {
+                id : id
             }
         }).then(function (data) {
             if (!data) {
@@ -52,10 +52,10 @@ module.exports = {
             if (err) done(err);
         });
     },
-    deleteCentre: function (id, done) {
-        models.centres.destroy({
-            where: {
-                id: id
+    deleteCentre : function (id, done) {
+        models.Centres.destroy({
+            where : {
+                id : id
             }
         }).then(function (data) {
             done(null, data)

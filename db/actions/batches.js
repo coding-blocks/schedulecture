@@ -6,7 +6,7 @@ const models = require('../models')
 module.exports = {
 
     newBatch: function (name, startDate, endDate, size, courseId, centreId, teacherId, done) {
-        models.batches.create({
+        models.Batches.create({
             name: name,
             startDate: startDate,
             endDate: endDate,
@@ -22,7 +22,7 @@ module.exports = {
         });
     },
     getAll: function (conditions, done) {
-        models.batches.findAll({
+        models.Batches.findAll({
             where : conditions
         }).then(function (data) {
             done(null,data)
@@ -31,7 +31,7 @@ module.exports = {
         });
     },
     search: function (id, done) {
-        models.batches.findOne({
+        models.Batches.findOne({
             where: {
                 id: id
             }
@@ -43,7 +43,7 @@ module.exports = {
         });
     },
     edit : function (id,obj, done) {
-        models.batches.findOne({
+        models.Batches.findOne({
             where : {
                 id : id
             }
@@ -81,7 +81,7 @@ module.exports = {
         });
     },
     deleteBatch : function (id, done) {
-        models.batches.destroy({
+        models.Batches.destroy({
             where : {
                 id : id
             }
@@ -92,7 +92,7 @@ module.exports = {
         });
     },
     getLectures : function (id, done) {
-        models.lectures.findAll({
+        models.Lectures.findAll({
             where : {
                 batchId : id
             }
