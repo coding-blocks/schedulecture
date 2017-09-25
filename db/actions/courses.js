@@ -5,10 +5,12 @@
 const models = require('../models')
 
 module.exports = {
-    createNew : function (name,desc,done) {
+    createNew : function (name,desc,lect,hours,done) {
         models.Courses.create({
             name : name,
-            desc : desc
+            desc : desc,
+            lect : lect,
+            hours : hours
         }).then(function (data) {
             done(null,data)
         }).catch(function (err) {
@@ -87,6 +89,17 @@ module.exports = {
         }).catch(function (err) {
             if(err) done(err);
         });
+    },
+    getBatches : function(id, done) {
+        models.batches.findAll({
+            where : {
+                courseId : id
+            }
+        }).then(function(data){
+            done(null, data);
+        }).catch(function(err){
+            if(err)
+                done(err);
+        })
     }
-
 }

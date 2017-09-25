@@ -43,7 +43,7 @@ router.post('/new', function (req, res) {
     req.body.startTime = new Date(req.body.startTime)
     req.body.endTime = new Date(req.body.endTime)
     db.actions.lectures.createNew(req.body.name, req.body.date, req.body.startTime, req.body.endTime, req.body.topic, req.body.batchId,
-        req.body.roomId, function (err, lecture) {
+        req.body.roomId, req.body.teacherId, function (err, lecture) {
 
             if (err) {
                 console.log("ERROR" + err);
