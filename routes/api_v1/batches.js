@@ -34,7 +34,8 @@ const db = require('../../db');
 }
  */
 router.post('/new', function (req, res) {
-    db.actions.batches.newBatch(req.body.name, req.body.startDate, req.body.endDate, req.body.size, req.body.courseId, req.body.centreId, function (err, batch) {
+    db.actions.batches.newBatch(req.body.name, req.body.startDate, req.body.endDate, req.body.size, req.body.courseId,
+        req.body.centreId, req.body.teacherId, function (err, batch) {
         if (err) {
             console.log(err);
             res.status(500).send({
@@ -97,7 +98,7 @@ router.post('/new', function (req, res) {
  *
  */
 router.get('/', function (req, res) {
-    db.actions.batches.getAll(function (err, batches) {
+    db.actions.batches.getAll({},function (err, batches) {
         if (err) {
             console.log("ERROR" + err);
             res.status(500).send({
@@ -124,6 +125,61 @@ router.get('/', function (req, res) {
     })
 });
 
+router.get('/active', function (req, res) {
+    db.actions.batches.getAll({status : "active"}, function (err, activeBatches) {
+        if (err) {
+            console.log("ERROR" + err);
+            res.status(500).send({
+                success: false
+                , code: "500"
+                , error: {
+                    message: "Could not get all the active batches(Internal Server Error)."
+                }
+            })
+        }
+        else {
+            if (activeBatches.length !== 0) {
+                res.status(200).send({success: true, data: activeBatches.map((batch) => batch.get())});
+            } else {
+                res.status(404).send({
+                    success: false
+                    , code: "404"
+                    , error: {
+                        message: "There are no active batches."
+                    }
+                })
+            }
+        }
+    })
+});
+
+router.get('/archived', function (req, res) {
+    db.actions.batches.getAll({status : "archived"}, function (err, archivedBatches) {
+        if (err) {
+            console.log("ERROR" + err);
+            res.status(500).send({
+                success: false
+                , code: "500"
+                , error: {
+                    message: "Could not get all the archived batches(Internal Server Error)."
+                }
+            })
+        }
+        else {
+            if (archivedBatches.length !== 0) {
+                res.status(200).send({success: true, data: archivedBatches.map((batch) => batch.get())});
+            } else {
+                res.status(404).send({
+                    success: false
+                    , code: "404"
+                    , error: {
+                        message: "There are no archived batches."
+                    }
+                })
+            }
+        }
+    })
+});
 
 /**
  * @api {get} /api/v1/batches/:id GET /api/v1/batches/:id
@@ -223,6 +279,34 @@ router.put('/:id', function (req, res) {
                     , code: "400"
                     , error: {
                         message: `Could not update the batch with batch id(Incorrect details)  ${req.params.id} .`
+                    }
+                })
+            }
+        }
+    })
+});
+
+router.put('/archive/:id', function (req, res) {
+    db.actions.batches.archiveBatch(req.params.id, function (err, batch) {
+        if (err) {
+            console.log(err);
+            res.status(500).send({
+                success: false
+                , code: "500"
+                , error: {
+                    message: `Could not archive the batch with id ${req.params.id} (Internal Server Error).`
+                }
+            })
+        }
+        else {
+            if (batch) {
+                res.status(201).send({success: true, data: batch.get()});
+            } else {
+                res.status(400).send({
+                    success: false
+                    , code: "400"
+                    , error: {
+                        message: `Could not archive the batch with batch id(Incorrect details)  ${req.params.id} .`
                     }
                 })
             }
@@ -343,14 +427,14 @@ router.delete('/:id', function (req, res) {
 }
  */
 router.get('/:id/lectures', function (req, res) {
-    db.actions.batches.getlectures(req.params.id, function (err, lectures) {
+    db.actions.batches.getLectures(req.params.id, function (err, lectures) {
         if (err) {
             console.log("ERROR" + err);
             res.status(500).send({
                 success: false
                 , code: "500"
                 , error: {
-                    message: "Could not get all the lectures(Internal Server Error)."
+                    message: `Could not find the lectures for batch with id ${req.params.id} (Internal Server Error).`
                 }
             })
         }
@@ -362,11 +446,12 @@ router.get('/:id/lectures', function (req, res) {
                     success: false
                     , code: "404"
                     , error: {
-                        message: "There are no lectures."
+                        message: `There are no lectures for batch with id ${req.params.id}.`
                     }
                 })
             }
-        }    })
+        }
+    })
 });
 
 

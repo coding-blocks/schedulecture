@@ -1,32 +1,34 @@
 /**
- * Created by abhishekyadav on 25/08/17.
+ * Created by tld3112 on 13-Sep-17.
  */
+
 const models = require('../models')
 
 module.exports = {
-    createNew: function (name, head, phone, done) {
-        models.Centres.create({
+    createNew: function (name, capacity, config, centreId, done) {
+        models.rooms.create({
             name: name,
-            head : head,
-            phone : phone
+            centreId : centreId,
+            capacity : capacity,
+            config : config
         }).then(function (data) {
             done(null, data)
         }).catch(function (err) {
             if (err) done(err);
         });
     },
-    getAll : function (done) {
-        models.Centres.findAll({
+    getAll: function (done) {
+        models.rooms.findAll({
         }).then(function (data) {
             done(null, data)
         }).catch(function (err) {
             if (err) done(err);
         });
     },
-    search : function (id, done) {
-        models.Centres.findOne({
-            where : {
-                id : id
+    search: function (id, done) {
+        models.rooms.findOne({
+            where: {
+                id: id
             }
         }).then(function (data) {
             done(null, data)
@@ -34,10 +36,10 @@ module.exports = {
             if (err) done(err);
         });
     },
-    edit : function (id,obj, done) {
-        models.Centres.findOne({
-            where : {
-                id : id
+    edit: function (id, obj, done) {
+        models.rooms.findOne({
+            where: {
+                id: id
             }
         }).then(function (data) {
             if (!data) {
@@ -52,10 +54,10 @@ module.exports = {
             if (err) done(err);
         });
     },
-    deleteCentre : function (id, done) {
-        models.Centres.destroy({
-            where : {
-                id : id
+    deleteRoom: function (id, done) {
+        models.rooms.destroy({
+            where: {
+                id: id
             }
         }).then(function (data) {
             done(null, data)
@@ -63,28 +65,15 @@ module.exports = {
             if (err) done(err);
         });
     },
-    getBatches : function(id, done) {
-        models.batches.findAll({
+    getLectures : function (id, done) {
+        models.lectures.findAll({
             where : {
-                centreId : id
+                roomId : id
             }
-        }).then(function(data){
-            done(null, data);
-        }).catch(function(err){
-            if(err)
-                done(err);
-        })
-    },
-    getRooms : function (id, done) {
-        models.rooms.findAll({
-            where : {
-                centreId : id
-            }
-        }).then(function(data) {
-            done(null, data);
-        }).catch(function(err) {
-            if(err)
-                done(err);
-        })
+        }).then(function (data) {
+            done(null,data)
+        }).catch(function (err) {
+            if(err) done(err);
+        });
     }
 }

@@ -26,7 +26,7 @@ const db = require('../../db');
  *
  */
 router.post('/new', function (req, res) {
-    db.actions.centres.createNew(req.body.name, req.body.centreHead, req.body.centreHeadContact, function (err, centre) {
+    db.actions.centres.createNew(req.body.name, req.body.head, req.body.phone, function (err, centre) {
         if (err) {
             console.log("ERROR" + err);
             res.status(500).send({
@@ -242,5 +242,67 @@ router.delete('/:id', function (req, res) {
     })
 });
 
+// get all batches
+router.get('/:id/batches', function (req, res) {
+    db.actions.centres.getBatches(req.params.id, function(err, batches) {
+        if(err){
+            console.log("ERROR" + err);
+            res.status(500).send({
+                success : false,
+                code : "500",
+                error : {
+                    message : `Could not find the batches for centre with id ${req.params.id} (Internal Server Error).`
+                }
+            });
+        } else {
+            if(batches.length !== 0){
+                res.status(200).send({
+                    success : true,
+                    data : batches.map((batch) => batch.get())
+            });
+            } else {
+                res.status(404).send({
+                    success : false,
+                    code : "404",
+                    error : {
+                        message : `There are no batches for centre with id ${req.params.id}.`
+                    }
+
+                })
+            }
+        }
+    })
+});
+
+//get all rooms
+router.get('/:id/rooms', function(req, res) {
+    db.actions.centres.getRooms(req.params.id, function(err, rooms){
+        if(err){
+            console.log("ERROR" + err);
+            res.status(500).send({
+                success : false,
+                code : "500",
+                error : {
+                    message : `Could not find the rooms for centre with id ${req.params.id} (Internal Server Error).`
+                }
+            });
+        } else {
+            if(rooms.length !== 0){
+                res.status(200).send({
+                    success : true,
+                    data : rooms.map((room) => room.get())
+                });
+            } else {
+                res.status(404).send({
+                    success : false,
+                    code : "404",
+                    error : {
+                        message : `There are no rooms for centre with id ${req.params.id}.`
+                    }
+                })
+            }
+        }
+    })
+})
 
 module.exports = router;
