@@ -26,7 +26,7 @@ const db = require('../../db');
  *
  */
 router.post('/new', function (req, res) {
-    db.actions.centres.createNew(req.body.name, function (err, centre) {
+    db.actions.centres.createNew(req.body.name, req.body.centreHead, req.body.centreHeadContact, function (err, centre) {
         if (err) {
             console.log("ERROR" + err);
             res.status(500).send({

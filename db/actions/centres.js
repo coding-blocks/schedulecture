@@ -4,9 +4,11 @@
 const models = require('../models')
 
 module.exports={
-    createNew : function (name,done) {
+    createNew : function (name,centreHead, contact,done) {
         models.Centres.create({
-            name : name
+            name : name,
+            centreHead: centreHead,
+            centreHeadContact: contact
         }).then(function (data) {
             done(null, data)
         }).catch(function (err) {
