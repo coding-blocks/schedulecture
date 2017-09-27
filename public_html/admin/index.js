@@ -33,30 +33,47 @@ $(document).ready(function () {
           $.get(`${api}/batches/${batch.id}/lectures`).done((data) => {
             if (data.success) {
               let lectures = data.data;
+              // console.log(lectures)
               lectures.forEach((lecture) => {
+                if (lecture.startTime && lecture.endTime) {
+                  // console.log(moment(lecture.startTime))
+                  // console.log(lecture.endTime)
+                  events.push({
+                    lectureId: lecture.id,
+                    title: lecture.name,
+                    start: moment(lecture.startTime),
+                    end: moment(lecture.endTime),
+                    stick: true,
+                    resourceId: 'a'
+                  })
+                  console.log(11111)
+                  console.log(events)
+                  // $('#calendar').fullCalendar('refetchEvents');
+                } else {
 
-                $lectures.append(`
-                  <a id="lecture-${lecture.id}" class="list-group-item" data-parent="#batch-${batch.name}" draggable="true">
-                    ${lecture.name}
-                  </a>
-                `);
+                  $lectures.append(`
+                    <a id="lecture-${lecture.id}" class="list-group-item" data-parent="#batch-${batch.name}" draggable="true">
+                        ${lecture.name}
+                    </a>
+                  `);
 
-                const $lecture = $(`#lecture-${lecture.id}`);
 
-                $lecture.data('event', {
-                  lectureId:lecture.id,
-                  title: lecture.name,
-                  start: moment().startOf('day').add(10, 'hours'),
-                  end: moment().startOf('day').add(12, 'hours'),
-                  stick: true,
-                  resourceId: 'a'
-                });
+                  const $lecture = $(`#lecture-${lecture.id}`);
 
-                $lecture.draggable({
-                  zIndex: 999,
-                  revert: true,
-                  revertDuration: 0
-                })
+                  $lecture.data('event', {
+                    lectureId: lecture.id,
+                    title: lecture.name,
+                    start: moment().startOf('day'),
+                    stick: true,
+                    resourceId: 'a'
+                  });
+
+                  $lecture.draggable({
+                    zIndex: 999,
+                    revert: true,
+                    revertDuration: 0
+                  })
+                }
 
               })
             } else {
@@ -66,7 +83,6 @@ $(document).ready(function () {
             console.log(err)
           })
         });
-
 
       } else {
         alert('There are no Batches');
@@ -78,30 +94,8 @@ $(document).ready(function () {
 
   getBatches();
 
-  var draggableItem = function () {
-
-    var lecture = $(".collapse > a");
-    lecture.each(function () {
-      $(this).data('event', {
-        title: $.trim($(this).text()),
-        start: moment().startOf('day').add(10, 'hours'),
-        stick: true,
-        resourceId: 'a'
-      });
-
-      $(this).draggable({
-        zIndex: 999,
-        revert: true,
-        revertDuration: 0
-      });
-      // events.push($(this).data('event'));
-    })
-  };
-
-  draggableItem();
-
   // page is now ready, initialize the calendar...
-
+  console.log(222222222)
   $('#calendar').fullCalendar({
     // put your options and callbacks here
     schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
@@ -173,22 +167,30 @@ $(document).ready(function () {
 
     },
     drop: function (date, jsEvent, ui, resourceId) {
-      console.log(2);
+      // console.log(2);
       $(this).remove();
 
     },
     eventReceive: function (event) {
-      console.log(event);
+      // console.log(event);
       event.start = event.start.add(10, 'hours');
-      event.end = event.start.add(13, 'hours');
-      console.log(event.start._d)
+      event.end = moment(event.start).add(3, 'hours');
+      // console.log(event.start._d.getDay())
       $('#calendar').fullCalendar('updateEvent', event);
-      $.put(`${api}/lectures/${event.lectureId}`,{
-        values: {
-          startTime: event.start._d,
-          endTime: event.end._d,
-
+      $.ajax({
+        method: 'PUT',
+        url: `${api}/lectures/${event.lectureId}`,
+        data: {
+          values: {
+            startTime: event.start._d,
+            endTime: event.end._d,
+            date: event.start._d
+          }
         }
+      }).done(function (data) {
+        console.log(data)
+      }).fail(function (err) {
+        console.log(err);
       })
     }
 
