@@ -3,14 +3,88 @@
  */
 $(document).ready(function () {
   var events = [];
+
+  var api = 'http://localhost:4000/api/v1';
+
+  var getBatches = function () {
+
+    const $batches = $('#batches');
+
+    $.get(`${api}/batches/`).done(function (data) {
+      if (data.success) {
+        let batches = data.data;
+        batches.forEach((batch) => {
+          $batches.append(`
+            <a href="#batch-${batch.name}" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar"
+               aria-expanded="false">
+              <span class="hidden-sm-down">
+                ${batch.name}
+              </span>
+            </a>
+                        
+            <div class="collapse" id="batch-${batch.name}">                 
+            </div>
+          `);
+        });
+
+
+        batches.forEach(function (batch) {
+          const $lectures = $(`#batch-${batch.name}`);
+          $.get(`${api}/batches/${batch.id}/lectures`).done((data) => {
+            if (data.success) {
+              let lectures = data.data;
+              lectures.forEach((lecture) => {
+
+                $lectures.append(`
+                  <a id="lecture-${lecture.id}" class="list-group-item" data-parent="#batch-${batch.name}" draggable="true">
+                    ${lecture.name}
+                  </a>
+                `);
+
+                const $lecture = $(`#lecture-${lecture.id}`);
+
+                $lecture.data('event', {
+                  lectureId:lecture.id,
+                  title: lecture.name,
+                  start: moment().startOf('day').add(10, 'hours'),
+                  end: moment().startOf('day').add(12, 'hours'),
+                  stick: true,
+                  resourceId: 'a'
+                });
+
+                $lecture.draggable({
+                  zIndex: 999,
+                  revert: true,
+                  revertDuration: 0
+                })
+
+              })
+            } else {
+              console.log('No Lectures for batch ' + batch.name);
+            }
+          }).fail((err) => {
+            console.log(err)
+          })
+        });
+
+
+      } else {
+        alert('There are no Batches');
+      }
+    }).fail(function (err) {
+      console.log(err)
+    })
+  };
+
+  getBatches();
+
   var draggableItem = function () {
 
-console.log(moment().startOf('day'));
     var lecture = $(".collapse > a");
     lecture.each(function () {
       $(this).data('event', {
-        title:  $.trim($(this).text()),
-        start: moment().startOf('day'),
+        title: $.trim($(this).text()),
+        start: moment().startOf('day').add(10, 'hours'),
         stick: true,
         resourceId: 'a'
       });
@@ -20,10 +94,8 @@ console.log(moment().startOf('day'));
         revert: true,
         revertDuration: 0
       });
-
+      // events.push($(this).data('event'));
     })
-
-
   };
 
   draggableItem();
@@ -96,42 +168,31 @@ console.log(moment().startOf('day'));
     },
     eventDrop: function (event, delta, revertFunction, jsEvent, ui, view) {
       console.log("1");
-      if (isEventOverDiv(jsEvent.clientX, jsEvent.clientY)) {
-        console.log(event.start);
-        $('#calendar').fullCalendar('updateEvent', event);
-      }
+      console.log(event);
       console.log(($('#calendar').fullCalendar('clientEvents')));
 
     },
     drop: function (date, jsEvent, ui, resourceId) {
       console.log(2);
-      // console.log(date);
-      // console.log(resourceId)
-      // console.log(($('#calendar').fullCalendar('clientEvents')));
-
-      console.log("heyyyy "+ this);
       $(this).remove();
 
+    },
+    eventReceive: function (event) {
+      console.log(event);
+      event.start = event.start.add(10, 'hours');
+      event.end = event.start.add(13, 'hours');
+      console.log(event.start._d)
+      $('#calendar').fullCalendar('updateEvent', event);
+      $.put(`${api}/lectures/${event.lectureId}`,{
+        values: {
+          startTime: event.start._d,
+          endTime: event.end._d,
+
+        }
+      })
     }
+
   });
-
-  var isEventOverDiv = function (x, y) {
-
-    const $tbody = $('tbody.fc-body');
-    const offset = $tbody.offset();
-    const xmin = offset.left;
-    const ymin = offset.top;
-    const xmax = xmin + $tbody.width();
-    const ymax = ymin + $tbody.height();
-
-
-    // Compare
-    if (x >= xmin && y >= ymin && x <= xmax && y <= ymax) {
-      return true;
-    }
-    return false;
-
-  }
 
 
 });
