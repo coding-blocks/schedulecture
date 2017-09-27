@@ -38,10 +38,20 @@ const db = require('../../db');
  *
  */
 router.post('/new', function (req, res) {
+    console.log(req.body.date);
+    console.log(req.body.startTime);
+    console.log(req.body.endTime);
 
-    req.body.date = new Date(req.body.date)
-    req.body.startTime = new Date(req.body.startTime)
-    req.body.endTime = new Date(req.body.endTime)
+    req.body.date = req.body.hasOwnProperty('date')?(new Date(req.body.date)):null;
+
+    req.body.startTime =req.body.hasOwnProperty('startTime')? (new Date(req.body.startTime)):null;
+
+  req.body.endTime = req.body.hasOwnProperty('endTime')?(new Date(req.body.endTime)):null;
+
+  console.log(req.body.date);
+  console.log(req.body.startTime);
+  console.log(req.body.endTime);
+
     db.actions.lectures.createNew(req.body.name, req.body.date, req.body.startTime, req.body.endTime, req.body.topic, req.body.batchId,
         req.body.roomId, req.body.teacherId, function (err, lecture) {
 
