@@ -6,7 +6,7 @@ const models = require('../models')
 
 module.exports = {
     createNew: function (name, capacity, config, centreId, done) {
-        models.rooms.create({
+        models.Rooms.create({
             name: name,
             centreId : centreId,
             capacity : capacity,
@@ -18,7 +18,7 @@ module.exports = {
         });
     },
     getAll: function (done) {
-        models.rooms.findAll({
+        models.Rooms.findAll({
         }).then(function (data) {
             done(null, data)
         }).catch(function (err) {
@@ -26,7 +26,7 @@ module.exports = {
         });
     },
     search: function (id, done) {
-        models.rooms.findOne({
+        models.Rooms.findOne({
             where: {
                 id: id
             }
@@ -37,7 +37,7 @@ module.exports = {
         });
     },
     edit: function (id, obj, done) {
-        models.rooms.findOne({
+        models.Rooms.findOne({
             where: {
                 id: id
             }
@@ -55,7 +55,7 @@ module.exports = {
         });
     },
     deleteRoom: function (id, done) {
-        models.rooms.destroy({
+        models.Rooms.destroy({
             where: {
                 id: id
             }
