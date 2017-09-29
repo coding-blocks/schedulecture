@@ -276,6 +276,7 @@ router.get('/:id/batches', function (req, res) {
 
 //get all rooms
 router.get('/:id/rooms', function(req, res) {
+    console.log(req.params.id);
     db.actions.centres.getRooms(req.params.id, function(err, rooms){
         if(err){
             console.log("ERROR" + err);
