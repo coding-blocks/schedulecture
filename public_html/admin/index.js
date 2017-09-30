@@ -15,16 +15,37 @@ $(document).ready(function () {
       if (roomsData.success) {
 
         const rooms = roomsData.data;
+        const $colors = $('#colors');
+        $colors.append(`
+              <div class="col">
+              </div>
+              <div class="col">
+              </div>
+          `);
 
         rooms.forEach((room) => {
+          let currentColor = colors[colorCounter++%colors.length];
           resources.push({
             id: room.id,
             title: room.name,
-            eventColor: 'rgb(255,0,0)',
+            eventColor: currentColor,
             capacity: room.capacity,
             centreId: room.centreId
           });
+          $colors.append(`
+              <div class="col">
+                <div style="display: inline-block;height: 15px;width: 15px; background-color: ${currentColor}"></div>
+                <span>${room.name}</span>
+              </div>
+          `)
         });
+
+        $colors.append(`
+              <div class="col">
+              </div>
+              <div class="col">
+              </div>
+          `);
 
         const $batches = $('#batches');
 
@@ -33,48 +54,39 @@ $(document).ready(function () {
             let batches = data.data;
             batches.forEach((batch) => {
               $batches.append(`
-            <a href="#batch-${batch.name}" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar"
-               aria-expanded="false">
-              <span class="hidden-sm-down">
-                ${batch.name}
-              </span>
-            </a>
+                <a href="#batch-${batch.name}" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar"
+                    aria-expanded="false">
+                <span class="hidden-sm-down">
+                    ${batch.name}
+                </span>
+                </a>
                         
-            <div class="collapse" id="batch-${batch.name}">                 
-            </div>
-          `);
+                <div class="collapse" id="batch-${batch.name}">                 
+                </div>
+              `);
             });
-
 
             batches.forEach(function (batch) {
               const $lectures = $(`#batch-${batch.name}`);
 
 
               let lectures = batch.lectures;
-              // console.log(lectures)
               lectures.forEach((lecture) => {
                 if (lecture.startTime && lecture.endTime) {
-                  // console.log(moment(lecture.startTime))
-                  // console.log(lecture.endTime)
                   events.push({
                     lectureId: lecture.id,
                     title: lecture.name,
                     start: moment.utc(lecture.startTime),
                     end: moment.utc(lecture.endTime),
                     stick: true,
-                    resourceId: '1'
+                    resourceId: lecture.roomId
                   });
-
-                  console.log(events)
-                  // $('#calendar').fullCalendar('refetchEvents');
                 } else {
-
                   $lectures.append(`
                     <a id="lecture-${lecture.id}" class="list-group-item" data-parent="#batch-${batch.name}" draggable="true">
                         ${lecture.name}
                     </a>
                   `);
-
 
                   const $lecture = $(`#lecture-${lecture.id}`);
 
@@ -83,17 +95,16 @@ $(document).ready(function () {
                     title: lecture.name,
                     start: moment().startOf('day'),
                     stick: true,
-                    resourceId: 'a'
+                    resourceId: resources[0].id
                   });
 
                   $lecture.draggable({
                     zIndex: 999,
                     revert: true,
                     revertDuration: 0
-                  })
+                  });
                 }
-
-              })
+              });
 
             });
 
@@ -149,21 +160,7 @@ $(document).ready(function () {
               },
               eventDrop: function (event, delta, revertFunction, jsEvent, ui, view) {
                 console.log(event);
-                $.ajax({
-                  method: 'PUT',
-                  url: `${api}/lectures/${event.lectureId}`,
-                  data: {
-                    values: {
-                      startTime: event.start._d,
-                      endTime: event.end._d,
-                      date: event.start._d
-                    }
-                  }
-                }).done(function (data) {
-                  console.log(data)
-                }).fail(function (err) {
-                  console.log(err);
-                })
+                updateLecture(event);
               },
               drop: function (date, jsEvent, ui, resourceId) {
                 // console.log(2);
@@ -176,21 +173,7 @@ $(document).ready(function () {
                 event.end = moment(event.start).add(3, 'hours');
                 // console.log(event.start._d.getDay())
                 $('#calendar').fullCalendar('updateEvent', event);
-                $.ajax({
-                  method: 'PUT',
-                  url: `${api}/lectures/${event.lectureId}`,
-                  data: {
-                    values: {
-                      startTime: event.start._d,
-                      endTime: event.end._d,
-                      date: event.start._d
-                    }
-                  }
-                }).done(function (data) {
-                  console.log(data)
-                }).fail(function (err) {
-                  console.log(err);
-                })
+                updateLecture(event);
               }
 
             });
@@ -211,5 +194,24 @@ $(document).ready(function () {
   };
 
   getBatchesAndRooms();
+
+  function updateLecture(event) {
+    $.ajax({
+      method: 'PUT',
+      url: `${api}/lectures/${event.lectureId}`,
+      data: {
+        values: {
+          startTime: event.start._d,
+          endTime: event.end._d,
+          date: event.start._d,
+          roomId: +event.resourceId
+        }
+      }
+    }).done(function (data) {
+      console.log(data)
+    }).fail(function (err) {
+      console.log(err);
+    })
+  }
 
 });
