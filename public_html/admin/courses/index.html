@@ -86,9 +86,44 @@
                 <!--style="background-color:#4bca81;padding: 10px 45px;color: white;font-size: 12px;font-weight:-->
                 <!--700;cursor: pointer;width: auto;border-radius: 100px">Submit</a>-->
 
-                <button  id="courseSubmit" class=" btn btn-success" data-toggle="modal" data-target="#addCentresModal"
+                <button  id="courseSubmit" class=" btn btn-success"
                         style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer;">
                     Submit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editCoursesModal" tabindex="-1" role="dialog" aria-labelledby="Edit Course Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border: none; background-color: #02B3E4; counter-reset: white; border-top-left-radius: .25rem; border-top-right-radius: .25rem">
+                <h5 class="modal-title" style="margin: 0 auto; font-size: 18px; color: white">Edit Course</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color: white">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="margin-bottom: 0">
+                    <input id="editCourseName" required type="text" class="form-control input"
+                           placeholder="Name of Course" style="margin-bottom: 15px">
+                    <input id="editCourseDesc" required type="text" class="form-control input"
+                           placeholder="Description" style="margin-bottom: 15px">
+                    <input id="editLectures" required type="text" class="form-control input"
+                           placeholder="Number of Lectures" style="margin-bottom: 15px">
+                    <input id="editHours" required type="text" class="form-control input"
+                           placeholder="Number of Hours">
+                </div>
+            </div>
+            <div class="modal-footer" style="border: none; justify-content: center; padding-top: 5px">
+                <!--<a id="submit-review" class="btn btn-success text-uppercase"-->
+                <!--style="background-color:#4bca81;padding: 10px 45px;color: white;font-size: 12px;font-weight:-->
+                <!--700;cursor: pointer;width: auto;border-radius: 100px">Submit</a>-->
+
+                <button  id="editCourseSave" class=" btn btn-success"
+                         style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer;">
+                    Save
                 </button>
             </div>
         </div>

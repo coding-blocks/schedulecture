@@ -69,7 +69,7 @@ $(document).ready(function () {
           if(res.success === true){
             window.location.reload();
           }else{
-            window.alert('Could Not Delete The Course Right Now!')
+            window.alert('Could Not Delete The Centre Right Now!')
           }
         })
       })
