@@ -38,49 +38,43 @@ const db = require('../../db');
  *
  */
 router.post('/new', function (req, res) {
-    console.log(req.body.date);
-    console.log(req.body.startTime);
-    console.log(req.body.endTime);
 
-    req.body.date = req.body.hasOwnProperty('date')?(new Date(req.body.date)):null;
+  req.body.date = req.body.hasOwnProperty('date') ? (new Date(req.body.date)) : null;
 
-    req.body.startTime =req.body.hasOwnProperty('startTime')? (new Date(req.body.startTime)):null;
+  req.body.startTime = req.body.hasOwnProperty('startTime') ? (new Date(req.body.startTime)) : null;
 
-  req.body.endTime = req.body.hasOwnProperty('endTime')?(new Date(req.body.endTime)):null;
+  req.body.endTime = req.body.hasOwnProperty('endTime') ? (new Date(req.body.endTime)) : null;
 
-  console.log(req.body.date);
-  console.log(req.body.startTime);
-  console.log(req.body.endTime);
 
-    db.actions.lectures.createNew(req.body.name, req.body.date, req.body.startTime, req.body.endTime, req.body.topic, req.body.batchId,
-        req.body.roomId, req.body.teacherId, function (err, lecture) {
+  db.actions.lectures.createNew(req.body.name, req.body.date, req.body.startTime, req.body.endTime, req.body.topic, req.body.batchId,
+    req.body.roomId, req.body.teacherId, function (err, lecture) {
 
-            if (err) {
-                console.log("ERROR" + err);
-                res.status(500).send({
-                    success: false
-                    , code: "500"
-                    , error: {
-                        message: "Could not add the lecture(Internal Server Error)."
-                    }
-                })
-            }
-            else {
-                if (lecture) {
-                    res.status(201).send({success: true, data: lecture.get()});
-                } else {
-                    res.status(400).send({
-                        success: false
-                        , code: "400"
-                        , error: {
-                            message: "Could not add the lecture(Incorrect Details)."
-                        }
-                    })
-                }
-
-            }
-
+      if (err) {
+        console.log("ERROR" + err);
+        res.status(500).send({
+          success: false
+          , code: "500"
+          , error: {
+            message: "Could not add the lecture(Internal Server Error)."
+          }
         })
+      }
+      else {
+        if (lecture) {
+          res.status(201).send({success: true, data: lecture.get()});
+        } else {
+          res.status(400).send({
+            success: false
+            , code: "400"
+            , error: {
+              message: "Could not add the lecture(Incorrect Details)."
+            }
+          })
+        }
+
+      }
+
+    })
 
 });
 
@@ -171,31 +165,31 @@ router.post('/new', function (req, res) {
  *
  */
 router.get('/', function (req, res) {
-    db.actions.lectures.getAll(function (err, lectures) {
-        if (err) {
-            console.log("ERROR" + err);
-            res.status(500).send({
-                success: false
-                , code: "500"
-                , error: {
-                    message: "Could not get all the lectures(Internal Server Error)."
-                }
-            })
+  db.actions.lectures.getAll(function (err, lectures) {
+    if (err) {
+      console.log("ERROR" + err);
+      res.status(500).send({
+        success: false
+        , code: "500"
+        , error: {
+          message: "Could not get all the lectures(Internal Server Error)."
         }
-        else {
-            if (lectures.length !== 0) {
-                res.status(200).send({success: true, data: lectures.map((lecture) => lecture.get())});
-            } else {
-                res.status(404).send({
-                    success: false
-                    , code: "404"
-                    , error: {
-                        message: "There are no lectures."
-                    }
-                })
-            }
-        }
-    })
+      })
+    }
+    else {
+      if (lectures.length !== 0) {
+        res.status(200).send({success: true, data: lectures.map((lecture) => lecture.get())});
+      } else {
+        res.status(404).send({
+          success: false
+          , code: "404"
+          , error: {
+            message: "There are no lectures."
+          }
+        })
+      }
+    }
+  })
 });
 
 
@@ -209,13 +203,13 @@ router.get('/', function (req, res) {
  * {success:true}
  */
 router.put('/', function (req, res) {
-    (function (callback) {
-        (req.body.lectures).forEach(function (x) {
-            db.actions.lectures.edit(x.id, x, ()=> {
-            })
-        })
-        callback();
-    })(data=>res.status(200).send({success: true}));
+  (function (callback) {
+    (req.body.lectures).forEach(function (x) {
+      db.actions.lectures.edit(x.id, x, () => {
+      })
+    })
+    callback();
+  })(data => res.status(200).send({success: true}));
 })
 
 /**
@@ -243,31 +237,31 @@ router.put('/', function (req, res) {
  */
 
 router.get('/:id', function (req, res) {
-    db.actions.lectures.search(req.params.id, function (err, lecture) {
-        if (err) {
-            console.log(err);
-            res.status(500).send({
-                success: false
-                , code: "500"
-                , error: {
-                    message: `Could not get the lecture with id ${req.params.id} (Internal Server Error).`
-                }
-            })
+  db.actions.lectures.search(req.params.id, function (err, lecture) {
+    if (err) {
+      console.log(err);
+      res.status(500).send({
+        success: false
+        , code: "500"
+        , error: {
+          message: `Could not get the lecture with id ${req.params.id} (Internal Server Error).`
         }
-        else {
-            if (lecture) {
-                res.status(200).send({success: true, data: lecture.get()});
-            } else {
-                res.status(404).send({
-                    success: false
-                    , code: "404"
-                    , error: {
-                        message: `No Course found for the id ${req.params.id}.`
-                    }
-                })
-            }
-        }
-    })
+      })
+    }
+    else {
+      if (lecture) {
+        res.status(200).send({success: true, data: lecture.get()});
+      } else {
+        res.status(404).send({
+          success: false
+          , code: "404"
+          , error: {
+            message: `No Course found for the id ${req.params.id}.`
+          }
+        })
+      }
+    }
+  })
 });
 
 
@@ -295,31 +289,31 @@ router.get('/:id', function (req, res) {
 }
  */
 router.put('/:id', function (req, res) {
-    db.actions.lectures.edit(req.params.id, req.body.values, function (err, lecture) {
-        if (err) {
-            console.log(err);
-            res.status(500).send({
-                success: false
-                , code: "500"
-                , error: {
-                    message: `Could not update the lecture with id ${req.params.id} (Internal Server Error).`
-                }
-            })
+  db.actions.lectures.edit(req.params.id, req.body.values, function (err, lecture) {
+    if (err) {
+      console.log(err);
+      res.status(500).send({
+        success: false
+        , code: "500"
+        , error: {
+          message: `Could not update the lecture with id ${req.params.id} (Internal Server Error).`
         }
-        else {
-            if (lecture) {
-                res.status(201).send({success: true, data: lecture.get()});
-            } else {
-                res.status(400).send({
-                    success: false
-                    , code: "400"
-                    , error: {
-                        message: `Could not update the lecture with lecture id(Incorrect details)  ${req.params.id} .`
-                    }
-                })
-            }
-        }
-    })
+      })
+    }
+    else {
+      if (lecture) {
+        res.status(201).send({success: true, data: lecture.get()});
+      } else {
+        res.status(400).send({
+          success: false
+          , code: "400"
+          , error: {
+            message: `Could not update the lecture with lecture id(Incorrect details)  ${req.params.id} .`
+          }
+        })
+      }
+    }
+  })
 });
 
 /**
@@ -334,31 +328,31 @@ router.put('/:id', function (req, res) {
 }
  */
 router.delete('/:id', function (req, res) {
-    db.actions.lectures.deleteLecture(req.params.id, function (err, lectureDeleted) {
-        if (err) {
-            console.log(err);
-            res.status(500).send({
-                success: false
-                , code: "500"
-                , error: {
-                    message: `Could not delete the lecture with id ${req.params.id} (Internal Server Error).`
-                }
-            })
-
-        } else {
-            if (lectureDeleted !== 0) {
-                res.status(200).send({success: true})
-            } else {
-                res.status(404).send({
-                    success: false
-                    , code: "404"
-                    , error: {
-                        message: `Could not delete the lecture with id ${req.params.id} (Lecture not found).`
-                    }
-                })
-            }
+  db.actions.lectures.deleteLecture(req.params.id, function (err, lectureDeleted) {
+    if (err) {
+      console.log(err);
+      res.status(500).send({
+        success: false
+        , code: "500"
+        , error: {
+          message: `Could not delete the lecture with id ${req.params.id} (Internal Server Error).`
         }
-    })
+      })
+
+    } else {
+      if (lectureDeleted !== 0) {
+        res.status(200).send({success: true})
+      } else {
+        res.status(404).send({
+          success: false
+          , code: "404"
+          , error: {
+            message: `Could not delete the lecture with id ${req.params.id} (Lecture not found).`
+          }
+        })
+      }
+    }
+  })
 });
 
 
