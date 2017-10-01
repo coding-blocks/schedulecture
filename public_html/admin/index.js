@@ -7,7 +7,7 @@ $(document).ready(function () {
   var api = 'http://localhost:4000/api/v1';
 
 
-  var getCentres = function () {
+  function getCentres() {
 
     $.get(`${api}/centres`).done((centresData) => {
       if (centresData) {
@@ -19,32 +19,54 @@ $(document).ready(function () {
           `);
         });
         showBatchesAndRooms(centres[0]);
+
+        $centres.change(() => {
+          getCentre(+($centres.val()));
+        })
       } else {
         alert('No Centres.');
       }
     }).fail((err) => {
+      alert('No Centres.');
       console.log(err);
     });
 
-  };
+  }
 
   getCentres();
+
+  function getCentre(centreId) {
+    $.get(`${api}/centres/${centreId}`).done((centreData) => {
+      if (centreData.success) {
+        showBatchesAndRooms(centreData.data);
+      } else {
+        alert('Unknown Centre')
+      }
+    }).fail((err) => {
+      alert('Unknown Centre.');
+      console.log(err);
+    });
+  }
 
   function showBatchesAndRooms(centre) {
 
     const events = [];
     const resources = [];
-    const colors = ['rgb(255,0,0)', 'rgb(0,255,0)', 'rgb(0,0,255)', 'rgb(255,0,255)'];
+    const colors = ['rgb(255,0,0)', 'rgb(0,255,0)', 'rgb(0,0,255)', 'rgb(255,0,255)', 'rgb(255,255,0)', 'rgb(0,255,255)'];
     let colorCounter = 0;
 
+    $('#calendar').remove();
+
+    $('#calendarContainer').append(`
+    <div id="calendar"></div>
+    `);
 
     $.get(`${api}/centres/${centre.id}/rooms`).done((roomsData) => {
       if (roomsData.success) {
 
         const rooms = roomsData.data;
         const $colors = $('#colors');
-        $colors.empty();
-        $colors.append(`
+        $colors.empty().append(`
               <div class="col">
               </div>
               <div class="col">
@@ -136,7 +158,6 @@ $(document).ready(function () {
 
             });
 
-            $('#calendar').empty();
             $('#calendar').fullCalendar({
               // put your options and callbacks here
               schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
@@ -210,6 +231,7 @@ $(document).ready(function () {
             alert('There are no Batches');
           }
         }).fail((err) => {
+          alert('No Batches At This Centre.');
           console.log(err)
         })
       } else {
@@ -217,10 +239,10 @@ $(document).ready(function () {
       }
 
     }).fail((err) => {
+      alert('No Rooms At This Centre.');
       console.log(err)
     });
   }
-
 
   function updateLecture(event) {
     $.ajax({
@@ -237,6 +259,7 @@ $(document).ready(function () {
     }).done(function (data) {
       console.log(data)
     }).fail(function (err) {
+      alert('Could Not Update The Lecture');
       console.log(err);
     })
   }
