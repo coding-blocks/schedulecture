@@ -2,20 +2,48 @@
  * Created by apoorvaagupta on 9/05/17.
  */
 $(document).ready(function () {
-  const events = [];
-  const resources = [];
-  const colors = ['rgb(255,0,0)', 'rgb(0,255,0)', 'rgb(0,0,255)', 'rgb(255,0,255)'];
-  let colorCounter = 0;
+
 
   var api = 'http://localhost:4000/api/v1';
 
-  var getBatchesAndRooms = function () {
 
-    $.get(`${api}/rooms`).done((roomsData) => {
+  var getCentres = function () {
+
+    $.get(`${api}/centres`).done((centresData) => {
+      if (centresData) {
+        const centres = centresData.data;
+        const $centres = $("#centres");
+        centres.forEach((centre) => {
+          $centres.append(`
+            <option value="${centre.id}">${centre.name}</option>
+          `);
+        });
+        showBatchesAndRooms(centres[0]);
+      } else {
+        alert('No Centres.');
+      }
+    }).fail((err) => {
+      console.log(err);
+    });
+
+  };
+
+  getCentres();
+
+  function showBatchesAndRooms(centre) {
+
+    const events = [];
+    const resources = [];
+    const colors = ['rgb(255,0,0)', 'rgb(0,255,0)', 'rgb(0,0,255)', 'rgb(255,0,255)'];
+    let colorCounter = 0;
+
+
+    $.get(`${api}/centres/${centre.id}/rooms`).done((roomsData) => {
       if (roomsData.success) {
 
         const rooms = roomsData.data;
         const $colors = $('#colors');
+        $colors.empty();
         $colors.append(`
               <div class="col">
               </div>
@@ -24,7 +52,7 @@ $(document).ready(function () {
           `);
 
         rooms.forEach((room) => {
-          let currentColor = colors[colorCounter++%colors.length];
+          let currentColor = colors[colorCounter++ % colors.length];
           resources.push({
             id: room.id,
             title: room.name,
@@ -48,8 +76,9 @@ $(document).ready(function () {
           `);
 
         const $batches = $('#batches');
+        $batches.empty();
 
-        $.get(`${api}/batches/`).done((data) => {
+        $.get(`${api}/centres/${centre.id}/batches`).done((data) => {
           if (data.success) {
             let batches = data.data;
             batches.forEach((batch) => {
@@ -68,7 +97,6 @@ $(document).ready(function () {
 
             batches.forEach(function (batch) {
               const $lectures = $(`#batch-${batch.name}`);
-
 
               let lectures = batch.lectures;
               lectures.forEach((lecture) => {
@@ -108,7 +136,7 @@ $(document).ready(function () {
 
             });
 
-
+            $('#calendar').empty();
             $('#calendar').fullCalendar({
               // put your options and callbacks here
               schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
@@ -190,10 +218,9 @@ $(document).ready(function () {
 
     }).fail((err) => {
       console.log(err)
-    })
-  };
+    });
+  }
 
-  getBatchesAndRooms();
 
   function updateLecture(event) {
     $.ajax({
