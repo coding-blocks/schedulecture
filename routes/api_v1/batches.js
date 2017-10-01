@@ -98,7 +98,17 @@ router.post('/new', function (req, res) {
  *
  */
 router.get('/', function (req, res) {
-    db.actions.batches.getAll({},function (err, batches) {
+    let conditions = {};
+    if(req.query.centreId){
+        conditions.centreId = req.query.centreId
+    }
+    if(req.query.status){
+      conditions.status = req.query.status
+    }else {
+      conditions.status = "active"
+    }
+
+  db.actions.batches.getAll(conditions,function (err, batches) {
         if (err) {
             console.log("ERROR" + err);
             res.status(500).send({

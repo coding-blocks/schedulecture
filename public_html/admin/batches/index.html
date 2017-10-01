@@ -71,20 +71,34 @@
             </div>
             <div class="modal-body">
                 <div class="form-group" style="margin-bottom: 0">
-                    <input id="centreName" required type="text" class="form-control input"
+                    <input id="batchName" required type="text" class="form-control input"
                            placeholder="Name" style="margin-bottom: 15px">
-                    <input id="centreHead" required type="text" class="form-control input"
-                           placeholder="Centre Head" style="margin-bottom: 15px">
-                    <input id="centreContact" required type="text" class="form-control input"
-                           placeholder="Centre Contact">
+                    <input id="batchSize" required type="text" class="form-control input"
+                           placeholder="Batch Size" style="margin-bottom: 15px">
+
+                    <label class="mr-3" for="centreList" style="color: #777; font-size: 1rem">Start Date:
+                        : </label>
+                    <input type="date" id="startDate" class="form-control input">
+                    <label class="mr-3" for="centreList" style="color: #777; font-size: 1rem">End Date:
+                        : </label>
+                    <input type="date" id="endDate" class="form-control input">
+                    <label class="mr-3" for="centreList" style="color: #777; font-size: 1rem">Centre
+                        : </label>
+
+                    <select id="centreList" class="custom-select mb-2" class="form-control input">
+                    </select><br>
+                    <label class="mr-3" for="courseList" style="color: #777; font-size: 1rem">Course
+                        : </label>
+                    <select id="courseList" class="custom-select mb-2" class="form-control input">
+                    </select><br>
+                    <label class="mr-3" for="teacherList" style="color: #777; font-size: 1rem">Teacher
+                        : </label>
+                    <select id="teacherList" class="custom-select mb-2" class="form-control input">
+                    </select>
                 </div>
             </div>
             <div class="modal-footer" style="border: none; justify-content: center; padding-top: 5px">
-                <!--<a id="submit-review" class="btn btn-success text-uppercase"-->
-                <!--style="background-color:#4bca81;padding: 10px 45px;color: white;font-size: 12px;font-weight:-->
-                <!--700;cursor: pointer;width: auto;border-radius: 100px">Submit</a>-->
-
-                <button id="batchSubmit" class=" btn btn-success" data-toggle="modal" data-target="#addCentresModal"
+                <button id="batchSubmit" class=" btn btn-success"
                         style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer;">
                     Submit
                 </button>
