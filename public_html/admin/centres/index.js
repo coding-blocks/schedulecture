@@ -12,7 +12,7 @@ $(document).ready(function () {
                     <div class="text-center"  style="padding: 15px 0">
                         <h3>` + centres.data[i].name + `</h3>
                         <p>Centre Head: ` + centres.data[i].head + `<br> Mob: ` + centres.data[i].phone + `</p>
-                        <a class=" btn btn-success" style=" font-size: 16px; color: white; padding: 5px 12px" href="/admin/centres/` + centres.data[i].id + `/rooms">Rooms</a>&nbsp;<a class=" btn btn-success" style="font-size: 16px; color: white; padding: 5px 12px"  href="/admin/batches?centreId=` + centres.data[i].id + `/">Batches</a>&nbsp;
+                        <a class=" btn btn-success" style=" font-size: 16px; color: white; padding: 5px 12px" href="/admin/centres/` + centres.data[i].id + `/rooms">Rooms</a>&nbsp;<a class=" btn btn-success" style="font-size: 16px; color: white; padding: 5px 12px"  href="/admin/batches?centreId=` + centres.data[i].id + `">Batches</a>&nbsp;
                         <i class="fa fa-pencil edit" style="color: blue; font-size: 24px" centre-id="` + centres.data[i].id + `"></i>&nbsp;
                         <i class="fa fa-trash-o delete" style="color: red; font-size: 24px" centre-id="` + centres.data[i].id + `"></i>
 
@@ -49,7 +49,7 @@ $(document).ready(function () {
               }).done(function (centre) {
                 if (centre.success === true) {
 
-                  $('#addCentresModal').modal('hide');
+                  $('#editCentresModal').modal('hide');
                   window.location.reload();
                 }
                 else {
@@ -88,21 +88,7 @@ $(document).ready(function () {
       if (centre.success === true) {
 
         $('#addCentresModal').modal('hide');
-        let centreList = $('#minicourses-list');
-        centreList.append(`<li class="minicourses-list-li col-3" style="height: auto">
-                <div class="minicourses-list-li-div">
-                    <div style="height: 120px; background-color: #999">
-                    </div>
-                    <div class="text-center"  style="padding: 15px 0">
-                        <h3>` + centre.data.name + `</h3>
-                        <p>Centre Head: ` + centre.data.head + `<br> Mob: ` + centre.data.phone + `</p>
-                        <a class=" btn btn-success" style=" font-size: 16px; color: white; padding: 5px 12px" href="/admin/centres/` + centre.data.id + `/rooms">Rooms</a>&nbsp;<a class=" btn btn-success" style="font-size: 16px; color: white; padding: 5px 12px"  href="/` + centre.data.id + `/batches">Batches</a>&nbsp;
-                        <i class="fa fa-pencil fa-pencil-right" style="color: blue; font-size: 24px"  centre-id="` + centre.data.id + `"></i>&nbsp;
-                        <i class="fa fa-trash-o" style="color: red; font-size: 24px" centre-id="` + centre.data.id + `"></i>
-
-                    </div>
-                </div>
-            </li>`)
+        window.location.reload();
       }
       else {
         console.log("could not add the centre right now")
