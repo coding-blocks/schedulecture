@@ -64,7 +64,7 @@ module.exports = {
         });
     },
     getBatches : function(id, done) {
-        models.batches.findAll({
+        models.Batches.findAll({
             where : {
                 centreId : id
             }
@@ -76,7 +76,7 @@ module.exports = {
         })
     },
     getRooms : function (id, done) {
-        models.rooms.findAll({
+        models.Rooms.findAll({
             where : {
                 centreId : id
             }
