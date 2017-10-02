@@ -39,7 +39,7 @@ module.exports = {
     models.Batches.findOne({
       where: {
         id: id
-      }
+      },include: [models.Centres, models.Courses, models.Teachers, models.Lectures]
     }).then(function (data) {
       done(null, data);
     }).catch(function (err) {

@@ -50,6 +50,7 @@ router.post('/new', function (req, res) {
       else {
         if (batch) {
 
+
           (async function () {
 
             for (let i = 1; i <= batch.noOfLectures; i++) {
