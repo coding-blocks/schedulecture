@@ -14,7 +14,6 @@ const db = require('../../db');
  * @apiParam {string} date date of the lecture
  * @apiParam {string} startTime starting time of the lecture
  * @apiParam {string} endTime ending time of the lecture
- * @apiParam {string} topic topic of the lecture
  * @apiParam {number} batchId batch id  of lecture
  * @apiParam {number} roomId room id of lecture
  * @apiSuccessExample {json} Success-Response:
@@ -27,7 +26,6 @@ const db = require('../../db');
         "date": "2016-09-15T03:30:00.000Z",
         "startTime": "2016-09-15T03:30:00.000Z",
         "endTime": "2016-09-15T03:30:00.000Z",
-        "topic": "Broadcast receivers",
         "batchId": 7,
         "roomId": null,
         "updatedAt": "2017-09-04T18:57:44.614Z",
@@ -46,7 +44,7 @@ router.post('/new', function (req, res) {
   req.body.endTime = req.body.hasOwnProperty('endTime') ? (new Date(req.body.endTime)) : null;
 
 
-  db.actions.lectures.createNew(req.body.name, req.body.date, req.body.startTime, req.body.endTime, req.body.topic, req.body.batchId,
+  db.actions.lectures.createNew(req.body.name, req.body.date, req.body.startTime, req.body.endTime, req.body.batchId,
     req.body.roomId, req.body.teacherId, function (err, lecture) {
 
       if (err) {
@@ -94,7 +92,6 @@ router.post('/new', function (req, res) {
             "date": "2016-09-15T03:30:00.000Z",
             "startTime": "2016-09-15T03:30:00.000Z",
             "endTime": "2016-09-15T03:30:00.000Z",
-            "topic": "Actifsvssfvfv",
             "createdAt": "2017-09-04T18:19:53.405Z",
             "updatedAt": "2017-09-04T18:19:53.405Z",
             "batchId": 7,
@@ -106,7 +103,6 @@ router.post('/new', function (req, res) {
             "date": "2016-09-15T03:30:00.000Z",
             "startTime": "2016-09-15T03:30:00.000Z",
             "endTime": "2016-09-15T03:30:00.000Z",
-            "topic": "Actifsvssfvfv",
             "createdAt": "2017-09-04T18:20:47.552Z",
             "updatedAt": "2017-09-04T18:20:47.552Z",
             "batchId": 7,
@@ -118,7 +114,6 @@ router.post('/new', function (req, res) {
             "date": "2016-09-15T03:30:00.000Z",
             "startTime": "2016-09-15T03:30:00.000Z",
             "endTime": "2016-09-15T03:30:00.000Z",
-            "topic": "Fragments",
             "createdAt": "2017-09-04T18:55:36.882Z",
             "updatedAt": "2017-09-04T18:55:36.882Z",
             "batchId": 7,
@@ -130,7 +125,6 @@ router.post('/new', function (req, res) {
             "date": "2016-09-15T03:30:00.000Z",
             "startTime": "2016-09-15T03:30:00.000Z",
             "endTime": "2016-09-15T03:30:00.000Z",
-            "topic": "Fragments",
             "createdAt": "2017-09-04T18:56:38.928Z",
             "updatedAt": "2017-09-04T18:56:38.928Z",
             "batchId": 7,
@@ -142,7 +136,6 @@ router.post('/new', function (req, res) {
             "date": "2016-09-15T03:30:00.000Z",
             "startTime": "2016-09-15T03:30:00.000Z",
             "endTime": "2016-09-15T03:30:00.000Z",
-            "topic": "Activities",
             "createdAt": "2017-09-04T18:57:10.053Z",
             "updatedAt": "2017-09-04T18:57:10.053Z",
             "batchId": 7,
@@ -154,7 +147,6 @@ router.post('/new', function (req, res) {
             "date": "2016-09-15T03:30:00.000Z",
             "startTime": "2016-09-15T03:30:00.000Z",
             "endTime": "2016-09-15T03:30:00.000Z",
-            "topic": "Broadcast receivers",
             "createdAt": "2017-09-04T18:57:44.614Z",
             "updatedAt": "2017-09-04T18:57:44.614Z",
             "batchId": 7,
@@ -227,7 +219,6 @@ router.put('/', function (req, res) {
         "date": "2016-09-15T03:30:00.000Z",
         "startTime": "2016-09-15T03:30:00.000Z",
         "endTime": "2016-09-15T03:30:00.000Z",
-        "topic": "Activities",
         "createdAt": "2017-09-04T18:57:10.053Z",
         "updatedAt": "2017-09-04T18:57:10.053Z",
         "batchId": 7,
@@ -280,7 +271,6 @@ router.get('/:id', function (req, res) {
         "date": "2016-09-15T03:30:00.000Z",
         "startTime": "2016-09-15T03:30:00.000Z",
         "endTime": "2016-09-15T03:30:00.000Z",
-        "topic": "updated object",
         "createdAt": "2017-09-04T18:57:10.053Z",
         "updatedAt": "2017-09-04T18:59:34.881Z",
         "batchId": "7",
