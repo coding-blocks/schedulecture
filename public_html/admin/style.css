@@ -42,13 +42,9 @@ ul{
     padding-left: 20px;
 }
 
-
-
-
-
-#calendar{
-    margin-top: 20px;
-}
+/*#calendar{*/
+    /*margin-top: 20px;*/
+/*}*/
 
 #sidebar .list-group-item {
     border-radius: 0;
