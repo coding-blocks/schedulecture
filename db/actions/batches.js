@@ -25,7 +25,7 @@ module.exports = {
     models.Batches.findAll({
         where: conditions
       ,
-      include: [models.Centres, models.Teachers]}).then(function (data) {
+      include: [models.Centres, models.Courses, models.Teachers]}).then(function (data) {
 
 
       done(null, data)
@@ -63,7 +63,7 @@ module.exports = {
     });
   },
   archiveBatch: function (id, done) {
-    models.batches.findOne({
+    models.Batches.findOne({
       where: {
         id: id
       }

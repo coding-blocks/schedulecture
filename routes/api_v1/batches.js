@@ -34,31 +34,31 @@ const db = require('../../db');
 }
  */
 router.post('/new', function (req, res) {
-    db.actions.batches.newBatch(req.body.name, req.body.startDate, req.body.endDate, req.body.size, req.body.courseId,
-        req.body.centreId, req.body.teacherId, function (err, batch) {
-        if (err) {
-            console.log(err);
-            res.status(500).send({
-                success: false
-                , code: "500"
-                , error: {
-                    message: "Could not add the batch(Internal Server Error)."
-                }
-            })
-        }
-        else {
-            if (batch) {
-                res.status(201).send({success: true, data: batch.get()});
-            } else {
-                res.status(400).send({
-                    success: false
-                    , code: "400"
-                    , error: {
-                        message: "Could not add the batch(Incorrect Details)."
-                    }
-                })
+  db.actions.batches.newBatch(req.body.name, req.body.startDate, req.body.endDate, req.body.size, req.body.courseId,
+    req.body.centreId, req.body.teacherId, function (err, batch) {
+      if (err) {
+        console.log(err);
+        res.status(500).send({
+          success: false
+          , code: "500"
+          , error: {
+            message: "Could not add the batch(Internal Server Error)."
+          }
+        })
+      }
+      else {
+        if (batch) {
+          res.status(201).send({success: true, data: batch.get()});
+        } else {
+          res.status(400).send({
+            success: false
+            , code: "400"
+            , error: {
+              message: "Could not add the batch(Incorrect Details)."
             }
+          })
         }
+      }
     })
 });
 
@@ -98,97 +98,102 @@ router.post('/new', function (req, res) {
  *
  */
 router.get('/', function (req, res) {
-    let conditions = {};
-    if(req.query.centreId){
-        conditions.centreId = req.query.centreId
-    }
-    if(req.query.status){
-      conditions.status = req.query.status
-    }else {
-      conditions.status = "active"
-    }
+  let conditions = {};
+  if (req.query.centreId) {
+    conditions.centreId = req.query.centreId
+  }
+  if (req.query.status) {
+    console.log('status')
+   if(req.query.status!== 'all'){
+      console.log('not all')
+    conditions.status = req.query.status}
+  } else {
+    console.log('no status')
+    conditions.status = "active"
+  }
 
-  db.actions.batches.getAll(conditions,function (err, batches) {
-        if (err) {
-            console.log("ERROR" + err);
-            res.status(500).send({
-                success: false
-                , code: "500"
-                , error: {
-                    message: "Could not get all the batches(Internal Server Error)."
-                }
-            })
+  console.log(conditions)
+  db.actions.batches.getAll(conditions, function (err, batches) {
+    if (err) {
+      console.log("ERROR" + err);
+      res.status(500).send({
+        success: false
+        , code: "500"
+        , error: {
+          message: "Could not get all the batches(Internal Server Error)."
         }
-        else {
-            if (batches.length !== 0) {
-                res.status(200).send({success: true, data: batches.map((batch) => batch.get())});
-            } else {
-                res.status(404).send({
-                    success: false
-                    , code: "404"
-                    , error: {
-                        message: "There are no batches."
-                    }
-                })
-            }
-        }
-    })
+      })
+    }
+    else {
+      if (batches.length !== 0) {
+        res.status(200).send({success: true, data: batches.map((batch) => batch.get())});
+      } else {
+        res.status(404).send({
+          success: false
+          , code: "404"
+          , error: {
+            message: "There are no batches."
+          }
+        })
+      }
+    }
+  })
 });
 
 router.get('/active', function (req, res) {
-    db.actions.batches.getAll({status : "active"}, function (err, activeBatches) {
-        if (err) {
-            console.log("ERROR" + err);
-            res.status(500).send({
-                success: false
-                , code: "500"
-                , error: {
-                    message: "Could not get all the active batches(Internal Server Error)."
-                }
-            })
+  db.actions.batches.getAll({status: "active"}, function (err, activeBatches) {
+    if (err) {
+      console.log("ERROR" + err);
+      res.status(500).send({
+        success: false
+        , code: "500"
+        , error: {
+          message: "Could not get all the active batches(Internal Server Error)."
         }
-        else {
-            if (activeBatches.length !== 0) {
-                res.status(200).send({success: true, data: activeBatches.map((batch) => batch.get())});
-            } else {
-                res.status(404).send({
-                    success: false
-                    , code: "404"
-                    , error: {
-                        message: "There are no active batches."
-                    }
-                })
-            }
-        }
-    })
+      })
+    }
+    else {
+      if (activeBatches.length !== 0) {
+        res.status(200).send({success: true, data: activeBatches.map((batch) => batch.get())});
+      } else {
+        res.status(404).send({
+          success: false
+          , code: "404"
+          , error: {
+            message: "There are no active batches."
+          }
+        })
+      }
+    }
+  })
 });
 
 router.get('/archived', function (req, res) {
-    db.actions.batches.getAll({status : "archived"}, function (err, archivedBatches) {
-        if (err) {
-            console.log("ERROR" + err);
-            res.status(500).send({
-                success: false
-                , code: "500"
-                , error: {
-                    message: "Could not get all the archived batches(Internal Server Error)."
-                }
-            })
+  db.actions.batches.getAll({status: "archived"}, function (err, archivedBatches) {
+    if (err) {
+      console.log("ERROR" + err);
+      res.status(500).send({
+        success: false
+        , code: "500"
+        , error: {
+          message: "Could not get all the archived batches(Internal Server Error)."
         }
-        else {
-            if (archivedBatches.length !== 0) {
-                res.status(200).send({success: true, data: archivedBatches.map((batch) => batch.get())});
-            } else {
-                res.status(404).send({
-                    success: false
-                    , code: "404"
-                    , error: {
-                        message: "There are no archived batches."
-                    }
-                })
-            }
-        }
-    })
+      })
+    }
+    else {
+      if (archivedBatches.length !== 0) {
+        res.status(200).send({success: true, data: archivedBatches.map((batch) => batch.get())});
+      } else {
+        res.status(404).send({
+          success: false
+          , code: "404"
+          , error: {
+            message: "There are no archived batches."
+          }
+        })
+      }
+    }
+  })
 });
 
 /**
@@ -216,31 +221,31 @@ router.get('/archived', function (req, res) {
  *
  */
 router.get('/:id', function (req, res) {
-    db.actions.batches.search(req.params.id, function (err, batch) {
-        if (err) {
-            console.log(err);
-            res.status(500).send({
-                success: false
-                , code: "500"
-                , error: {
-                    message: `Could not get the batch with id ${req.params.id} (Internal Server Error).`
-                }
-            })
+  db.actions.batches.search(req.params.id, function (err, batch) {
+    if (err) {
+      console.log(err);
+      res.status(500).send({
+        success: false
+        , code: "500"
+        , error: {
+          message: `Could not get the batch with id ${req.params.id} (Internal Server Error).`
         }
-        else {
-            if (batch) {
-                res.status(200).send({success: true, data: batch.get()});
-            } else {
-                res.status(404).send({
-                    success: false
-                    , code: "404"
-                    , error: {
-                        message: `No Batch found for the id ${req.params.id}.`
-                    }
-                })
-            }
-        }
-    })
+      })
+    }
+    else {
+      if (batch) {
+        res.status(200).send({success: true, data: batch.get()});
+      } else {
+        res.status(404).send({
+          success: false
+          , code: "404"
+          , error: {
+            message: `No Batch found for the id ${req.params.id}.`
+          }
+        })
+      }
+    }
+  })
 });
 
 
@@ -269,59 +274,60 @@ router.get('/:id', function (req, res) {
  *
  */
 router.put('/:id', function (req, res) {
-    db.actions.batches.edit(req.params.id, req.body.values, function (err, batch) {
-        if (err) {
-            console.log(err);
-            res.status(500).send({
-                success: false
-                , code: "500"
-                , error: {
-                    message: `Could not update the batch with id ${req.params.id} (Internal Server Error).`
-                }
-            })
+  db.actions.batches.edit(req.params.id, req.body.values, function (err, batch) {
+    if (err) {
+      console.log(err);
+      res.status(500).send({
+        success: false
+        , code: "500"
+        , error: {
+          message: `Could not update the batch with id ${req.params.id} (Internal Server Error).`
         }
-        else {
-            if (batch) {
-                res.status(201).send({success: true, data: batch.get()});
-            } else {
-                res.status(400).send({
-                    success: false
-                    , code: "400"
-                    , error: {
-                        message: `Could not update the batch with batch id(Incorrect details)  ${req.params.id} .`
-                    }
-                })
-            }
-        }
-    })
+      })
+    }
+    else {
+      if (batch) {
+        res.status(201).send({success: true, data: batch.get()});
+      } else {
+        res.status(400).send({
+          success: false
+          , code: "400"
+          , error: {
+            message: `Could not update the batch with batch id(Incorrect details)  ${req.params.id} .`
+          }
+        })
+      }
+    }
+  })
 });
 
 router.put('/archive/:id', function (req, res) {
-    db.actions.batches.archiveBatch(req.params.id, function (err, batch) {
-        if (err) {
-            console.log(err);
-            res.status(500).send({
-                success: false
-                , code: "500"
-                , error: {
-                    message: `Could not archive the batch with id ${req.params.id} (Internal Server Error).`
-                }
-            })
+  console.log(req.params.id)
+  db.actions.batches.archiveBatch(req.params.id, function (err, batch) {
+    if (err) {
+      console.log(err);
+      res.status(500).send({
+        success: false
+        , code: "500"
+        , error: {
+          message: `Could not archive the batch with id ${req.params.id} (Internal Server Error).`
         }
-        else {
-            if (batch) {
-                res.status(201).send({success: true, data: batch.get()});
-            } else {
-                res.status(400).send({
-                    success: false
-                    , code: "400"
-                    , error: {
-                        message: `Could not archive the batch with batch id(Incorrect details)  ${req.params.id} .`
-                    }
-                })
-            }
-        }
-    })
+      })
+    }
+    else {
+      if (batch) {
+        res.status(201).send({success: true, data: batch.get()});
+      } else {
+        res.status(400).send({
+          success: false
+          , code: "400"
+          , error: {
+            message: `Could not archive the batch with batch id(Incorrect details)  ${req.params.id} .`
+          }
+        })
+      }
+    }
+  })
 });
 
 /**
@@ -336,38 +342,38 @@ router.put('/archive/:id', function (req, res) {
 }
  */
 router.delete('/:id', function (req, res) {
-    db.actions.batches.deleteBatch(req.params.id, function (err,batchDeleted) {
-        if (err) {
-            console.log(err);
-            res.status(500).send({
-                success: false
-                , code: "500"
-                , error: {
-                    message: `Could not delete the batch with id ${req.params.id} (Internal Server Error).`
-                }
-            })
-
-        } else {
-            if (batchDeleted !== 0) {
-                res.status(200).send({success: true})
-            } else {
-                res.status(404).send({
-                    success: false
-                    , code: "404"
-                    , error: {
-                        message: `Could not delete the batch with id ${req.params.id} (Batch not found).`
-                    }
-                })
-            }
+  db.actions.batches.deleteBatch(req.params.id, function (err, batchDeleted) {
+    if (err) {
+      console.log(err);
+      res.status(500).send({
+        success: false
+        , code: "500"
+        , error: {
+          message: `Could not delete the batch with id ${req.params.id} (Internal Server Error).`
         }
-    })
+      })
+
+    } else {
+      if (batchDeleted !== 0) {
+        res.status(200).send({success: true})
+      } else {
+        res.status(404).send({
+          success: false
+          , code: "404"
+          , error: {
+            message: `Could not delete the batch with id ${req.params.id} (Batch not found).`
+          }
+        })
+      }
+    }
+  })
 });
 
 /**
-* @api {put} /api/v1/batches/:id/lectures PUT /api/v1/batches/:id/lectures
-* @apiName GetLecturesOfBatchById
-* @apiGroup Batch
-* @apiParam {Number} id batch by id
+ * @api {put} /api/v1/batches/:id/lectures PUT /api/v1/batches/:id/lectures
+ * @apiName GetLecturesOfBatchById
+ * @apiGroup Batch
+ * @apiParam {Number} id batch by id
  * @apiSuccessExample {json} Success-Response:
  *
  *{
@@ -437,31 +443,31 @@ router.delete('/:id', function (req, res) {
 }
  */
 router.get('/:id/lectures', function (req, res) {
-    db.actions.batches.getLectures(req.params.id, function (err, lectures) {
-        if (err) {
-            console.log("ERROR" + err);
-            res.status(500).send({
-                success: false
-                , code: "500"
-                , error: {
-                    message: `Could not find the lectures for batch with id ${req.params.id} (Internal Server Error).`
-                }
-            })
+  db.actions.batches.getLectures(req.params.id, function (err, lectures) {
+    if (err) {
+      console.log("ERROR" + err);
+      res.status(500).send({
+        success: false
+        , code: "500"
+        , error: {
+          message: `Could not find the lectures for batch with id ${req.params.id} (Internal Server Error).`
         }
-        else {
-            if (lectures.length !== 0) {
-                res.status(200).send({success: true, data: lectures.map((lecture) => lecture.get())});
-            } else {
-                res.status(404).send({
-                    success: false
-                    , code: "404"
-                    , error: {
-                        message: `There are no lectures for batch with id ${req.params.id}.`
-                    }
-                })
-            }
-        }
-    })
+      })
+    }
+    else {
+      if (lectures.length !== 0) {
+        res.status(200).send({success: true, data: lectures.map((lecture) => lecture.get())});
+      } else {
+        res.status(404).send({
+          success: false
+          , code: "404"
+          , error: {
+            message: `There are no lectures for batch with id ${req.params.id}.`
+          }
+        })
+      }
+    }
+  })
 });
 
 

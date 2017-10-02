@@ -76,22 +76,21 @@
                     <input id="batchSize" required type="text" class="form-control input"
                            placeholder="Batch Size" style="margin-bottom: 15px">
 
-                    <label class="mr-3" for="centreList" style="color: #777; font-size: 1rem">Start Date:
-                        : </label>
-                    <input type="date" id="startDate" class="form-control input">
-                    <label class="mr-3" for="centreList" style="color: #777; font-size: 1rem">End Date:
-                        : </label>
-                    <input type="date" id="endDate" class="form-control input">
-                    <label class="mr-3" for="centreList" style="color: #777; font-size: 1rem">Centre
+                    <label class="mr-2" for="startDate" style="color: #777; font-size: 1rem; display: inline-block">Start Date: </label>
+                    <input type="date" id="startDate" class="form-control input" style="display: inline-block; width: auto;margin-bottom: 15px"><br>
+
+                    <label class="mr-2" for="endDate" style="color: #777; font-size: 1rem; display: inline-block">End Date: </label>
+                    <input type="date" id="endDate" class="form-control input" style="display: inline-block; width: auto;margin-bottom: 15px"><br>
+                    <label class="mr-2" for="centreList" style="color: #777; font-size: 1rem">Centre
                         : </label>
 
                     <select id="centreList" class="custom-select mb-2" class="form-control input">
                     </select><br>
-                    <label class="mr-3" for="courseList" style="color: #777; font-size: 1rem">Course
+                    <label class="mr-2" for="courseList" style="color: #777; font-size: 1rem">Course
                         : </label>
                     <select id="courseList" class="custom-select mb-2" class="form-control input">
                     </select><br>
-                    <label class="mr-3" for="teacherList" style="color: #777; font-size: 1rem">Teacher
+                    <label class="mr-2" for="teacherList" style="color: #777; font-size: 1rem">Teacher
                         : </label>
                     <select id="teacherList" class="custom-select mb-2" class="form-control input">
                     </select>
@@ -111,10 +110,25 @@
     <div class="row titlerow text-center">
         <div class="col-sm-12">
             <div class="row title">
-                <div class="col-sm-2"></div>
-                <div class="col-sm-8">
+                <div class="col-sm-5 mt-auto mb-auto"><div class="form-group" style="margin-bottom: 0">
+                    <label class="mr-2" for="centreList" style="color: #777; font-size: 1rem">Centre
+                        :</label>
+
+                    <select id="batchcentreList" class="custom-select" class="form-control input">
+
+                    </select>&nbsp;&nbsp;
+                    <label class="mr-2" for="courseList" style="color: #777; font-size: 1rem">Status
+                        :</label>
+                    <select id="batchstatuslist" class="custom-select" class="form-control input">
+                        <option value="active">Active</option>
+                        <option value="archived">Archived</option>
+                        <option value="all">All</option>
+                    </select>
+                </div></div>
+                <div class="col-sm-2">
                     <h1 style="margin: 0">BATCHES</h1>
                 </div>
+                <div class="col-sm-3"></div>
                 <div class="col-sm-2 mt-auto mb-auto">
                     <button class=" btn btn-success" data-toggle="modal" data-target="#addBatchesModal"
                             style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer;">
