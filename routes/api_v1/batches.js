@@ -34,8 +34,9 @@ const db = require('../../db');
 }
  */
 router.post('/new', function (req, res) {
-  db.actions.batches.newBatch(req.body.name, req.body.startDate, req.body.endDate, req.body.size, req.body.noOfLectures, req.body.lectureShortCode, req.body.courseId,
-    req.body.centreId, req.body.teacherId, function (err, batch) {
+  db.actions.batches.newBatch(req.body.name, req.body.startDate, req.body.endDate, req.body.size, req.body.noOfLectures,
+    req.body.lectureShortCode, req.body.hoursPerLecture, req.body.courseId, req.body.centreId, req.body.teacherId,
+    function (err, batch) {
       if (err) {
         console.log(err);
         res.status(500).send({
