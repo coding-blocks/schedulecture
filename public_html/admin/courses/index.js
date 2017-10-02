@@ -38,8 +38,8 @@ $(document).ready(function () {
         $('#batchSubmit').click(function () {
           let name = $('#batchName').val();
           let size = $('#batchSize').val();
-          let nol = $('#batchNoOfLectures');
-          let shortcode = $('#lectureShortCode');
+          let nol = $('#batchNoOfLectures').val();
+          let shortcode = $('#lectureShortCode').val();
           let startDate = $('#startDate').val();
           let endDate = $('#endDate').val();
           let centreId = $('#centreList').val();
