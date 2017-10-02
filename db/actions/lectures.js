@@ -5,13 +5,12 @@ const models = require('../models')
 
 module.exports = {
 
-    createNew : function (name,date,startTime,endTime,topic,batchId,roomId,teacherId,done) {
+    createNew : function (name,date,startTime,endTime,batchId,roomId,teacherId,done) {
         models.Lectures.create({
             name : name,
             date : date,
             startTime: startTime,
             endTime : endTime,
-            topic : topic,
             batchId : batchId,
             roomId : roomId,
             teacherId : teacherId

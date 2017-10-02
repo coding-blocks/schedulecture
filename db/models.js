@@ -24,20 +24,22 @@ const sequelize = new Sequelize(DATABASE_URL, {
   }
 });
 
-const Courses = sequelize.define('course',{
-    id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name : Sequelize.DataTypes.STRING,
-    desc : Sequelize.DataTypes.STRING,
-    lect : Sequelize.DataTypes.INTEGER,
-    hours : Sequelize.DataTypes.INTEGER
+const Courses = sequelize.define('course', {
+  id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+  name: Sequelize.DataTypes.STRING,
+  desc: Sequelize.DataTypes.STRING,
+  lect: Sequelize.DataTypes.INTEGER,
+  hours: Sequelize.DataTypes.INTEGER
 });
-const Batches = sequelize.define('batch',{
-    id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name : Sequelize.DataTypes.STRING,
-    startDate : Sequelize.DataTypes.DATE,
-    endDate : Sequelize.DataTypes.DATE,
-    size : Sequelize.DataTypes.INTEGER,
-    status : Sequelize.DataTypes.STRING
+const Batches = sequelize.define('batch', {
+  id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+  name: Sequelize.DataTypes.STRING,
+  startDate: Sequelize.DataTypes.DATE,
+  endDate: Sequelize.DataTypes.DATE,
+  size: Sequelize.DataTypes.INTEGER,
+  status: Sequelize.DataTypes.STRING,
+  noOfLectures: Sequelize.DataTypes.INTEGER,
+  lectureShortCode: Sequelize.DataTypes.STRING
 });
 const Lectures = sequelize.define('lecture', {
   id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -45,31 +47,30 @@ const Lectures = sequelize.define('lecture', {
   date: Sequelize.DataTypes.DATE,
   startTime: Sequelize.DataTypes.DATE,
   endTime: Sequelize.DataTypes.DATE,
-  topic: Sequelize.DataTypes.STRING
 });
-const Rooms = sequelize.define('room',{
-    id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name : Sequelize.DataTypes.STRING,
-    capacity : Sequelize.DataTypes.INTEGER,
-    config : Sequelize.DataTypes.STRING
+const Rooms = sequelize.define('room', {
+  id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+  name: Sequelize.DataTypes.STRING,
+  capacity: Sequelize.DataTypes.INTEGER,
+  config: Sequelize.DataTypes.STRING
 });
 
-const Centres = sequelize.define('centre',{
-    id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name : Sequelize.DataTypes.STRING,
-    head : Sequelize.DataTypes.STRING,
-    phone : {type: Sequelize.DataTypes.STRING(12), isNumeric: true}
+const Centres = sequelize.define('centre', {
+  id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+  name: Sequelize.DataTypes.STRING,
+  head: Sequelize.DataTypes.STRING,
+  phone: {type: Sequelize.DataTypes.STRING(12), isNumeric: true}
 });
 const Users = sequelize.define('user', {
   id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   name: Sequelize.DataTypes.STRING,
   email: Sequelize.DataTypes.STRING
 });
-const Teachers = sequelize.define('teacher',{
-    id : {type : Sequelize.DataTypes.INTEGER, primaryKey : true, autoIncrement : true},
-    name : Sequelize.DataTypes.STRING,
-    email : Sequelize.DataTypes.STRING,
-    contact : {type : Sequelize.DataTypes.STRING(12), isNumeric : true}
+const Teachers = sequelize.define('teacher', {
+  id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+  name: Sequelize.DataTypes.STRING,
+  email: Sequelize.DataTypes.STRING,
+  contact: {type: Sequelize.DataTypes.STRING(12), isNumeric: true}
 });
 
 Batches.belongsTo(Courses);
@@ -93,16 +94,16 @@ Teachers.hasMany(Batches);
 Lectures.belongsTo(Teachers);
 Teachers.hasMany(Lectures);
 
-sequelize.sync({alter: false}).then(function () {
-    console.log("Database Configured");
+sequelize.sync({force: false}).then(function () {
+  console.log("Database Configured");
 });
 
 module.exports = {
-    Courses,
-    Batches,
-    Lectures,
-    Rooms,
-    Users,
-    Centres,
-    Teachers
+  Courses,
+  Batches,
+  Lectures,
+  Rooms,
+  Users,
+  Centres,
+  Teachers
 };

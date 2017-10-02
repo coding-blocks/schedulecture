@@ -34,7 +34,7 @@ const db = require('../../db');
 }
  */
 router.post('/new', function (req, res) {
-  db.actions.batches.newBatch(req.body.name, req.body.startDate, req.body.endDate, req.body.size, req.body.courseId,
+  db.actions.batches.newBatch(req.body.name, req.body.startDate, req.body.endDate, req.body.size, req.body.noOfLectures, req.body.lectureShortCode, req.body.courseId,
     req.body.centreId, req.body.teacherId, function (err, batch) {
       if (err) {
         console.log(err);
@@ -48,7 +48,32 @@ router.post('/new', function (req, res) {
       }
       else {
         if (batch) {
-          res.status(201).send({success: true, data: batch.get()});
+
+          (async function () {
+
+            for (let i = 1; i <= batch.noOfLectures; i++) {
+              await db.models.Lectures.create({
+                name: batch.lectureShortCode + ( i < 10 ? '0' : '' ) + i,
+                batchId: batch.id,
+                teacherId: batch.teacherId
+              }).then((lecture) => {
+
+              }).catch((err) => {
+                console.log(err);
+                res.status(500).send({
+                  success: false
+                  , code: "500"
+                  , error: {
+                    message: "Could not add the Lectures for this Batch(Internal Server Error)."
+                  }
+                })
+              })
+            }
+
+            res.status(201).send({success: true, data: batch.get()});
+
+          })();
+
         } else {
           res.status(400).send({
             success: false
@@ -104,9 +129,10 @@ router.get('/', function (req, res) {
   }
   if (req.query.status) {
     console.log('status')
-   if(req.query.status!== 'all'){
+    if (req.query.status !== 'all') {
       console.log('not all')
-    conditions.status = req.query.status}
+      conditions.status = req.query.status
+    }
   } else {
     console.log('no status')
     conditions.status = "active"

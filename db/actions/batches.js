@@ -5,12 +5,14 @@
 const models = require('../models')
 module.exports = {
 
-  newBatch: function (name, startDate, endDate, size, courseId, centreId, teacherId, done) {
+  newBatch: function (name, startDate, endDate, size, noOfLectures, lectureShortCode, courseId, centreId, teacherId, done) {
     models.Batches.create({
       name: name,
       startDate: startDate,
       endDate: endDate,
       size: size,
+      noOfLectures: noOfLectures,
+      lectureShortCode: lectureShortCode,
       status: "active",
       courseId: courseId,
       centreId: centreId,
