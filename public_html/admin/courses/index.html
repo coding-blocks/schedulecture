@@ -9,7 +9,7 @@
     <link rel='stylesheet' href="../../bower_components/jquery-ui/themes/base/jquery-ui.css"/>
     <link rel="stylesheet" href='../../bower_components/fullcalendar-scheduler/dist/scheduler.css'>
     <link rel="stylesheet" href="../../bower_components/components-font-awesome/css/font-awesome.css">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
@@ -141,14 +141,25 @@
             </div>
             <div class="modal-body">
                 <div class="form-group" style="margin-bottom: 0">
+                    <label class="mr-2" for="batchName" style="color: #777; font-size: 1rem; display: inline-block">Name: </label>
                     <input id="batchName" required type="text" class="form-control input"
-                           placeholder="Name" style="margin-bottom: 15px">
+                           style="margin-bottom: 15px"><br>
+                    <label class="mr-2" for="batchSize" style="color: #777; font-size: 1rem; display: inline-block">Batch Size: </label>
+
                     <input id="batchSize" required type="text" class="form-control input"
-                           placeholder="Batch Size" style="margin-bottom: 15px">
+                           style="margin-bottom: 15px"><br>
+                    <label class="mr-2" for="lectureShortCode" style="color: #777; font-size: 1rem; display: inline-block">Lecture Short Code: </label>
+
                     <input id="lectureShortCode" required type="text" class="form-control input"
-                           placeholder="Lecture Short Code" style="margin-bottom: 15px">
+                           style="margin-bottom: 15px"><br>
+                    <label class="mr-2" for="batchNoOfLectures" style="color: #777; font-size: 1rem; display: inline-block">No. of Lectures: </label>
+
                     <input id="batchNoOfLectures" required type="text" class="form-control input"
-                           placeholder="Number Of Lectures" style="margin-bottom: 15px">
+                           style="margin-bottom: 15px"><br>
+                    <label class="mr-2" for="hoursPerLectures" style="color: #777; font-size: 1rem; display: inline-block">Hours per Lecture: </label>
+
+                    <input id="hoursPerLectures" required type="text" class="form-control input"
+                           style="margin-bottom: 15px"><br>
 
                     <label class="mr-2" for="startDate" style="color: #777; font-size: 1rem; display: inline-block">Start Date: </label>
                     <input type="date" id="startDate" class="form-control input" style="display: inline-block; width: auto;margin-bottom: 15px"><br>
