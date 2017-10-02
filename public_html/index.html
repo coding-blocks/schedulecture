@@ -3,38 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>ScheduleLecture</title>
-    <link rel='stylesheet' href='/bower_components/fullcalendar/dist/fullcalendar.css' />
-    <link rel='stylesheet' href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
-    <link rel='stylesheet' href='/bower_components/fullcalendar/dist/fullcalendar.css'/>
-    <link rel='stylesheet' href="/bower_components/jquery-ui/themes/base/jquery-ui.css"/>
-    <link rel="stylesheet" href='/bower_components/fullcalendar-scheduler/dist/scheduler.css'>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel='stylesheet' href='./bower_components/fullcalendar/dist/fullcalendar.css'/>
+    <link rel='stylesheet' href="./bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel='stylesheet' href='./bower_components/fullcalendar/dist/fullcalendar.css'/>
+    <link rel='stylesheet' href="./bower_components/jquery-ui/themes/base/jquery-ui.css"/>
+    <link rel="stylesheet" href='./bower_components/fullcalendar-scheduler/dist/scheduler.css'>
+    <link rel="stylesheet" href="./bower_components/components-font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="./admin/style.css">
 </head>
 <body>
 
-<div class="well container">
-    <div class="row">
-        <div id="draggable" class="lecture-container col-md-12">
-            <p draggable="true" class="lecture ui-widget-content">Lecture-1</p>
-            <p draggable="true" class="lecture">Lecture-2</p>
-            <p draggable="true" class="lecture">Lecture-3</p>
+<div class="container-fluid">
+    <div class="row no-gutters align-content-center header-bar" id="header-bar">
+        <div class="col-sm-2">
+            <div style="color: white; font-size: 22px;padding: 5px; padding-left: 15px">
+                SCHEDULECTURE
+            </div>
+        </div>
+
+        <div class="col-sm-8 text-center mt-auto mb-auto" style="color: #eee;font-size: 16px">
+            Centre: &nbsp;
+            <select id="centres" style="background-color: #343a40; color: #eee;padding: 3px">
+            </select>
+        </div>
+        <div class="col-sm-2 text-center mt-auto mb-auto">
+            <button class="btn btn-info">Login</button>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12 schedule">
+
+    <div class="row no-gutters">
+        <div id="calendarContainer" class="col-sm-10 ml-auto mr-auto wrapper"
+             style="padding: 10px; background-color: #F4F6F9">
+            <div id="colors" class="row text-center" style="height: 20px;width: 100%">
+
+            </div>
+            <hr>
             <div id='calendar'></div>
         </div>
     </div>
 </div>
 
 
-<script src='/bower_components/jquery/dist/jquery.js'></script>
-<script src='/bower_components/moment/moment.js'></script>
-<script src='/bower_components/fullcalendar/dist/fullcalendar.js'></script>
-<script src="/bower_components/jquery-ui/jquery-ui.js"></script>
-<script src='/bower_components/fullcalendar-scheduler/dist/scheduler.js'></script>
+<script src='./bower_components/jquery/dist/jquery.js'></script>
+<script src='./bower_components/moment/moment.js'></script>
+<script src='./bower_components/fullcalendar/dist/fullcalendar.js'></script>
+<script src="./bower_components/jquery-ui/jquery-ui.js"></script>
+<script src='./bower_components/fullcalendar-scheduler/dist/scheduler.js'></script>
+<script src="./bower_components/popper.js/dist/umd/popper.js"></script>
+<script src="./bower_components/bootstrap/dist/js/bootstrap.js"></script>
 
 
-<script src="/js/calendar.js"></script>
+<script src="./index.js"></script>
 </body>
 </html>
