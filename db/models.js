@@ -53,6 +53,7 @@ const Rooms = sequelize.define('room',{
     capacity : Sequelize.DataTypes.INTEGER,
     config : Sequelize.DataTypes.STRING
 });
+
 const Centres = sequelize.define('centre',{
     id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name : Sequelize.DataTypes.STRING,
