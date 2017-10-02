@@ -54,7 +54,7 @@ $(document).ready(function () {
 
     let courseList = $('#courseList');
     // let editCentreList = $('#editCentreList');
-
+    $('#batchNoOfLectures').val(courses.data[0].lect);
     for (let i = 0; i < courses.data.length; i++) {
 
       // if(centres.data[i].id==centreId){
@@ -62,7 +62,7 @@ $(document).ready(function () {
       //   centreList.append('<option value="'+centres.data[i].id+'" selected>'+centres.data[i].name+'</option>');
       //   editCentreList.append('<option value="'+centres.data[i].id+'" selected>'+centres.data[i].name+'</option>');
       // } else {
-      courseList.append('<option value="' + courses.data[i].id + '">' + courses.data[i].name + '</option>');
+      courseList.append('<option value="' + courses.data[i].id + '" nol = "'+courses.data[i].lect+'" name="course">' + courses.data[i].name + '</option>');
       // editCentreList.append('<option value="'+centres.data[i].id+'">'+centres.data[i].name+'</option>');
       // }
     }
@@ -104,6 +104,7 @@ $(document).ready(function () {
                         <br>Course: ` + batches.data[i].course.name + `<br>
                         Teacher: ` + batches.data[i].teacher.name + `
                         <br>Size: ` + batches.data[i].size + `<br>
+                        Number Of Lectures: `+batches.data[i].noOfLectures+`<br>
                         Start: ` + batches.data[i].startDate.split('T')[0] + `<br>End:` + batches.data[i].endDate.split('T')[0] + `</p>
                         <a class=" btn btn-success `+statusClass+`" style=" font-size: 16px; color: white; padding: 5px 12px" batch-id="` + batches.data[i].id + `">`+status+`</a>
                         <i class="fa fa-pencil edit" style="color: blue; font-size: 24px" batch-id="` + batches.data[i].id + `"></i>&nbsp;
@@ -199,9 +200,17 @@ $(document).ready(function () {
     }
   })
 
+  $('#courseList').change(function () {
+    $('#batchNoOfLectures').val(($('option[value='+$('#courseList').val()+'][name="course"]').attr('nol')))
+
+    console.log()
+  })
+
   $('#batchSubmit').click(function () {
     let name = $('#batchName').val();
     let size = $('#batchSize').val();
+    let nol = $('#batchNoOfLectures');
+    let shortcode = $('#lectureShortCode');
     let startDate = $('#startDate').val();
     let endDate = $('#endDate').val();
     let centreId = $('#centreList').val();
@@ -213,6 +222,8 @@ $(document).ready(function () {
       startDate: startDate,
       endDate: endDate,
       size: size,
+      noOfLectures: nol,
+      lectureShortCode: shortcode,
       courseId: courseId,
       centreId: centreId,
       teacherId: teacherId
