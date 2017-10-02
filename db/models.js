@@ -39,7 +39,8 @@ const Batches = sequelize.define('batch', {
   size: Sequelize.DataTypes.INTEGER,
   status: Sequelize.DataTypes.STRING,
   noOfLectures: Sequelize.DataTypes.INTEGER,
-  lectureShortCode: Sequelize.DataTypes.STRING
+  lectureShortCode: Sequelize.DataTypes.STRING,
+  hoursPerLecture: Sequelize.DataTypes.INTEGER
 });
 const Lectures = sequelize.define('lecture', {
   id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
