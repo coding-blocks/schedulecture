@@ -67,7 +67,7 @@ module.exports = {
       where: {
         centreId: id
       },
-      include:[models.Lectures]
+      include: [models.Lectures]
     }).then(function (data) {
       done(null, data);
     }).catch(function (err) {

@@ -24,8 +24,9 @@ module.exports = {
   getAll: function (conditions, done) {
     models.Batches.findAll({
       where: conditions,
-      include: models.Lectures
+      include: [models.Centres, models.Courses, models.Teachers, models.Lectures]
     }).then(function (data) {
+
       done(null, data)
     }).catch(function (err) {
       if (err) done(err);
@@ -61,7 +62,7 @@ module.exports = {
     });
   },
   archiveBatch: function (id, done) {
-    models.batches.findOne({
+    models.Batches.findOne({
       where: {
         id: id
       }
@@ -90,7 +91,8 @@ module.exports = {
     }).catch(function (err) {
       if (err) done(err);
     });
-  },
+  }
+  ,
   getLectures: function (id, done) {
     models.Lectures.findAll({
       where: {

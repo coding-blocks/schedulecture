@@ -42,9 +42,13 @@ ul{
     padding-left: 20px;
 }
 
-/*#calendar{*/
-    /*margin-top: 20px;*/
-/*}*/
+
+
+
+
+#calendar{
+    margin-top: 20px;
+}
 
 #sidebar .list-group-item {
     border-radius: 0;
@@ -206,7 +210,6 @@ ul{
 a{
     cursor: pointer;
 }
-
 
 .btn:focus{
     box-shadow: none;

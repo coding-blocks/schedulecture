@@ -66,7 +66,7 @@ module.exports = {
         });
     },
     getLectures : function (id, done) {
-        models.lectures.findAll({
+        models.Lectures.findAll({
             where : {
                 roomId : id
             }
