@@ -32,7 +32,7 @@ $(document).ready(function () {
     let centreList = $('#centreList');
     let batchcentrelist = $('#batchcentreList');
 
-    let editCentreList = $('#editCentreList');
+    // let editCentreList = $('#editCentreList');
     batchcentrelist.append('<option value="0">All</option>');
 
     for (let i = 0; i < centres.data.length; i++) {
@@ -44,8 +44,8 @@ $(document).ready(function () {
       } else {
         batchcentrelist.append('<option value="' + centres.data[i].id + '">' + centres.data[i].name + '</option>');
       }
-      centreList.append('<option value="' + centres.data[i].id + '" name="centre">' + centres.data[i].name + '</option>');
-      editCentreList.append('<option value="'+centres.data[i].id+'" name="centre">'+centres.data[i].name+'</option>');
+      centreList.append('<option value="' + centres.data[i].id + '">' + centres.data[i].name + '</option>');
+      // editCentreList.append('<option value="'+centres.data[i].id+'">'+centres.data[i].name+'</option>');
       // }
     }
   })
@@ -53,9 +53,8 @@ $(document).ready(function () {
   $.get('http://localhost:4000/api/v1/courses', function (courses) {
 
     let courseList = $('#courseList');
-    let editCourseList = $('#editCourseList');
+    // let editCentreList = $('#editCentreList');
     $('#batchNoOfLectures').val(courses.data[0].lect);
-    $('#hoursPerLectures').val(courses.data[0].hours);
     for (let i = 0; i < courses.data.length; i++) {
 
       // if(centres.data[i].id==centreId){
@@ -63,8 +62,8 @@ $(document).ready(function () {
       //   centreList.append('<option value="'+centres.data[i].id+'" selected>'+centres.data[i].name+'</option>');
       //   editCentreList.append('<option value="'+centres.data[i].id+'" selected>'+centres.data[i].name+'</option>');
       // } else {
-      courseList.append('<option value="' + courses.data[i].id + '" nol = "'+courses.data[i].lect+'" hours ="'+courses.data[i].hours+'" name="course">' + courses.data[i].name + '</option>');
-      editCourseList.append('<option value="'+courses.data[i].id+'" nol = "'+courses.data[i].lect+'" hours ="'+courses.data[i].hours+'" name="course">'+courses.data[i].name+'</option>');
+      courseList.append('<option value="' + courses.data[i].id + '" nol = "'+courses.data[i].lect+'" name="course">' + courses.data[i].name + '</option>');
+      // editCentreList.append('<option value="'+centres.data[i].id+'">'+centres.data[i].name+'</option>');
       // }
     }
   })
@@ -72,7 +71,7 @@ $(document).ready(function () {
   $.get('http://localhost:4000/api/v1/teachers', function (teachers) {
 
     let teacherList = $('#teacherList');
-    let editTeacherList = $('#editTeacherList');
+    // let editCentreList = $('#editCentreList');
 
     for (let i = 0; i < teachers.data.length; i++) {
 
@@ -81,8 +80,8 @@ $(document).ready(function () {
       //   centreList.append('<option value="'+centres.data[i].id+'" selected>'+centres.data[i].name+'</option>');
       //   editCentreList.append('<option value="'+centres.data[i].id+'" selected>'+centres.data[i].name+'</option>');
       // } else {
-      teacherList.append('<option value="' + teachers.data[i].id + '" name="teacher">' + teachers.data[i].name + '</option>');
-      editTeacherList.append('<option value="'+teachers.data[i].id+'" name="teacher">'+teachers.data[i].name+'</option>');
+      teacherList.append('<option value="' + teachers.data[i].id + '">' + teachers.data[i].name + '</option>');
+      // editCentreList.append('<option value="'+centres.data[i].id+'">'+centres.data[i].name+'</option>');
       // }
     }
   })
@@ -107,8 +106,7 @@ $(document).ready(function () {
                         <br>Size: ` + batches.data[i].size + `<br>
                         Number Of Lectures: `+batches.data[i].noOfLectures+`<br>
                         Start: ` + batches.data[i].startDate.split('T')[0] + `<br>End:` + batches.data[i].endDate.split('T')[0] + `</p>
-                        <a class="btn btn-success view-lectures" style=" font-size: 16px; color: white; padding: 5px 8px" batch-id="` + batches.data[i].id + `">View Lectures</a>
-                        <a class="btn btn-success `+statusClass+`" style=" font-size: 16px; color: white; padding: 5px 8px" batch-id="` + batches.data[i].id + `">`+status+`</a>
+                        <a class=" btn btn-success `+statusClass+`" style=" font-size: 16px; color: white; padding: 5px 12px" batch-id="` + batches.data[i].id + `">`+status+`</a>
                         <i class="fa fa-pencil edit" style="color: blue; font-size: 24px" batch-id="` + batches.data[i].id + `"></i>&nbsp;
                         <i class="fa fa-trash-o delete" style="color: red; font-size: 24px" batch-id="` + batches.data[i].id + `"></i>
 
@@ -147,55 +145,28 @@ $(document).ready(function () {
           }
         })
       })
-      
-      $('.view-lectures').click(function () {
-        let batchId = e.target.getAttribute('batch-id');
-      });
-      
       $('.edit').click(function (e) {
-        let batchId = e.target.getAttribute('batch-id');
-        $.get('http://localhost:4000/api/v1/batches/' + batchId, function (batch) {
-          if (batch.success === true) {
-            $('#editBatchName').val(batch.data.name);
-            $('#editBatchSize').val(batch.data.size);
-            $('#editBatchNoOfLectures').val(batch.data.noOfLectures);
-            $('#editHoursPerLectures').val(batch.data.hoursPerLecture);
-            console.log(batch.data.hoursPerLecture);
-            $('#editLectureShortCode').val(batch.data.lectureShortCode);
-            $('#editStartDate').val(batch.data.startDate.split('T')[0]);
-            $('#editEndDate').val(batch.data.endDate.split('T')[0]);
-            $('option[value="'+batch.centreId+'"][name="centre"]').attr('selected', true);
-            $('option[value="'+batch.courseId+'"][name="course"]').attr('selected', true);
-            $('option[value="'+batch.teacherId+'"][name="teacher"]').attr('selected', true);
+        let centreId = e.target.getAttribute('centre-id');
+        $.get('http://localhost:4000/api/v1/centres/' + centreId, function (centre) {
+          if (centre.success === true) {
+            $('#editCentreName').val(centre.data.name);
+            $('#editCentreHead').val(centre.data.head);
+            $('#editCentreContact').val(centre.data.phone);
 
-            $('#editBatchesModal').modal('show');
+            $('#editCentresModal').modal('show');
 
-            $('#editBatchSave').click(function () {
-              let name = $('#editBatchName').val();
-              let size = $('#editBatchSize').val();
-              let nol = $('#editBatchNoOfLectures').val();
-              let hoursPerLecture = $('#editHoursPerLectures').val();
-              let shortcode = $('#editLectureShortCode').val();
-              let startDate = $('#editStartDate').val();
-              let endDate = $('#editEndDate').val();
-              let centreId = $('#editCentreList').val();
-              let courseId = $('#editCourseList').val();
-              let teacherId = $('#editTeacherList').val();
+            $('#editCentreSave').click(function () {
+              let name = $('#editCentreName').val();
+              let head = $('#editCentreHead').val();
+              let contact = $('#editCentreContact').val();
               $.ajax({
 
-                url: 'http://localhost:4000/api/v1/batches/' + batchId,
+                url: 'http://localhost:4000/api/v1/centres/' + centreId,
                 data: {
                   values: {
                     name: name,
-                    startDate: startDate,
-                    endDate: endDate,
-                    size: size,
-                    noOfLectures: nol,
-                    hoursPerLecture: hoursPerLecture,
-                    lectureShortCode: shortcode,
-                    courseId: courseId,
-                    centreId: centreId,
-                    teacherId: teacherId
+                    head: head,
+                    phone: contact
                   }
                 },
                 method: 'PUT'
@@ -231,36 +202,27 @@ $(document).ready(function () {
 
   $('#courseList').change(function () {
     $('#batchNoOfLectures').val(($('option[value='+$('#courseList').val()+'][name="course"]').attr('nol')))
-    $('#hoursPerLectures').val(($('option[value='+$('#courseList').val()+'][name="course"]').attr('hours')))
 
-  })
-
-
-  $('#editcourselist').change(function () {
-    $('#editBatchNoOfLectures').val(($('option[value='+$('#editCourseList').val()+'][name="course"]').attr('nol')))
-    $('#editHoursPerLectures').val(($('option[value='+$('#editCourseList').val()+'][name="course"]').attr('hours')))
-
+    console.log()
   })
 
   $('#batchSubmit').click(function () {
     let name = $('#batchName').val();
     let size = $('#batchSize').val();
     let nol = $('#batchNoOfLectures').val();
-    let hoursPerLecture = $('#hoursPerLecture').val();
     let shortcode = $('#lectureShortCode').val();
     let startDate = $('#startDate').val();
     let endDate = $('#endDate').val();
     let centreId = $('#centreList').val();
     let courseId = $('#courseList').val();
     let teacherId = $('#teacherList').val();
-console.log(hoursPerLecture)
+
     $.post('http://localhost:4000/api/v1/batches/new', {
       name: name,
       startDate: startDate,
       endDate: endDate,
       size: size,
       noOfLectures: nol,
-      hoursPerLecture: hoursPerLecture,
       lectureShortCode: shortcode,
       courseId: courseId,
       centreId: centreId,
