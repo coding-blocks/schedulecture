@@ -16,7 +16,7 @@ $(document).ready(function () {
                         <h3>`+courses.data[i].name +`</h3>
                         <p>Description: `+courses.data[i].desc +`<br> Lectures: `+courses.data[i].lect +`<br> Hours: `+courses.data[i].hours+`</p>
                         <a class=" btn btn-success addBatch" style=" font-size: 16px; color: white; padding: 5px 12px"  course-id="`+courses.data[i].id+`" nol="`+courses.data[i].lect+` " hours="`+courses.data[i].hours+`">Add Batch</a>
-                        <i class="fa fa-pencil edit" style="color: blue; font-size: 24px" course-id="`+courses.data[i].id+`"></i>&nbsp;
+                        <i class="fa fa-pencil edit" style="color: #1EB3E2; font-size: 24px" course-id="`+courses.data[i].id+`"></i>&nbsp;
                         <i class="fa fa-trash-o delete" style="color: red; font-size: 24px" course-id="`+courses.data[i].id+`"></i>
 
                     </div>

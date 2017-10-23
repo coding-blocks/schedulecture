@@ -13,7 +13,7 @@ $(document).ready(function () {
                         <h3>` + centres.data[i].name + `</h3>
                         <p>Centre Head: ` + centres.data[i].head + `<br> Mob: ` + centres.data[i].phone + `</p>
                         <a class=" btn btn-success" style=" font-size: 16px; color: white; padding: 5px 12px" href="/admin/centres/` + centres.data[i].id + `/rooms">Rooms</a>&nbsp;<a class=" btn btn-success" style="font-size: 16px; color: white; padding: 5px 12px"  href="/admin/batches?centreId=` + centres.data[i].id + `">Batches</a>&nbsp;
-                        <i class="fa fa-pencil edit" style="color: blue; font-size: 24px" centre-id="` + centres.data[i].id + `"></i>&nbsp;
+                        <i class="fa fa-pencil edit" style="color: #1EB3E2; font-size: 24px" centre-id="` + centres.data[i].id + `"></i>&nbsp;
                         <i class="fa fa-trash-o delete" style="color: red; font-size: 24px" centre-id="` + centres.data[i].id + `"></i>
 
                     </div>

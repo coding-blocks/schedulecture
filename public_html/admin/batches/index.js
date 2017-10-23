@@ -33,7 +33,9 @@ $(document).ready(function () {
     let batchcentrelist = $('#batchcentreList');
 
     let editCentreList = $('#editCentreList');
+    console.log("heyy")
     batchcentrelist.append('<option value="0">All</option>');
+      console.log("heyy")
 
     for (let i = 0; i < centres.data.length; i++) {
 
@@ -55,7 +57,7 @@ $(document).ready(function () {
     let courseList = $('#courseList');
     let editCourseList = $('#editCourseList');
     $('#batchNoOfLectures').val(courses.data[0].lect);
-    $('#hoursPerLectures').val(courses.data[0].hours);
+    $('#hoursPerLecture').val(courses.data[0].hours);
     for (let i = 0; i < courses.data.length; i++) {
 
       // if(centres.data[i].id==centreId){
@@ -109,7 +111,7 @@ $(document).ready(function () {
                         Start: ` + batches.data[i].startDate.split('T')[0] + `<br>End:` + batches.data[i].endDate.split('T')[0] + `</p>
                         <a class="btn btn-success view-lectures" style=" font-size: 16px; color: white; padding: 5px 8px"  href="/admin/batches/` + batches.data[i].id + `/lectures">Lectures</a>
                         <a class="btn btn-success `+statusClass+`" style=" font-size: 16px; color: white; padding: 5px 8px" batch-id="` + batches.data[i].id + `">`+status+`</a>
-                        <i class="fa fa-pencil edit" style="color: blue; font-size: 24px" batch-id="` + batches.data[i].id + `"></i>&nbsp;
+                        <i class="fa fa-pencil edit" style="color: #1EB3E2; font-size: 24px" batch-id="` + batches.data[i].id + `"></i>&nbsp;
                         <i class="fa fa-trash-o delete" style="color: red; font-size: 24px" batch-id="` + batches.data[i].id + `"></i>
 
                     </div>
@@ -231,7 +233,7 @@ $(document).ready(function () {
 
   $('#courseList').change(function () {
     $('#batchNoOfLectures').val(($('option[value='+$('#courseList').val()+'][name="course"]').attr('nol')))
-    $('#hoursPerLectures').val(($('option[value='+$('#courseList').val()+'][name="course"]').attr('hours')))
+    $('#hoursPerLecture').val(($('option[value='+$('#courseList').val()+'][name="course"]').attr('hours')))
 
   })
 

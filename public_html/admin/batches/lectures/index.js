@@ -1,6 +1,31 @@
 $(document).ready(function () {
   let batchId = window.location.href.split('/batches/')[1].split('/lectures/')[0];
 
+    $.get('http://localhost:4000/api/v1/teachers', function (teachers) {
+
+        let teacherList = $('#teachersList');
+        let editTeacherList = $('#editTeachersList');
+
+        for (let i = 0; i < teachers.data.length; i++) {
+
+            teacherList.append('<option value="' + teachers.data[i].id + '" name="teacher">' + teachers.data[i].name + '</option>');
+            editTeacherList.append('<option value="'+teachers.data[i].id+'" name="teacher">'+teachers.data[i].name+'</option>');
+        }
+    })
+
+    $.get('http://localhost:4000/api/v1/rooms', function (rooms) {
+
+        let roomsList = $('#roomsList');
+        let editRoomsList = $('#editRoomsList');
+
+        for (let i = 0; i < rooms.data.length; i++) {
+
+            roomsList.append('<option value="' + rooms.data[i].id + '" name="room">' + rooms.data[i].name + '</option>');
+            editRoomsList.append('<option value="'+rooms.data[i].id+'" name="room">'+rooms.data[i].name+'</option>');
+        }
+    })
+
+
   $.get('http://localhost:4000/api/v1/batches/' + batchId, function (batch) {
     $('#title').text("Lectures for " + batch.data.name + " Batch");
     console.log(batch);
@@ -22,7 +47,7 @@ $(document).ready(function () {
                     <div class="col-2">` + (lectures[i].teacher ? lectures[i].teacher.name : '-') + `</div>
                     <div class="col-1">` + (lectures[i].room ? lectures[i].room.name : '-') + `</div>
                     <div class="col-1">
-                        <i class="fa fa-pencil edit" style="color: blue; font-size: 24px"  lecture-id="` + lectures[i].id + `"></i>&nbsp;
+                        <i class="fa fa-pencil edit" style="color: #1EB3E2; font-size: 24px"  lecture-id="` + lectures[i].id + `"></i>&nbsp;
                         <i class="fa fa-trash-o delete" style="color: red; font-size: 24px"  lecture-id="` + lectures[i].id + `"></i>
                     </div>
                 </div>
@@ -30,38 +55,37 @@ $(document).ready(function () {
     }
 
     $('.edit').click(function (e) {
-      let roomId = e.target.getAttribute('room-id');
-      $.get('http://localhost:4000/api/v1/rooms/' + roomId, function (room) {
-        if (room.success === true) {
-          $('#editRoomName').val(room.data.name);
-          $('#editRoomCapacity').val(room.data.capacity);
-          $('#editRoomConfig').val(room.data.config);
+      let lectureId = e.target.getAttribute('lecture-id');
+      $.get('http://localhost:4000/api/v1/lectures/' + lectureId, function (lecture) {
+        if (lecture.success === true) {
+          $('#editLectureName').val(lecture.data.name);
+          $('option[value="'+lecture.data.teacherId+'"][name="teacher"]').attr('selected', true);
+          $('option[value="'+lecture.data.roomId+'"][name="room"]').attr('selected', true);
 
-          $('#editRoomsModal').modal('show');
+            $('#editLecturesModal').modal('show');
 
-          $('#editRoomSave').click(function () {
+          $('#editLectureSave').click(function () {
 
-            let name = $('#editRoomName').val();
-            let capacity = $('#editRoomCapacity').val();
-            let config = $('#editRoomConfig').val();
-            let centreId = $('#editCentreList').val();
+            let name = $('#editLectureName').val();
+            let teacherId = $('#editTeachersList').val();
+            console.log(teacherId)
+            let roomId = $('#editRoomsList').val();
             $.ajax({
 
-              url: 'http://localhost:4000/api/v1/rooms/' + roomId,
+              url: 'http://localhost:4000/api/v1/lectures/' + lectureId,
               data: {
                 values: {
                   name: name,
-                  capacity: capacity,
-                  config: config,
-                  centreId: centreId
+                  teacherId: teacherId,
+                  roomId: roomId
                 }
               },
               method: 'PUT'
-            }).done(function (room) {
+            }).done(function (lecture) {
 
-              if (room.success === true) {
+              if (lecture.success === true) {
 
-                $('#editRoomsModal').modal('hide');
+                $('#editLecturesModal').modal('hide');
                 window.location.reload();
               }
               else {
@@ -72,43 +96,45 @@ $(document).ready(function () {
         }
       })
     })
+
     $('.delete').click(function (e) {
-      let roomId = e.target.getAttribute('room-id');
+      let lectureId = e.target.getAttribute('lecture-id');
       $.ajax({
-        url: 'http://localhost:4000/api/v1/rooms/' + roomId,
+        url: 'http://localhost:4000/api/v1/lectures/' + lectureId,
         method: 'DELETE'
       }).done(function (res) {
         if (res.success === true) {
           window.location.reload();
         } else {
-          window.alert('Could Not Delete The Centre Right Now!')
+          window.alert('Could Not Delete The Lecture Right Now!')
         }
       })
     })
+
   })
 
-  // $('#roomSubmit').click(function () {
-  //   let name = $('#roomName').val();
-  //   let capacity = $('#roomCapacity').val();
-  //   let config = $('#roomConfig').val();
-  //   let centreId = $('#centreList').val();
-  //
-  //   $.post('http://localhost:4000/api/v1/rooms/new', {
-  //     name: name,
-  //     capacity: capacity,
-  //     config: config,
-  //     centreId: centreId
-  //   }, function (room) {
-  //     if (room.success === true) {
-  //
-  //       $('#addRoomsModal').modal('hide');
-  //       window.location.reload();
-  //     }
-  //     else {
-  //       console.log("could not add the room right now")
-  //     }
-  //   })
-  // });
+  $('#lectureSubmit').click(function () {
+    let name = $('#lectureName').val();
+    let teacherId = $('#teachersList').val();
+    let roomId = $('#roomsList').val();
+
+    $.post('http://localhost:4000/api/v1/lectures/new', {
+      name: name,
+      teacherId: teacherId,
+      roomId: roomId,
+      batchId: batchId
+
+    }, function (lecture) {
+      if (lecture.success === true) {
+
+        $('#addLecturesModal').modal('hide');
+        window.location.reload();
+      }
+      else {
+        console.log("could not add the room right now")
+      }
+    })
+  });
 
 
 })
