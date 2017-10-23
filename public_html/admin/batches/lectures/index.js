@@ -5,18 +5,22 @@ $(document).ready(function () {
     $('#title').text("Lectures for " + batch.data.name + " Batch");
     console.log(batch);
     let lectures = batch.data.lectures;
-
+    console.log(lectures)
+    lectures.sort(function (a, b) {
+      return (+a.id) - (+b.id);
+    });
+    console.log(lectures)
     let lecturesList = $('#minicourses-list');
     for (let i = 0; i < lectures.length; i++) {
 
       lecturesList.append(`<li class="list-group-item" style="height: auto">
                 <div class="row">
-                    <div class="col-2">`+lectures[i].name+`</div>
-                    <div class="col-2">`+lectures[i].date+`</div>
-                    <div class="col-2">`+lectures[i].startTime+`</div>
-                    <div class="col-2">`+lectures[i].endTime+`</div>
-                    <div class="col-2">`+lectures[i].teacher+`</div>
-                    <div class="col-1">`+lectures[i].room+`</div>
+                    <div class="col-2">` + lectures[i].name + `</div>
+                    <div class="col-2">` + (lectures[i].date ? lectures[i].date.split('T')[0] : '-') + `</div>
+                    <div class="col-2">` + (lectures[i].startTime ? lectures[i].startTime.split('T')[1].split(':00.000')[0] : '-') + `</div>
+                    <div class="col-2">` + (lectures[i].endTime ? lectures[i].endTime.split('T')[1].split(':00.000')[0] : '-') + `</div>
+                    <div class="col-2">` + (lectures[i].teacher ? lectures[i].teacher.name : '-') + `</div>
+                    <div class="col-1">` + (lectures[i].room ? lectures[i].room.name : '-') + `</div>
                     <div class="col-1">
                         <i class="fa fa-pencil edit" style="color: blue; font-size: 24px"  lecture-id="` + lectures[i].id + `"></i>&nbsp;
                         <i class="fa fa-trash-o delete" style="color: red; font-size: 24px"  lecture-id="` + lectures[i].id + `"></i>
@@ -74,9 +78,9 @@ $(document).ready(function () {
         url: 'http://localhost:4000/api/v1/rooms/' + roomId,
         method: 'DELETE'
       }).done(function (res) {
-        if(res.success === true){
+        if (res.success === true) {
           window.location.reload();
-        }else{
+        } else {
           window.alert('Could Not Delete The Centre Right Now!')
         }
       })

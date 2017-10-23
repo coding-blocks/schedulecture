@@ -150,6 +150,10 @@ $(document).ready(function () {
         })
       })
 
+      // $('.view-lectures').click(function (e) {
+      //   let batchId = e.target.getAttribute('batch-id');
+      // });
+      
       $('.edit').click(function (e) {
         let batchId = e.target.getAttribute('batch-id');
         $.get('http://localhost:4000/api/v1/batches/' + batchId, function (batch) {
