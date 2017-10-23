@@ -33,7 +33,9 @@ $(document).ready(function () {
     let batchcentrelist = $('#batchcentreList');
 
     let editCentreList = $('#editCentreList');
+    console.log("heyy")
     batchcentrelist.append('<option value="0">All</option>');
+      console.log("heyy")
 
     for (let i = 0; i < centres.data.length; i++) {
 
