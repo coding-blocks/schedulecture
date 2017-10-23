@@ -13,7 +13,8 @@ const api_v1 = require('./routes/api_v1');
 
 
 app.use('/', express.static(__dirname + "/public_html"));
-app.use('/admin/centres/:name/rooms', express.static(__dirname + "/public_html/admin/centres/rooms"));
+app.use('/admin/centres/:id/rooms', express.static(__dirname + "/public_html/admin/centres/rooms"));
+app.use('/admin/batches/:id/lectures', express.static(__dirname + "/public_html/admin/batches/lectures"));
 
 
 app.use('/docs', express.static(__dirname + "/docs"));

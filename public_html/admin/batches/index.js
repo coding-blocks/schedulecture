@@ -107,7 +107,7 @@ $(document).ready(function () {
                         <br>Size: ` + batches.data[i].size + `<br>
                         Number Of Lectures: `+batches.data[i].noOfLectures+`<br>
                         Start: ` + batches.data[i].startDate.split('T')[0] + `<br>End:` + batches.data[i].endDate.split('T')[0] + `</p>
-                        <a class="btn btn-success view-lectures" style=" font-size: 16px; color: white; padding: 5px 8px" batch-id="` + batches.data[i].id + `">View Lectures</a>
+                        <a class="btn btn-success view-lectures" style=" font-size: 16px; color: white; padding: 5px 8px"  href="/admin/batches/` + batches.data[i].id + `/lectures">Lectures</a>
                         <a class="btn btn-success `+statusClass+`" style=" font-size: 16px; color: white; padding: 5px 8px" batch-id="` + batches.data[i].id + `">`+status+`</a>
                         <i class="fa fa-pencil edit" style="color: blue; font-size: 24px" batch-id="` + batches.data[i].id + `"></i>&nbsp;
                         <i class="fa fa-trash-o delete" style="color: red; font-size: 24px" batch-id="` + batches.data[i].id + `"></i>
@@ -147,11 +147,7 @@ $(document).ready(function () {
           }
         })
       })
-      
-      $('.view-lectures').click(function () {
-        let batchId = e.target.getAttribute('batch-id');
-      });
-      
+
       $('.edit').click(function (e) {
         let batchId = e.target.getAttribute('batch-id');
         $.get('http://localhost:4000/api/v1/batches/' + batchId, function (batch) {
