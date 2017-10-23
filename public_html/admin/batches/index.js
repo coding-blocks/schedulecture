@@ -147,7 +147,7 @@ $(document).ready(function () {
         })
       })
       
-      $('.view-lectures').click(function () {
+      $('.view-lectures').click(function (e) {
         let batchId = e.target.getAttribute('batch-id');
       });
       
