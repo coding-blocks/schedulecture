@@ -15,7 +15,7 @@ $(document).ready(function () {
                     <div class="text-center"  style="padding: 15px 0">
                         <h3>`+courses.data[i].name +`</h3>
                         <p>Description: `+courses.data[i].desc +`<br> Lectures: `+courses.data[i].lect +`<br> Hours: `+courses.data[i].hours+`</p>
-                        <a class=" btn btn-success addBatch" style=" font-size: 16px; color: white; padding: 5px 12px"  course-id="`+courses.data[i].id+`" nol="`+courses.data[i].lect+`">Add Batch</a>
+                        <a class=" btn btn-success addBatch" style=" font-size: 16px; color: white; padding: 5px 12px"  course-id="`+courses.data[i].id+`" nol="`+courses.data[i].lect+` " hours="`+courses.data[i].hours+`">Add Batch</a>
                         <i class="fa fa-pencil edit" style="color: blue; font-size: 24px" course-id="`+courses.data[i].id+`"></i>&nbsp;
                         <i class="fa fa-trash-o delete" style="color: red; font-size: 24px" course-id="`+courses.data[i].id+`"></i>
 
@@ -28,6 +28,7 @@ $(document).ready(function () {
 
         $(`option[value=${e.target.getAttribute('course-id')}][name='course']`).attr('selected', true);
         $('#batchNoOfLectures').val(e.target.getAttribute('nol'))
+        $('#hoursPerLectures').val(e.target.getAttribute('hours'))
         $('#addBatchesModal').modal('show');
         $('#courseList').change(function () {
           $('#batchNoOfLectures').val(($('option[value='+$('#courseList').val()+'][name="course"]').attr('nol')))
@@ -38,8 +39,9 @@ $(document).ready(function () {
         $('#batchSubmit').click(function () {
           let name = $('#batchName').val();
           let size = $('#batchSize').val();
-          let nol = $('#batchNoOfLectures');
-          let shortcode = $('#lectureShortCode');
+          let nol = $('#batchNoOfLectures').val();
+          let hoursPerLecture = $('#hoursPerLecture').val();
+          let shortcode = $('#lectureShortCode').val();
           let startDate = $('#startDate').val();
           let endDate = $('#endDate').val();
           let centreId = $('#centreList').val();
@@ -52,6 +54,7 @@ $(document).ready(function () {
             endDate: endDate,
             size: size,
             noOfLectures: nol,
+            hoursPerLecture: hoursPerLecture,
             lectureShortCode: shortcode,
             courseId: courseId,
             centreId: centreId,

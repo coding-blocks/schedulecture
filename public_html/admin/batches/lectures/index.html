@@ -93,11 +93,11 @@
     </div>
 </div>
 
-<div class="modal fade" id="editRoomsModal" tabindex="-1" role="dialog" aria-labelledby="Edit Room Modal" aria-hidden="true">
+<div class="modal fade" id="editLecturesModal" tabindex="-1" role="dialog" aria-labelledby="Edit Lecture Modal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header" style="border: none; background-color: #02B3E4; counter-reset: white; border-top-left-radius: .25rem; border-top-right-radius: .25rem">
-                <h5 class="modal-title" style="margin: 0 auto; font-size: 18px; color: white">Edit Centre</h5>
+                <h5 class="modal-title" style="margin: 0 auto; font-size: 18px; color: white">Edit Lecture</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" style="color: white">&times;</span>
                 </button>
@@ -141,18 +141,17 @@
                     <h1 style="margin: 0" id="title"></h1>
                 </div>
                 <div class="col-sm-2 mt-auto mb-auto">
-                    <button class=" btn btn-success" data-toggle="modal" data-target="#addRoomsModal"
+                    <button class=" btn btn-success" data-toggle="modal" data-target="#addLecturesModal"
                             style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer;">
-                        Add Room
+                        Add Lecture
                     </button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row minicourses">
+    <div class="row" style="padding: 30px">
 
-        <ul class="minicourses-list" id="minicourses-list">
-
+        <ul id="minicourses-list" class="list-group" style="width: 100%">
 
         </ul>
     </div>

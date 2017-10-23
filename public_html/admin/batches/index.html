@@ -9,7 +9,7 @@
     <link rel='stylesheet' href="../../bower_components/jquery-ui/themes/base/jquery-ui.css"/>
     <link rel="stylesheet" href='../../bower_components/fullcalendar-scheduler/dist/scheduler.css'>
     <link rel="stylesheet" href="../../bower_components/components-font-awesome/css/font-awesome.css">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
@@ -60,7 +60,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="addBatchesModal" tabindex="-1" role="dialog" aria-labelledby="Add Centre Modal" aria-hidden="true">
+<div class="modal fade" id="addBatchesModal" tabindex="-1" role="dialog" aria-labelledby="Add Batch Modal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header" style="border: none; background-color: #02B3E4; counter-reset: white; border-top-left-radius: .25rem; border-top-right-radius: .25rem">
@@ -71,14 +71,25 @@
             </div>
             <div class="modal-body">
                 <div class="form-group" style="margin-bottom: 0">
+                    <label class="mr-2" for="batchName" style="color: #777; font-size: 1rem; display: inline-block">Name: </label>
                     <input id="batchName" required type="text" class="form-control input"
-                           placeholder="Name" style="margin-bottom: 15px">
+                           style="margin-bottom: 15px"><br>
+                    <label class="mr-2" for="batchSize" style="color: #777; font-size: 1rem; display: inline-block">Batch Size: </label>
+
                     <input id="batchSize" required type="text" class="form-control input"
-                           placeholder="Batch Size" style="margin-bottom: 15px">
+                            style="margin-bottom: 15px"><br>
+                    <label class="mr-2" for="lectureShortCode" style="color: #777; font-size: 1rem; display: inline-block">Lecture Short Code: </label>
+
                     <input id="lectureShortCode" required type="text" class="form-control input"
-                           placeholder="Lecture Short Code" style="margin-bottom: 15px">
+                            style="margin-bottom: 15px"><br>
+                    <label class="mr-2" for="batchNoOfLectures" style="color: #777; font-size: 1rem; display: inline-block">No. of Lectures: </label>
+
                     <input id="batchNoOfLectures" required type="text" class="form-control input"
-                           placeholder="Number Of Lectures" style="margin-bottom: 15px">
+                            style="margin-bottom: 15px"><br>
+                    <label class="mr-2" for="hoursPerLecture" style="color: #777; font-size: 1rem; display: inline-block">Hours per Lecture: </label>
+
+                    <input id="hoursPerLecture" required type="text" class="form-control input"
+                            style="margin-bottom: 15px"><br>
 
                     <label class="mr-2" for="startDate" style="color: #777; font-size: 1rem; display: inline-block">Start Date: </label>
                     <input type="date" id="startDate" class="form-control input" style="display: inline-block; width: auto;margin-bottom: 15px"><br>
@@ -109,6 +120,68 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="editBatchesModal" tabindex="-1" role="dialog" aria-labelledby="Edit Batch Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border: none; background-color: #02B3E4; counter-reset: white; border-top-left-radius: .25rem; border-top-right-radius: .25rem">
+                <h5 class="modal-title" style="margin: 0 auto; font-size: 18px; color: white">Edit Batch</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color: white">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="margin-bottom: 0">
+                    <label class="mr-2" for="editBatchName" style="color: #777; font-size: 1rem; display: inline-block">Name: </label>
+                    <input id="editBatchName" required type="text" class="form-control input"
+                           style="margin-bottom: 15px"><br>
+                    <label class="mr-2" for="editBatchSize" style="color: #777; font-size: 1rem; display: inline-block">Batch Size: </label>
+
+                    <input id="editBatchSize" required type="text" class="form-control input"
+                           style="margin-bottom: 15px"><br>
+                    <label class="mr-2" for="editLectureShortCode" style="color: #777; font-size: 1rem; display: inline-block">Lecture Short Code: </label>
+
+                    <input id="editLectureShortCode" required type="text" class="form-control input"
+                           style="margin-bottom: 15px"><br>
+                    <label class="mr-2" for="editBatchNoOfLectures" style="color: #777; font-size: 1rem; display: inline-block">No. of Lectures: </label>
+
+                    <input id="editBatchNoOfLectures" required type="text" class="form-control input"
+                           style="margin-bottom: 15px"><br>
+                    <label class="mr-2" for="editHoursPerLectures" style="color: #777; font-size: 1rem; display: inline-block">Hours per Lecture: </label>
+
+                    <input id="editHoursPerLectures" required type="text" class="form-control input"
+                           style="margin-bottom: 15px"><br>
+
+                    <label class="mr-2" for="editStartDate" style="color: #777; font-size: 1rem; display: inline-block">Start Date: </label>
+                    <input type="date" id="editStartDate" class="form-control input" style="display: inline-block; width: auto;margin-bottom: 15px"><br>
+
+                    <label class="mr-2" for="editEndDate" style="color: #777; font-size: 1rem; display: inline-block">End Date: </label>
+                    <input type="date" id="editEndDate" class="form-control input" style="display: inline-block; width: auto;margin-bottom: 15px"><br>
+                    <label class="mr-2" for="editCentreList" style="color: #777; font-size: 1rem">Centre
+                        : </label>
+
+                    <select id="editCentreList" class="custom-select mb-2" class="form-control input">
+                    </select><br>
+                    <label class="mr-2" for="editCourseList" style="color: #777; font-size: 1rem">Course
+                        : </label>
+                    <select id="editCourseList" class="custom-select mb-2" class="form-control input">
+                    </select><br>
+                    <label class="mr-2" for="editTeacherList" style="color: #777; font-size: 1rem">Teacher
+                        : </label>
+                    <select id="editTeacherList" class="custom-select mb-2" class="form-control input">
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer" style="border: none; justify-content: center; padding-top: 5px">
+                <button id="editBatchSave" class=" btn btn-success"
+                        style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer;">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="container" style="margin-top: 30px">
     <div class="row titlerow text-center">
