@@ -215,3 +215,9 @@ a{
 .btn:focus{
     box-shadow: none;
 }
+
+
+.form-control{
+    display: inline-block!important;
+    width: auto!important;
+}

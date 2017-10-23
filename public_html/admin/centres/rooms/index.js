@@ -32,7 +32,7 @@ $(document).ready(function () {
                     <div class="text-center"  style="padding: 15px 0">
                         <h3>`+rooms.data[i].name +`</h3>
                         <p>Capacity: `+rooms.data[i].capacity +`<br> Configuration: `+rooms.data[i].config +`</p>
-                        <i class="fa fa-pencil edit" style="color: blue; font-size: 24px"  room-id="` + rooms.data[i].id + `"></i>&nbsp;
+                        <i class="fa fa-pencil edit" style="color: #1EB3E2; font-size: 24px"  room-id="` + rooms.data[i].id + `"></i>&nbsp;
                         <i class="fa fa-trash-o delete" style="color: red; font-size: 24px"  room-id="` + rooms.data[i].id + `"></i>
 
                     </div>

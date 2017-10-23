@@ -12,7 +12,7 @@ $(document).ready(function () {
                     <div class="text-center"  style="padding: 15px 0">
                         <h3>`+teachers.data[i].name +`</h3>
                         <p>Email: `+teachers.data[i].email +`<br> Contact: `+teachers.data[i].contact +`</p>
-                        <i class="fa fa-pencil edit" style="color: blue; font-size: 24px"  teacher-id="` + teachers.data[i].id + `"></i>&nbsp;
+                        <i class="fa fa-pencil edit" style="color: #1EB3E2; font-size: 24px"  teacher-id="` + teachers.data[i].id + `"></i>&nbsp;
                         <i class="fa fa-trash-o delete" style="color: red; font-size: 24px" teacher-id="` + teachers.data[i].id + `"></i>
 
                     </div>
