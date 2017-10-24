@@ -25,6 +25,10 @@
     "type": "git",
     "url": "git+https://github.com/coding-blocks/schedulecture.git"
   },
+  "engines": {
+    "node" : ">= 8",
+    "npm" : ">= 5"
+  }
   "author": "",
   "license": "ISC",
   "bugs": {
