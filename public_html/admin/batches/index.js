@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
   let centreId, statusId;
-  let url = 'http://localhost:4000/api/v1/batches'
+  let url = '/api/v1/batches'
   let conditions = window.location.href.split('?')[1];
   if (conditions){
     conditions = conditions.split('&');
@@ -26,7 +26,7 @@ $(document).ready(function () {
 
     $(`option[value=${statusId}]`).attr('selected', true);
 
-  $.get('http://localhost:4000/api/v1/centres', function (centres) {
+  $.get('/api/v1/centres', function (centres) {
 
 
     let centreList = $('#centreList');
@@ -52,7 +52,7 @@ $(document).ready(function () {
     }
   })
 
-  $.get('http://localhost:4000/api/v1/courses', function (courses) {
+  $.get('/api/v1/courses', function (courses) {
 
     let courseList = $('#courseList');
     let editCourseList = $('#editCourseList');
@@ -71,7 +71,7 @@ $(document).ready(function () {
     }
   })
 
-  $.get('http://localhost:4000/api/v1/teachers', function (teachers) {
+  $.get('/api/v1/teachers', function (teachers) {
 
     let teacherList = $('#teacherList');
     let editTeacherList = $('#editTeacherList');
@@ -122,7 +122,7 @@ $(document).ready(function () {
       $('.active').click(function (e) {
         let batchId = e.target.getAttribute('batch-id');
         $.ajax({
-          url: 'http://localhost:4000/api/v1/batches/' + batchId,
+          url: '/api/v1/batches/' + batchId,
           method: 'PUT',
           data: {values: {
             status: 'active'
@@ -139,7 +139,7 @@ $(document).ready(function () {
       $('.archive').click(function (e) {
         let batchId = e.target.getAttribute('batch-id');
         $.ajax({
-          url: 'http://localhost:4000/api/v1/batches/archive/' + batchId,
+          url: '/api/v1/batches/archive/' + batchId,
           method: 'PUT'
         }).done(function (res) {
           if (res.success === true) {
@@ -156,7 +156,7 @@ $(document).ready(function () {
       
       $('.edit').click(function (e) {
         let batchId = e.target.getAttribute('batch-id');
-        $.get('http://localhost:4000/api/v1/batches/' + batchId, function (batch) {
+        $.get('/api/v1/batches/' + batchId, function (batch) {
           if (batch.success === true) {
             $('#editBatchName').val(batch.data.name);
             $('#editBatchSize').val(batch.data.size);
@@ -185,7 +185,7 @@ $(document).ready(function () {
               let teacherId = $('#editTeacherList').val();
               $.ajax({
 
-                url: 'http://localhost:4000/api/v1/batches/' + batchId,
+                url: '/api/v1/batches/' + batchId,
                 data: {
                   values: {
                     name: name,
@@ -218,7 +218,7 @@ $(document).ready(function () {
       $('.delete').click(function (e) {
         let batchId = e.target.getAttribute('batch-id');
         $.ajax({
-          url: 'http://localhost:4000/api/v1/batches/' + batchId,
+          url: '/api/v1/batches/' + batchId,
           method: 'DELETE'
         }).done(function (res) {
           if (res.success === true) {
@@ -256,7 +256,7 @@ $(document).ready(function () {
     let courseId = $('#courseList').val();
     let teacherId = $('#teacherList').val();
 console.log(hoursPerLecture)
-    $.post('http://localhost:4000/api/v1/batches/new', {
+    $.post('/api/v1/batches/new', {
       name: name,
       startDate: startDate,
       endDate: endDate,
@@ -283,7 +283,7 @@ console.log(hoursPerLecture)
     let changedCI = $('#batchcentreList').val();
     let changedSI = $('#batchstatuslist').val();
 
-    let newurl = 'http://localhost:4000/admin/batches';
+    let newurl = '/admin/batches';
     if(+changedCI === 0){
       newurl+="?status="+changedSI;
     }else{
@@ -297,7 +297,7 @@ console.log(hoursPerLecture)
     let changedCI = $('#batchcentreList').val();
     let changedSI = $('#batchstatuslist').val();
 
-    let newurl = 'http://localhost:4000/admin/batches';
+    let newurl = '/admin/batches';
     if(+changedCI === 0){
       newurl+="?status="+changedSI;
     }else{

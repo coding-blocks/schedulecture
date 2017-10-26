@@ -2,7 +2,7 @@ $(document).ready(function () {
 
 
 
-  $.get('http://localhost:4000/api/v1/courses', function (courses) {
+  $.get('/api/v1/courses', function (courses) {
     if (courses.success === true) {
       let courseList = $('#minicourses-list');
       for (let i = 0; i < courses.data.length; i++) {
@@ -48,7 +48,7 @@ $(document).ready(function () {
           let courseId = $('#courseList').val();
           let teacherId = $('#teacherList').val();
 
-          $.post('http://localhost:4000/api/v1/batches/new', {
+          $.post('/api/v1/batches/new', {
             name: name,
             startDate: startDate,
             endDate: endDate,
@@ -76,7 +76,7 @@ $(document).ready(function () {
 
       $('.edit').click(function (e) {
         let courseId = e.target.getAttribute('course-id');
-        $.get('http://localhost:4000/api/v1/courses/' + courseId, function (course) {
+        $.get('/api/v1/courses/' + courseId, function (course) {
           if (course.success === true) {
             $('#editCourseName').val(course.data.name);
             $('#editCourseDesc').val(course.data.desc);
@@ -92,7 +92,7 @@ $(document).ready(function () {
               let hours = $('#editHours').val();
               $.ajax({
 
-                url: 'http://localhost:4000/api/v1/courses/' + courseId,
+                url: '/api/v1/courses/' + courseId,
                 data: {
                   values: {
                     name: name,
@@ -119,7 +119,7 @@ $(document).ready(function () {
       $('.delete').click(function (e) {
         let courseId = e.target.getAttribute('course-id');
         $.ajax({
-          url: 'http://localhost:4000/api/v1/courses/' + courseId,
+          url: '/api/v1/courses/' + courseId,
           method: 'DELETE'
         }).done(function (res) {
           if(res.success === true){
@@ -133,7 +133,7 @@ $(document).ready(function () {
   })
 
 
-  $.get('http://localhost:4000/api/v1/centres', function (centres) {
+  $.get('/api/v1/centres', function (centres) {
 
 
     let centreList = $('#centreList');
@@ -146,7 +146,7 @@ $(document).ready(function () {
     }
   })
 
-  $.get('http://localhost:4000/api/v1/courses', function (courses) {
+  $.get('/api/v1/courses', function (courses) {
 
     let courseList = $('#courseList');
     // let editCentreList = $('#editCentreList');
@@ -164,7 +164,7 @@ $(document).ready(function () {
     }
   })
 
-  $.get('http://localhost:4000/api/v1/teachers', function (teachers) {
+  $.get('/api/v1/teachers', function (teachers) {
 
     let teacherList = $('#teacherList');
     // let editCentreList = $('#editCentreList');
@@ -187,7 +187,7 @@ $(document).ready(function () {
     let desc = $('#courseDesc').val();
     let lect = $('#lectures').val();
     let hours = $('#hours').val();
-    $.post('http://localhost:4000/api/v1/courses/new',{
+    $.post('/api/v1/courses/new',{
       name: name,
       desc: desc,
       lect: lect,

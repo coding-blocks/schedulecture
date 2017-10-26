@@ -1,7 +1,7 @@
 $(document).ready(function () {
   let batchId = window.location.href.split('/batches/')[1].split('/lectures/')[0];
 
-    $.get('http://localhost:4000/api/v1/teachers', function (teachers) {
+    $.get('/api/v1/teachers', function (teachers) {
 
         let teacherList = $('#teachersList');
         let editTeacherList = $('#editTeachersList');
@@ -13,7 +13,7 @@ $(document).ready(function () {
         }
     })
 
-    $.get('http://localhost:4000/api/v1/rooms', function (rooms) {
+    $.get('/api/v1/rooms', function (rooms) {
 
         let roomsList = $('#roomsList');
         let editRoomsList = $('#editRoomsList');
@@ -26,7 +26,7 @@ $(document).ready(function () {
     })
 
 
-  $.get('http://localhost:4000/api/v1/batches/' + batchId, function (batch) {
+  $.get('/api/v1/batches/' + batchId, function (batch) {
     $('#title').text("Lectures for " + batch.data.name + " Batch");
     console.log(batch);
     let lectures = batch.data.lectures;
@@ -56,7 +56,7 @@ $(document).ready(function () {
 
     $('.edit').click(function (e) {
       let lectureId = e.target.getAttribute('lecture-id');
-      $.get('http://localhost:4000/api/v1/lectures/' + lectureId, function (lecture) {
+      $.get('/api/v1/lectures/' + lectureId, function (lecture) {
         if (lecture.success === true) {
           $('#editLectureName').val(lecture.data.name);
           $('option[value="'+lecture.data.teacherId+'"][name="teacher"]').attr('selected', true);
@@ -72,7 +72,7 @@ $(document).ready(function () {
             let roomId = $('#editRoomsList').val();
             $.ajax({
 
-              url: 'http://localhost:4000/api/v1/lectures/' + lectureId,
+              url: '/api/v1/lectures/' + lectureId,
               data: {
                 values: {
                   name: name,
@@ -100,7 +100,7 @@ $(document).ready(function () {
     $('.delete').click(function (e) {
       let lectureId = e.target.getAttribute('lecture-id');
       $.ajax({
-        url: 'http://localhost:4000/api/v1/lectures/' + lectureId,
+        url: '/api/v1/lectures/' + lectureId,
         method: 'DELETE'
       }).done(function (res) {
         if (res.success === true) {
@@ -118,7 +118,7 @@ $(document).ready(function () {
     let teacherId = $('#teachersList').val();
     let roomId = $('#roomsList').val();
 
-    $.post('http://localhost:4000/api/v1/lectures/new', {
+    $.post('/api/v1/lectures/new', {
       name: name,
       teacherId: teacherId,
       roomId: roomId,

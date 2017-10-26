@@ -4,7 +4,7 @@
 $(document).ready(function () {
 
 
-  var api = 'http://localhost:4000/api/v1';
+  var api = '/api/v1';
 
 
   function getCentres() {
