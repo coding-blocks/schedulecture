@@ -1,7 +1,7 @@
 $(document).ready(function () {
   let centreId = window.location.href.split('/centres/')[1].split('/rooms/')[0];
 
-  $.get('http://localhost:4000/api/v1/centres', function (centres) {
+  $.get('/api/v1/centres', function (centres) {
 
     let centreList = $('#centreList');
     let editCentreList = $('#editCentreList');
@@ -20,7 +20,7 @@ $(document).ready(function () {
 
   })
   
-  $.get('http://localhost:4000/api/v1/centres/'+centreId+'/rooms', function (rooms) {
+  $.get('/api/v1/centres/'+centreId+'/rooms', function (rooms) {
     if (rooms.success === true) {
       let roomsList = $('#minicourses-list');
       for (let i = 0; i < rooms.data.length; i++) {
@@ -42,7 +42,7 @@ $(document).ready(function () {
 
       $('.edit').click(function (e) {
         let roomId = e.target.getAttribute('room-id');
-        $.get('http://localhost:4000/api/v1/rooms/' + roomId, function (room) {
+        $.get('/api/v1/rooms/' + roomId, function (room) {
           if (room.success === true) {
             $('#editRoomName').val(room.data.name);
             $('#editRoomCapacity').val(room.data.capacity);
@@ -58,7 +58,7 @@ $(document).ready(function () {
               let centreId = $('#editCentreList').val();
               $.ajax({
 
-                url: 'http://localhost:4000/api/v1/rooms/' + roomId,
+                url: '/api/v1/rooms/' + roomId,
                 data: {
                   values: {
                     name: name,
@@ -86,7 +86,7 @@ $(document).ready(function () {
       $('.delete').click(function (e) {
         let roomId = e.target.getAttribute('room-id');
         $.ajax({
-          url: 'http://localhost:4000/api/v1/rooms/' + roomId,
+          url: '/api/v1/rooms/' + roomId,
           method: 'DELETE'
         }).done(function (res) {
           if(res.success === true){
@@ -105,7 +105,7 @@ $(document).ready(function () {
     let config = $('#roomConfig').val();
     let centreId = $('#centreList').val();
 
-    $.post('http://localhost:4000/api/v1/rooms/new', {
+    $.post('/api/v1/rooms/new', {
       name: name,
       capacity: capacity,
       config: config,

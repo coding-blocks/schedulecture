@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-  $.get('http://localhost:4000/api/v1/teachers', function (teachers) {
+  $.get('/api/v1/teachers', function (teachers) {
     console.log(1);
     if (teachers.success === true) {
       let teacherList = $('#minicourses-list');
@@ -22,7 +22,7 @@ $(document).ready(function () {
 
       $('.edit').click(function (e) {
         let teacherId = e.target.getAttribute('teacher-id');
-        $.get('http://localhost:4000/api/v1/teachers/' + teacherId, function (teacher) {
+        $.get('/api/v1/teachers/' + teacherId, function (teacher) {
           if (teacher.success === true) {
             $('#editTeacherName').val(teacher.data.name);
             $('#EditTeacherEmail').val(teacher.data.email);
@@ -36,7 +36,7 @@ $(document).ready(function () {
               let contact = $('#editTeacherContact').val();
               $.ajax({
 
-                url: 'http://localhost:4000/api/v1/teachers/' + teacherId,
+                url: '/api/v1/teachers/' + teacherId,
                 data: {
                   values: {
                     name: name,
@@ -62,7 +62,7 @@ $(document).ready(function () {
       $('.delete').click(function (e) {
         let teacherId = e.target.getAttribute('teacher-id');
         $.ajax({
-          url: 'http://localhost:4000/api/v1/teachers/' + teacherId,
+          url: '/api/v1/teachers/' + teacherId,
           method: 'DELETE'
         }).done(function (res) {
           if(res.success === true){
@@ -79,7 +79,7 @@ $(document).ready(function () {
     let name = $('#teacherName').val();
     let email = $('#teacherEmail').val();
     let contact = $('#teacherContact').val();
-    $.post('http://localhost:4000/api/v1/teachers/new',{
+    $.post('/api/v1/teachers/new',{
       name: name,
       email: email,
       contact: contact

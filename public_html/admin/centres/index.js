@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-  $.get('http://localhost:4000/api/v1/centres', function (centres) {
+  $.get('/api/v1/centres', function (centres) {
     if (centres.success === true) {
       let centreList = $('#minicourses-list');
       for (let i = 0; i < centres.data.length; i++) {
@@ -23,7 +23,7 @@ $(document).ready(function () {
 
       $('.edit').click(function (e) {
         let centreId = e.target.getAttribute('centre-id');
-        $.get('http://localhost:4000/api/v1/centres/' + centreId, function (centre) {
+        $.get('/api/v1/centres/' + centreId, function (centre) {
           if (centre.success === true) {
             $('#editCentreName').val(centre.data.name);
             $('#editCentreHead').val(centre.data.head);
@@ -37,7 +37,7 @@ $(document).ready(function () {
               let contact = $('#editCentreContact').val();
               $.ajax({
 
-                url: 'http://localhost:4000/api/v1/centres/' + centreId,
+                url: '/api/v1/centres/' + centreId,
                 data: {
                   values: {
                     name: name,
@@ -63,7 +63,7 @@ $(document).ready(function () {
       $('.delete').click(function (e) {
         let centreId = e.target.getAttribute('centre-id');
         $.ajax({
-          url: 'http://localhost:4000/api/v1/centres/' + centreId,
+          url: '/api/v1/centres/' + centreId,
           method: 'DELETE'
         }).done(function (res) {
           if(res.success === true){
@@ -80,7 +80,7 @@ $(document).ready(function () {
     let name = $('#centreName').val();
     let head = $('#centreHead').val();
     let contact = $('#centreContact').val();
-    $.post('http://localhost:4000/api/v1/centres/new', {
+    $.post('/api/v1/centres/new', {
       name: name,
       head: head,
       phone: contact
