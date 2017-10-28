@@ -73,6 +73,14 @@ const Teachers = sequelize.define('teacher', {
   email: Sequelize.DataTypes.STRING,
   contact: {type: Sequelize.DataTypes.STRING(12), isNumeric: true}
 });
+const AuthToken = sequelize.define('authtoken', {
+    id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
+    accesstoken: {type: Sequelize.STRING, unique: true},
+    clientoken: {type: Sequelize.STRING, unique: true}
+});
+
+AuthToken.belongsTo(Users);
+Users.hasOne(AuthToken);
 
 Batches.belongsTo(Courses);
 Courses.hasMany(Batches);
@@ -106,5 +114,7 @@ module.exports = {
   Rooms,
   Users,
   Centres,
-  Teachers
+  Teachers,
+  AuthToken
+
 };

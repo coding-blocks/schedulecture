@@ -12,6 +12,7 @@
     "passport-oneauth": "^1.0.3",
     "pg": "^7.2.0",
     "pg-hstore": "^2.3.2",
+    "rand-token": "^0.3.0",
     "sequelize": "^4.8.0"
   },
   "devDependencies": {},
