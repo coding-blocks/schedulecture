@@ -14,6 +14,7 @@ app.use(bp.urlencoded({extended : true}));
 const api_v1 = require('./routes/api_v1');
 const users = require('./routes/users');
 app.use(passport.initialize());
+app.use(passport.session());
 
 
 
