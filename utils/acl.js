@@ -1,6 +1,7 @@
 function ensureadmin() {
     return function (req, res, next) {
         if (req.user) {
+            //TODO: Check that the user is actually admin (onauth provides this info)
             return next();
         }
 
