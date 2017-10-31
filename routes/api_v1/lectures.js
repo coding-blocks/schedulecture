@@ -4,6 +4,8 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../../db');
+const acl=require('../../utils/acl');
+
 
 
 /**
@@ -35,7 +37,7 @@ const db = require('../../db');
  *
  *
  */
-router.post('/new', function (req, res) {
+router.post('/new',acl.ensureadmin(), function (req, res) {
 
   req.body.date = req.body.hasOwnProperty('date') ? (new Date(req.body.date)) : null;
 
@@ -194,7 +196,7 @@ router.get('/', function (req, res) {
  *
  * {success:true}
  */
-router.put('/', function (req, res) {
+router.put('/',acl.ensureadmin(), function (req, res) {
   (function (callback) {
     (req.body.lectures).forEach(function (x) {
       db.actions.lectures.edit(x.id, x, () => {
@@ -278,7 +280,7 @@ router.get('/:id', function (req, res) {
     }
 }
  */
-router.put('/:id', function (req, res) {
+router.put('/:id',acl.ensureadmin(), function (req, res) {
   db.actions.lectures.edit(req.params.id, req.body.values, function (err, lecture) {
     if (err) {
       console.log(err);
@@ -317,7 +319,7 @@ router.put('/:id', function (req, res) {
     "success": true
 }
  */
-router.delete('/:id', function (req, res) {
+router.delete('/:id',acl.ensureadmin(), function (req, res) {
   db.actions.lectures.deleteLecture(req.params.id, function (err, lectureDeleted) {
     if (err) {
       console.log(err);
