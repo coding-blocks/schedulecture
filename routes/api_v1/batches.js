@@ -34,7 +34,7 @@ const acl=require('../../utils/acl');
     }
 }
  */
-router.post('/new',acl.ensureadmin(), function (req, res) {
+router.post('/new', acl.ensureadmin(), function (req, res) {
   db.actions.batches.newBatch(req.body.name, req.body.startDate, req.body.endDate, req.body.size, req.body.noOfLectures,
     req.body.lectureShortCode, req.body.hoursPerLecture, req.body.courseId, req.body.centreId, req.body.teacherId,
     function (err, batch) {
@@ -302,7 +302,7 @@ router.get('/:id', function (req, res) {
  *
  *
  */
-router.put('/:id',acl.ensureadmin(), function (req, res) {
+router.put('/:id', acl.ensureadmin(), function (req, res) {
   db.actions.batches.edit(req.params.id, req.body.values, function (err, batch) {
     if (err) {
       console.log(err);
@@ -330,7 +330,7 @@ router.put('/:id',acl.ensureadmin(), function (req, res) {
   })
 });
 
-router.put('/archive/:id',acl.ensureadmin(), function (req, res) {
+router.put('/archive/:id', acl.ensureadmin(), function (req, res) {
   console.log(req.params.id)
   db.actions.batches.archiveBatch(req.params.id, function (err, batch) {
     if (err) {
@@ -370,7 +370,7 @@ router.put('/archive/:id',acl.ensureadmin(), function (req, res) {
     "success": true
 }
  */
-router.delete('/:id',acl.ensureadmin(), function (req, res) {
+router.delete('/:id', acl.ensureadmin(), function (req, res) {
   db.actions.batches.deleteBatch(req.params.id, function (err, batchDeleted) {
     if (err) {
       console.log(err);
