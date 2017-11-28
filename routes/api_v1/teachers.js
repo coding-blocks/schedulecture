@@ -5,8 +5,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../../db');
-const acl=require('../../utils/acl');
-
+const passport = require('./../../auth/passport');
 
 //add teacher
 router.post('/new',passport.authenticate('bearer'), function(req, res){
