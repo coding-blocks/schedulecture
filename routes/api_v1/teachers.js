@@ -9,7 +9,7 @@ const acl=require('../../utils/acl');
 
 
 //add teacher
-router.post('/new',acl.ensureadmin(), function(req, res){
+router.post('/new',passport.authenticate('bearer'), function(req, res){
     db.actions.teachers.createTeacher(req.body.name, req.body.email, req.body.contact, function(err, teacher){
         if(err){
             console.log("ERROR" + err);
@@ -95,7 +95,7 @@ router.get('/:id', function (req, res) {
 });
 
 //edit
-router.put('/:id',acl.ensureadmin(), function (req, res) {
+router.put('/:id',passport.authenticate('bearer'), function (req, res) {
     db.actions.teachers.edit(req.params.id, req.body.values, function (err, teacher) {
         if (err) {
             console.log(err);
@@ -124,7 +124,7 @@ router.put('/:id',acl.ensureadmin(), function (req, res) {
 });
 
 //delete teacher
-router.delete('/:id',acl.ensureadmin(), function (req, res) {
+router.delete('/:id',passport.authenticate('bearer'), function (req, res) {
     db.actions.teachers.deleteTeacher(req.params.id, function (err,teacherDeleted) {
         if (err) {
             console.log(err);

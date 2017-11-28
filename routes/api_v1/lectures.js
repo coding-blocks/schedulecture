@@ -37,7 +37,7 @@ const acl=require('../../utils/acl');
  *
  *
  */
-router.post('/new',acl.ensureadmin(), function (req, res) {
+router.post('/new',passport.authenticate('bearer'), function (req, res) {
 
   req.body.date = req.body.hasOwnProperty('date') ? (new Date(req.body.date)) : null;
 
@@ -196,7 +196,7 @@ router.get('/', function (req, res) {
  *
  * {success:true}
  */
-router.put('/',acl.ensureadmin(), function (req, res) {
+router.put('/',passport.authenticate('bearer'), function (req, res) {
   (function (callback) {
     (req.body.lectures).forEach(function (x) {
       db.actions.lectures.edit(x.id, x, () => {
@@ -280,7 +280,7 @@ router.get('/:id', function (req, res) {
     }
 }
  */
-router.put('/:id',acl.ensureadmin(), function (req, res) {
+router.put('/:id',passport.authenticate('bearer'), function (req, res) {
   db.actions.lectures.edit(req.params.id, req.body.values, function (err, lecture) {
     if (err) {
       console.log(err);
@@ -319,7 +319,7 @@ router.put('/:id',acl.ensureadmin(), function (req, res) {
     "success": true
 }
  */
-router.delete('/:id',acl.ensureadmin(), function (req, res) {
+router.delete('/:id',passport.authenticate('bearer'), function (req, res) {
   db.actions.lectures.deleteLecture(req.params.id, function (err, lectureDeleted) {
     if (err) {
       console.log(err);

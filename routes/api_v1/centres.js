@@ -27,7 +27,7 @@ const acl=require('../../utils/acl');
  *
  *
  */
-router.post('/new',acl.ensureadmin(), function (req, res) {
+router.post('/new',passport.authenticate('bearer'), function (req, res) {
     db.actions.centres.createNew(req.body.name, req.body.head, req.body.phone, function (err, centre) {
         if (err) {
             console.log("ERROR" + err);
@@ -174,7 +174,7 @@ router.get('/:id', function (req, res) {
     }
 }
  */
-router.put('/:id',acl.ensureadmin(), function (req, res) {
+router.put('/:id',passport.authenticate('bearer'), function (req, res) {
     db.actions.centres.edit(req.params.id, req.body.values, function (err, centre) {
 
         if (err) {
@@ -215,7 +215,7 @@ router.put('/:id',acl.ensureadmin(), function (req, res) {
     "success": true
 }
  */
-router.delete('/:id',acl.ensureadmin(), function (req, res) {
+router.delete('/:id',passport.authenticate('bearer'), function (req, res) {
     db.actions.centres.deleteCentre(req.params.id, function (err, centreDeleted) {
         if (err) {
             console.log(err);
