@@ -3,6 +3,7 @@ const oneauthStrategy = require('passport-oneauth');
 const models = require('../db/models');
 const secrets = require('../secrets.json');
 const randtoken = require('rand-token')
+const bearerStrategy=require('./strategies/bearerStrategy');
 
 
 passport.use('oneauth', new oneauthStrategy({
@@ -59,6 +60,6 @@ passport.deserializeUser(function (user, done) {
     });
 
 });
-
+passport.use('bearer',bearerStrategy);
 
 module.exports = passport;
