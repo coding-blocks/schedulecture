@@ -9,6 +9,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.15.4",
     "passport": "^0.4.0",
+    "passport-http-bearer": "^1.0.1",
     "passport-oneauth": "^1.0.5",
     "pg": "^7.2.0",
     "pg-hstore": "^2.3.2",
