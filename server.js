@@ -10,23 +10,26 @@ const passport = require('passport')
 
 
 app.use(bp.json())
-app.use(bp.urlencoded({extended : true}));
+app.use(bp.urlencoded({extended: true}));
 const api_v1 = require('./routes/api_v1');
 const users = require('./routes/users');
 app.use(passport.initialize());
 app.use(passport.session());
 
 
-
-
 app.use('/', express.static(__dirname + "/public_html"));
+
+app.get('/checkAdmin', passport.authenticate('bearer'), (req, res, next) => {
+  return res.send({success: true});
+});
+
 app.use('/admin/centres/:id/rooms', express.static(__dirname + "/public_html/admin/centres/rooms"));
 app.use('/admin/batches/:id/lectures', express.static(__dirname + "/public_html/admin/batches/lectures"));
 
 
 app.use('/docs', express.static(__dirname + "/docs"));
 
-app.use('/api/v1',api_v1)
+app.use('/api/v1', api_v1)
 app.use('/users', users)
 // app.use('/bower_components', express.static(__dirname + "/bower_components"));
 app.listen(process.env.PORT || 4000, function () {
