@@ -8,7 +8,6 @@ const db = require('../../db');
 const passport = require('./../../auth/passport');
 
 
-
 /**
  *@api {post} /api/v1/centres/new POST /api/v1/centres/new
  * @apiName AddCentre

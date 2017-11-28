@@ -31,8 +31,8 @@ passport.use('oneauth', new oneauthStrategy({
           },
           include: [models.Users]
         }
-      ).then(function (user) {
-        return done(null, user)
+      ).then(function (authtokenObject) {
+        return done(null, authtokenObject[0].get())
       }).catch(function (err) {
         console.log(err);
       })
@@ -43,9 +43,9 @@ passport.use('oneauth', new oneauthStrategy({
   }
 ));
 
-passport.serializeUser(function (user, done) {
+passport.serializeUser(function (authtokenObject, done) {
   return done(null, {
-    id: user[0].dataValues.userId
+    id: authtokenObject.userId
   })
 
 });

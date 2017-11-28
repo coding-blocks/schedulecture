@@ -6,7 +6,6 @@ const router = express.Router();
 const db = require('../../db');
 const passport = require('./../../auth/passport');
 
-
 /**
  *@api {post} /api/v1/lectures/new POST /api/v1/lectures/new
  * @apiName AddLecture

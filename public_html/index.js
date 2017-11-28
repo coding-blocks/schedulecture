@@ -4,6 +4,12 @@
 
 $(document).ready(function () {
 
+  let clienttokenArray = window.location.href.split('?clienttoken=');
+  if(clienttokenArray && clienttokenArray.length ===2 && clienttokenArray[1].length===16){
+    let clientToken = clienttokenArray[1];
+    localStorage.setItem('clienttoken', clientToken);
+    window.location.replace('/admin');
+  }
 
   var api = '/api/v1';
 
