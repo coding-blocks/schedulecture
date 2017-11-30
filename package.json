@@ -4,17 +4,17 @@
   "description": "Link to API DOCS",
   "main": "server.js",
   "dependencies": {
-    "body-parser": "^1.17.2",
-    "bower": "^1.8.0",
+    "body-parser": "^1.18.2",
+    "bower": "^1.8.2",
     "cookie-parser": "^1.4.3",
-    "express": "^4.15.4",
+    "express": "^4.16.2",
     "passport": "^0.4.0",
     "passport-http-bearer": "^1.0.1",
     "passport-oneauth": "^1.0.5",
-    "pg": "^7.2.0",
+    "pg": "^7.4.0",
     "pg-hstore": "^2.3.2",
     "rand-token": "^0.3.0",
-    "sequelize": "^4.8.0"
+    "sequelize": "^4.23.1"
   },
   "devDependencies": {},
   "scripts": {
