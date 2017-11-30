@@ -4,11 +4,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../../db');
-const acl=require('../../utils/acl');
-const passport=require('../../auth/passport');
-
-
-
+const passport = require('./../../auth/passport');
 
 /**
  *@api {post} /api/v1/lectures/new POST /api/v1/lectures/new

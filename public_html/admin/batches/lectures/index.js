@@ -80,7 +80,10 @@ $(document).ready(function () {
                   roomId: roomId
                 }
               },
-              method: 'PUT'
+              method: 'PUT',
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+                }
             }).done(function (lecture) {
 
               if (lecture.success === true) {
@@ -101,7 +104,10 @@ $(document).ready(function () {
       let lectureId = e.target.getAttribute('lecture-id');
       $.ajax({
         url: '/api/v1/lectures/' + lectureId,
-        method: 'DELETE'
+        method: 'DELETE',
+          headers: {
+              "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+          }
       }).done(function (res) {
         if (res.success === true) {
           window.location.reload();
@@ -118,13 +124,22 @@ $(document).ready(function () {
     let teacherId = $('#teachersList').val();
     let roomId = $('#roomsList').val();
 
-    $.post('/api/v1/lectures/new', {
+    $.ajax({
+        url: '/api/v1/lectures/new',
+
+    data: {
       name: name,
       teacherId: teacherId,
       roomId: roomId,
       batchId: batchId
 
-    }, function (lecture) {
+    },
+        method: 'POST',
+
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+      }
+    }).done(function (lecture) {
       if (lecture.success === true) {
 
         $('#addLecturesModal').modal('hide');

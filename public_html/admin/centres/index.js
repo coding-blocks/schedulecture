@@ -45,7 +45,10 @@ $(document).ready(function () {
                     phone: contact
                   }
                 },
-                method: 'PUT'
+                method: 'PUT',
+                  headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+                }
               }).done(function (centre) {
                 if (centre.success === true) {
 
@@ -64,7 +67,10 @@ $(document).ready(function () {
         let centreId = e.target.getAttribute('centre-id');
         $.ajax({
           url: '/api/v1/centres/' + centreId,
-          method: 'DELETE'
+          method: 'DELETE',
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+            }
         }).done(function (res) {
           if(res.success === true){
             window.location.reload();
@@ -80,11 +86,14 @@ $(document).ready(function () {
     let name = $('#centreName').val();
     let head = $('#centreHead').val();
     let contact = $('#centreContact').val();
-    $.post('/api/v1/centres/new', {
+    $.ajax({url: '/api/v1/centres/new',data: {
       name: name,
       head: head,
       phone: contact
-    }, function (centre) {
+    },method: 'POST',
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+        }}).done( function (centre) {
       if (centre.success === true) {
 
         $('#addCentresModal').modal('hide');

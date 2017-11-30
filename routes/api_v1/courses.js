@@ -1,13 +1,11 @@
+
 /**
  * Created by abhishekyadav on 25/08/17.
  */
 const express = require('express');
 const router = express.Router();
 const db = require('../../db');
-const acl=require('../../utils/acl');
-const passport=require('../../auth/passport');
-
-
+const passport = require('./../../auth/passport');
 
 /**
  *@api {post} /api/v1/courses/new POST /api/v1/courses/new

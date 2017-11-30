@@ -67,7 +67,10 @@ $(document).ready(function () {
                     centreId: centreId
                   }
                 },
-                method: 'PUT'
+                method: 'PUT',
+                  headers: {
+                      "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+                  }
               }).done(function (room) {
 
                 if (room.success === true) {
@@ -87,7 +90,10 @@ $(document).ready(function () {
         let roomId = e.target.getAttribute('room-id');
         $.ajax({
           url: '/api/v1/rooms/' + roomId,
-          method: 'DELETE'
+          method: 'DELETE',
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+            }
         }).done(function (res) {
           if(res.success === true){
             window.location.reload();
@@ -105,12 +111,15 @@ $(document).ready(function () {
     let config = $('#roomConfig').val();
     let centreId = $('#centreList').val();
 
-    $.post('/api/v1/rooms/new', {
+    $.ajax({url: '/api/v1/rooms/new',data: {
       name: name,
       capacity: capacity,
       config: config,
       centreId: centreId
-    }, function (room) {
+    },method:'POST',
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+        }}).done( function (room) {
       if (room.success === true) {
 
         $('#addRoomsModal').modal('hide');

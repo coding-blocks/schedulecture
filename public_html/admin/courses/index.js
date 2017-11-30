@@ -1,7 +1,6 @@
 $(document).ready(function () {
 
 
-
   $.get('/api/v1/courses', function (courses) {
     if (courses.success === true) {
       let courseList = $('#minicourses-list');
