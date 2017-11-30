@@ -10,9 +10,9 @@ module.exports = new BearerStrategy(function (token, done) {
 
     models.AuthToken.findOne({
         where: {
-            client_token: token
+          clientoken: token
         },
-        include: [models.User]
+        include: [models.Users]
     }).then(function (authToken) {
 
         if (authToken && authToken.user) {
