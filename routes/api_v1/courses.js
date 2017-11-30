@@ -5,6 +5,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../../db');
 const acl=require('../../utils/acl');
+const passport=require('../../auth/passport');
 
 
 
@@ -26,7 +27,7 @@ const acl=require('../../utils/acl');
     }
 }
  */
-router.post('/new',acl.ensureadmin(), function (req, res) {
+router.post('/new',passport.authenticate('bearer'), function (req, res) {
     db.actions.courses.createNew(req.body.name, req.body.desc, req.body.lect, req.body.hours, function (err, course) {
         if (err) {
             console.log("ERROR" + err);
@@ -173,7 +174,7 @@ router.get('/:id', function (req, res) {
     }
 }
  */
-router.put('/:id',acl.ensureadmin(), function (req, res) {
+router.put('/:id',passport.authenticate('bearer'), function (req, res) {
     db.actions.courses.edit(req.params.id, req.body.values, function (err, course) {
         if (err) {
             console.log(err);
@@ -213,7 +214,7 @@ router.put('/:id',acl.ensureadmin(), function (req, res) {
     "success": true
 }
  */
-router.delete('/:id',acl.ensureadmin(), function (req, res) {
+router.delete('/:id',passport.authenticate('bearer'), function (req, res) {
     db.actions.courses.deleteCourse(req.params.id, function (err, courseDeleted) {
         if (err) {
             console.log(err);

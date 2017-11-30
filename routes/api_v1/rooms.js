@@ -6,10 +6,12 @@ const express = require('express');
 const router = express.Router();
 const db = require('../../db');
 const acl=require('../../utils/acl');
+const passport=require('../../auth/passport');
+
 
 
 //add room
-router.post('/new',acl.ensureadmin(), function (req, res) {
+router.post('/new',passport.authenticate('bearer'), function (req, res) {
     db.actions.rooms.createNew(req.body.name, req.body.capacity, req.body.config, req.body.centreId, function (err, room) {
         if (err) {
             console.log("ERROR" + err);
@@ -97,7 +99,7 @@ router.get('/:id', function (req, res) {
 });
 
 //edit room
-router.put('/:id',acl.ensureadmin(), function (req, res) {
+router.put('/:id',passport.authenticate('bearer'), function (req, res) {
     db.actions.rooms.edit(req.params.id, req.body.values, function (err, room) {
         if (err) {
             console.log(err);
@@ -126,7 +128,7 @@ router.put('/:id',acl.ensureadmin(), function (req, res) {
 });
 
 //delete room
-router.delete('/:id',acl.ensureadmin(), function (req, res) {
+router.delete('/:id',passport.authenticate('bearer'), function (req, res) {
     db.actions.rooms.deleteRoom(req.params.id, function (err, roomDeleted) {
         if (err) {
             console.log(err);
