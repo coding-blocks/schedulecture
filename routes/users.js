@@ -8,7 +8,7 @@ router.get('/login/cb',passport.authenticate('oneauth'));
 
 router.get('/login/cb/callback',
     passport.authenticate('oneauth', {failureRedirect: '/'}),function (req, res) {
-        res.redirect('/')
+        res.redirect('/admin')
 });
 
 router.get('/logout', function(req, res) {
