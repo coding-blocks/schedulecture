@@ -127,11 +127,11 @@ $(document).ready(function () {
           data: {values: {
             status: 'active'
           }},
-            headers: {
+          headers: {
                 "Authorization": "Bearer " + localStorage.getItem("clienttoken")
-            }
+          }
         }).done(function (res) {
-          if (res.success === true) {
+          if (res.success) {
             window.location.reload();
           } else {
             window.alert('Could Not Delete The Centre Right Now!')
