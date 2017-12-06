@@ -256,6 +256,9 @@ $(document).ready(function () {
           date: event.start._d,
           roomId: +event.resourceId
         }
+      },
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("clienttoken")
       }
     }).done(function (data) {
       console.log(data)

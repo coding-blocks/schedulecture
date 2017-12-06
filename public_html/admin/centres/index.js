@@ -46,8 +46,8 @@ $(document).ready(function () {
                   }
                 },
                 method: 'PUT',
-                  headers: {
-                    "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+                headers: {
+                  "Authorization": "Bearer " + localStorage.getItem("clienttoken")
                 }
               }).done(function (centre) {
                 if (centre.success === true) {
@@ -68,13 +68,13 @@ $(document).ready(function () {
         $.ajax({
           url: '/api/v1/centres/' + centreId,
           method: 'DELETE',
-            headers: {
-                "Authorization": "Bearer " + localStorage.getItem("clienttoken")
-            }
+          headers: {
+            "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+          }
         }).done(function (res) {
-          if(res.success === true){
+          if (res.success === true) {
             window.location.reload();
-          }else{
+          } else {
             window.alert('Could Not Delete The Centre Right Now!')
           }
         })
@@ -86,14 +86,16 @@ $(document).ready(function () {
     let name = $('#centreName').val();
     let head = $('#centreHead').val();
     let contact = $('#centreContact').val();
-    $.ajax({url: '/api/v1/centres/new',data: {
-      name: name,
-      head: head,
-      phone: contact
-    },method: 'POST',
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("clienttoken")
-        }}).done( function (centre) {
+    $.ajax({
+      url: '/api/v1/centres/new', data: {
+        name: name,
+        head: head,
+        phone: contact
+      }, method: 'POST',
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+      }
+    }).done(function (centre) {
       if (centre.success === true) {
 
         $('#addCentresModal').modal('hide');

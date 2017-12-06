@@ -10,8 +10,8 @@ $(document).ready(function () {
                     <div style="height: 120px; background-color: #999">
                     </div>
                     <div class="text-center"  style="padding: 15px 0">
-                        <h3>`+teachers.data[i].name +`</h3>
-                        <p>Email: `+teachers.data[i].email +`<br> Contact: `+teachers.data[i].contact +`</p>
+                        <h3>` + teachers.data[i].name + `</h3>
+                        <p>Email: ` + teachers.data[i].email + `<br> Contact: ` + teachers.data[i].contact + `</p>
                         <i class="fa fa-pencil edit" style="color: #1EB3E2; font-size: 24px"  teacher-id="` + teachers.data[i].id + `"></i>&nbsp;
                         <i class="fa fa-trash-o delete" style="color: red; font-size: 24px" teacher-id="` + teachers.data[i].id + `"></i>
 
@@ -63,11 +63,14 @@ $(document).ready(function () {
         let teacherId = e.target.getAttribute('teacher-id');
         $.ajax({
           url: '/api/v1/teachers/' + teacherId,
-          method: 'DELETE'
+          method: 'DELETE',
+          headers: {
+            "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+          }
         }).done(function (res) {
-          if(res.success === true){
+          if (res.success === true) {
             window.location.reload();
-          }else{
+          } else {
             window.alert('Could Not Delete The Teacher Right Now!')
           }
         })
@@ -79,20 +82,29 @@ $(document).ready(function () {
     let name = $('#teacherName').val();
     let email = $('#teacherEmail').val();
     let contact = $('#teacherContact').val();
-    $.post('/api/v1/teachers/new',{
-      name: name,
-      email: email,
-      contact: contact
-    }, function (teacher) {
-      if(teacher.success === true){
+    $.ajax({
+      url: '/api/v1/teachers/new',
+      data: {
+        name: name,
+        email: email,
+        contact: contact
+      },
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+      },
+      method: "POST"
+    }).done(function (teacher) {
+      if (teacher.success === true) {
         $('#addTeachersModal').modal('hide');
 
         window.location.reload();
 
       }
-      else{
-        console.log("could not add the centre right now")
+      else {
+        console.log("could not add the teacher right now")
       }
+    }).fail(function (err) {
+      alert('Could not add teacher right now');
     })
   })
 

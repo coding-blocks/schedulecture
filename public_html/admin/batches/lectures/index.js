@@ -1,29 +1,29 @@
 $(document).ready(function () {
   let batchId = window.location.href.split('/batches/')[1].split('/lectures/')[0];
 
-    $.get('/api/v1/teachers', function (teachers) {
+  $.get('/api/v1/teachers', function (teachers) {
 
-        let teacherList = $('#teachersList');
-        let editTeacherList = $('#editTeachersList');
+    let teacherList = $('#teachersList');
+    let editTeacherList = $('#editTeachersList');
 
-        for (let i = 0; i < teachers.data.length; i++) {
+    for (let i = 0; i < teachers.data.length; i++) {
 
-            teacherList.append('<option value="' + teachers.data[i].id + '" name="teacher">' + teachers.data[i].name + '</option>');
-            editTeacherList.append('<option value="'+teachers.data[i].id+'" name="teacher">'+teachers.data[i].name+'</option>');
-        }
-    })
+      teacherList.append('<option value="' + teachers.data[i].id + '" name="teacher">' + teachers.data[i].name + '</option>');
+      editTeacherList.append('<option value="' + teachers.data[i].id + '" name="teacher">' + teachers.data[i].name + '</option>');
+    }
+  })
 
-    $.get('/api/v1/rooms', function (rooms) {
+  $.get('/api/v1/rooms', function (rooms) {
 
-        let roomsList = $('#roomsList');
-        let editRoomsList = $('#editRoomsList');
+    let roomsList = $('#roomsList');
+    let editRoomsList = $('#editRoomsList');
 
-        for (let i = 0; i < rooms.data.length; i++) {
+    for (let i = 0; i < rooms.data.length; i++) {
 
-            roomsList.append('<option value="' + rooms.data[i].id + '" name="room">' + rooms.data[i].name + '</option>');
-            editRoomsList.append('<option value="'+rooms.data[i].id+'" name="room">'+rooms.data[i].name+'</option>');
-        }
-    })
+      roomsList.append('<option value="' + rooms.data[i].id + '" name="room">' + rooms.data[i].name + '</option>');
+      editRoomsList.append('<option value="' + rooms.data[i].id + '" name="room">' + rooms.data[i].name + '</option>');
+    }
+  })
 
 
   $.get('/api/v1/batches/' + batchId, function (batch) {
@@ -59,10 +59,10 @@ $(document).ready(function () {
       $.get('/api/v1/lectures/' + lectureId, function (lecture) {
         if (lecture.success === true) {
           $('#editLectureName').val(lecture.data.name);
-          $('option[value="'+lecture.data.teacherId+'"][name="teacher"]').attr('selected', true);
-          $('option[value="'+lecture.data.roomId+'"][name="room"]').attr('selected', true);
+          $('option[value="' + lecture.data.teacherId + '"][name="teacher"]').attr('selected', true);
+          $('option[value="' + lecture.data.roomId + '"][name="room"]').attr('selected', true);
 
-            $('#editLecturesModal').modal('show');
+          $('#editLecturesModal').modal('show');
 
           $('#editLectureSave').click(function () {
 
@@ -81,9 +81,9 @@ $(document).ready(function () {
                 }
               },
               method: 'PUT',
-                headers: {
-                    "Authorization": "Bearer " + localStorage.getItem("clienttoken")
-                }
+              headers: {
+                "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+              }
             }).done(function (lecture) {
 
               if (lecture.success === true) {
@@ -105,9 +105,9 @@ $(document).ready(function () {
       $.ajax({
         url: '/api/v1/lectures/' + lectureId,
         method: 'DELETE',
-          headers: {
-              "Authorization": "Bearer " + localStorage.getItem("clienttoken")
-          }
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+        }
       }).done(function (res) {
         if (res.success === true) {
           window.location.reload();
@@ -125,19 +125,19 @@ $(document).ready(function () {
     let roomId = $('#roomsList').val();
 
     $.ajax({
-        url: '/api/v1/lectures/new',
+      url: '/api/v1/lectures/new',
 
-    data: {
-      name: name,
-      teacherId: teacherId,
-      roomId: roomId,
-      batchId: batchId
+      data: {
+        name: name,
+        teacherId: teacherId,
+        roomId: roomId,
+        batchId: batchId
 
-    },
-        method: 'POST',
+      },
+      method: 'POST',
 
-        headers: {
-          "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("clienttoken")
       }
     }).done(function (lecture) {
       if (lecture.success === true) {

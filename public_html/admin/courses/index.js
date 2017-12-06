@@ -12,11 +12,11 @@ $(document).ready(function () {
                     <div style="height: 120px; background-color: #999">
                     </div>
                     <div class="text-center"  style="padding: 15px 0">
-                        <h3>`+courses.data[i].name +`</h3>
-                        <p>Description: `+courses.data[i].desc +`<br> Lectures: `+courses.data[i].lect +`<br> Hours: `+courses.data[i].hours+`</p>
-                        <a class=" btn btn-success addBatch" style=" font-size: 16px; color: white; padding: 5px 12px"  course-id="`+courses.data[i].id+`" nol="`+courses.data[i].lect+` " hours="`+courses.data[i].hours+`">Add Batch</a>
-                        <i class="fa fa-pencil edit" style="color: #1EB3E2; font-size: 24px" course-id="`+courses.data[i].id+`"></i>&nbsp;
-                        <i class="fa fa-trash-o delete" style="color: red; font-size: 24px" course-id="`+courses.data[i].id+`"></i>
+                        <h3>` + courses.data[i].name + `</h3>
+                        <p>Description: ` + courses.data[i].desc + `<br> Lectures: ` + courses.data[i].lect + `<br> Hours: ` + courses.data[i].hours + `</p>
+                        <a class=" btn btn-success addBatch" style=" font-size: 16px; color: white; padding: 5px 12px"  course-id="` + courses.data[i].id + `" nol="` + courses.data[i].lect + ` " hours="` + courses.data[i].hours + `">Add Batch</a>
+                        <i class="fa fa-pencil edit" style="color: #1EB3E2; font-size: 24px" course-id="` + courses.data[i].id + `"></i>&nbsp;
+                        <i class="fa fa-trash-o delete" style="color: red; font-size: 24px" course-id="` + courses.data[i].id + `"></i>
 
                     </div>
                 </div>
@@ -30,7 +30,7 @@ $(document).ready(function () {
         $('#hoursPerLectures').val(e.target.getAttribute('hours'))
         $('#addBatchesModal').modal('show');
         $('#courseList').change(function () {
-          $('#batchNoOfLectures').val(($('option[value='+$('#courseList').val()+'][name="course"]').attr('nol')))
+          $('#batchNoOfLectures').val(($('option[value=' + $('#courseList').val() + '][name="course"]').attr('nol')))
 
           console.log()
         })
@@ -47,30 +47,37 @@ $(document).ready(function () {
           let courseId = $('#courseList').val();
           let teacherId = $('#teacherList').val();
 
-          $.post('/api/v1/batches/new', {
-            name: name,
-            startDate: startDate,
-            endDate: endDate,
-            size: size,
-            noOfLectures: nol,
-            hoursPerLecture: hoursPerLecture,
-            lectureShortCode: shortcode,
-            courseId: courseId,
-            centreId: centreId,
-            teacherId: teacherId
-          }, function (batch) {
-            if (batch.success === true) {
-
+          $.ajax({
+            url: '/api/v1/batches/new',
+            data: {
+              name: name,
+              startDate: startDate,
+              endDate: endDate,
+              size: size,
+              noOfLectures: nol,
+              hoursPerLecture: hoursPerLecture,
+              lectureShortCode: shortcode,
+              courseId: courseId,
+              centreId: centreId,
+              teacherId: teacherId
+            },
+            method: 'POST',
+            headers: {
+              "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+            }
+          }).done(function (batch) {
+            if (batch.success) {
               $('#addBatchesModal').modal('hide');
               window.location.reload();
             }
             else {
               console.log("could not add the batch right now")
             }
+          }).fail(function (err) {
+            alert("could not add the batch right now")
           })
         });
       })
-
 
 
       $('.edit').click(function (e) {
@@ -90,7 +97,6 @@ $(document).ready(function () {
               let lect = $('#editLectures').val();
               let hours = $('#editHours').val();
               $.ajax({
-
                 url: '/api/v1/courses/' + courseId,
                 data: {
                   values: {
@@ -100,7 +106,10 @@ $(document).ready(function () {
                     hours: hours
                   }
                 },
-                method: 'PUT'
+                method: 'PUT',
+                headers: {
+                  "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+                }
               }).done(function (course) {
                 if (course.success === true) {
 
@@ -119,11 +128,14 @@ $(document).ready(function () {
         let courseId = e.target.getAttribute('course-id');
         $.ajax({
           url: '/api/v1/courses/' + courseId,
-          method: 'DELETE'
+          method: 'DELETE',
+          headers: {
+            "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+          }
         }).done(function (res) {
-          if(res.success === true){
+          if (res.success === true) {
             window.location.reload();
-          }else{
+          } else {
             window.alert('Could Not Delete The Course Right Now!')
           }
         })
@@ -157,7 +169,7 @@ $(document).ready(function () {
       //   centreList.append('<option value="'+centres.data[i].id+'" selected>'+centres.data[i].name+'</option>');
       //   editCentreList.append('<option value="'+centres.data[i].id+'" selected>'+centres.data[i].name+'</option>');
       // } else {
-      courseList.append('<option value="' + courses.data[i].id + '" nol = "'+courses.data[i].lect+'" name="course">' + courses.data[i].name + '</option>');
+      courseList.append('<option value="' + courses.data[i].id + '" nol = "' + courses.data[i].lect + '" name="course">' + courses.data[i].name + '</option>');
       // editCentreList.append('<option value="'+centres.data[i].id+'">'+centres.data[i].name+'</option>');
       // }
     }
@@ -186,21 +198,30 @@ $(document).ready(function () {
     let desc = $('#courseDesc').val();
     let lect = $('#lectures').val();
     let hours = $('#hours').val();
-    $.post('/api/v1/courses/new',{
-      name: name,
-      desc: desc,
-      lect: lect,
-      hours: hours
-    }, function (course) {
-      if(course.success === true){
+    $.ajax({
+      url: '/api/v1/courses/new',
+      data: {
+        name: name,
+        desc: desc,
+        lect: lect,
+        hours: hours
+      },
+      method: 'POST',
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+      }
+    }).done(function (course) {
+      if (course.success === true) {
 
         $('#addCoursesModal').modal('hide');
         window.location.reload();
 
       }
-      else{
+      else {
         console.log("could not add the centre right now")
       }
+    }).fail(function (err) {
+      alert("could not add the centre right now");
     })
   })
 
