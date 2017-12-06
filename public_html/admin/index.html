@@ -15,15 +15,10 @@
       contentType: "application/x-www-form-urlencoded; charset=UTF-8",
       async: false
     }).done(function (data) {
-      // console.log(1)
-      // console.log(data)
       if (!data.success) {
-
         window.location.replace('/');
       }
     }).fail(function (err) {
-      // console.log(2)
-      // console.log(err);
       window.location.replace('/');
     });
   </script>
