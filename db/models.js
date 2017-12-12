@@ -40,7 +40,8 @@ const Batches = sequelize.define('batch', {
   status: Sequelize.DataTypes.STRING,
   noOfLectures: Sequelize.DataTypes.INTEGER,
   lectureShortCode: Sequelize.DataTypes.STRING,
-  hoursPerLecture: Sequelize.DataTypes.INTEGER
+  hoursPerLecture: Sequelize.DataTypes.INTEGER,
+  defaultTime: Sequelize.DataTypes.STRING
 });
 const Lectures = sequelize.define('lecture', {
   id: {type: Sequelize.DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -90,6 +91,9 @@ Batches.hasMany(Lectures);
 
 Batches.belongsTo(Centres);
 Centres.hasMany(Batches);
+
+Batches.belongsTo(Rooms);
+Rooms.hasMany(Batches);
 
 Rooms.belongsTo(Centres);
 Centres.hasMany(Rooms);
