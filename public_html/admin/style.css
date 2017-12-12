@@ -211,3 +211,7 @@ a{
 .btn:focus{
     box-shadow: none;
 }
+
+.fc-content{
+    color: white;
+}

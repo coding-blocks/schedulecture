@@ -50,7 +50,7 @@ $(document).ready(function () {
 
     const events = [];
     const resources = [];
-    const colors = ['#EF5350', '#29B6F6', '#66BB6A', 'rgb(120, 144, 156)', 'rgb(141, 110, 99)', 'rgb(255, 112, 67)'];
+    const colors = ['#C2185B', '#512DA8', '#1976D2', '#0097A7', '#388E3C', '#FBC02D'];
     let colorCounter = 0;
 
     $('#calendar').remove();
@@ -144,7 +144,7 @@ $(document).ready(function () {
                     lectureId: lecture.id,
                     title: lecture.name,
                     hours: batch.hoursPerLecture !== null ? batch.hoursPerLecture : batch.course.hours,
-                    start: moment().startOf('day'),
+                    start: moment().startOf('day').add(10, 'hours'),
                     stick: true,
                     resourceId: resources[0].id
                   });
