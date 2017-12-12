@@ -146,7 +146,7 @@ $(document).ready(function () {
                     hours: batch.hoursPerLecture !== null ? batch.hoursPerLecture : batch.course.hours,
                     start: moment().startOf('day'),
                     stick: true,
-                    //resourceId: resources[0].id
+                    resourceId: resources[0].id
                   });
 
                   $lecture.draggable({
