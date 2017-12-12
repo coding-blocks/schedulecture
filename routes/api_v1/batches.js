@@ -5,8 +5,8 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../../db');
-const acl=require('../../utils/acl');
-const passport=require('../../auth/passport');
+const acl = require('../../utils/acl');
+const passport = require('../../auth/passport');
 
 /**
  *@api {post} /api/v1/batches/new POST /api/v1/batches/new
@@ -35,9 +35,9 @@ const passport=require('../../auth/passport');
     }
 }
  */
-router.post('/new',passport.authenticate('bearer') , function (req, res) {
+router.post('/new', passport.authenticate('bearer'), function (req, res) {
   db.actions.batches.newBatch(req.body.name, req.body.startDate, req.body.endDate, req.body.size, req.body.noOfLectures,
-    req.body.lectureShortCode, req.body.hoursPerLecture, req.body.courseId, req.body.centreId, req.body.teacherId,
+    req.body.lectureShortCode, req.body.hoursPerLecture, req.body.defaultTime, req.body.courseId, req.body.centreId, req.body.teacherId, req.body.roomId,
     function (err, batch) {
       if (err) {
         console.log(err);
@@ -57,7 +57,7 @@ router.post('/new',passport.authenticate('bearer') , function (req, res) {
 
             for (let i = 1; i <= batch.noOfLectures; i++) {
               await db.models.Lectures.create({
-                name: batch.lectureShortCode + ( i < 10 ? '0' : '' ) + i,
+                name: batch.lectureShortCode + (i < 10 ? '0' : '') + i,
                 batchId: batch.id,
                 teacherId: batch.teacherId
               }).then((lecture) => {

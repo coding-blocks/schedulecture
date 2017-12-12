@@ -43,7 +43,7 @@ module.exports = {
         id: id
       }, include:
         [
-          models.Centres, models.Courses, models.Teachers, models.Rooms
+          models.Centres, models.Courses, models.Teachers, models.Rooms,
           {model: models.Lectures, include: [models.Teachers, models.Rooms], order: [['id']]}]
 
     }).then(function (data) {
