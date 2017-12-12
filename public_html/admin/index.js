@@ -144,7 +144,7 @@ $(document).ready(function () {
                     lectureId: lecture.id,
                     title: lecture.name,
                     hours: batch.hoursPerLecture !== null ? batch.hoursPerLecture : batch.course.hours,
-                    start: moment().startOf('day').add(10, 'hours'),
+                    start: moment().startOf('day'),
                     stick: true,
                     resourceId: resources[0].id
                   });
@@ -219,7 +219,7 @@ $(document).ready(function () {
               },
               eventReceive: function (event) {
                 console.log(event);
-                /*event.start = event.start.add(1, 'hours');*/
+                event.start = event.start.add(10, 'hours');
                 event.end = moment(event.start).add(event.hours, 'hours');
                 // console.log(event.start._d.getDay())
                 $('#calendar').fullCalendar('updateEvent', event);
