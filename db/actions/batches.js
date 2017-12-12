@@ -5,7 +5,7 @@
 const models = require('../models')
 module.exports = {
 
-  newBatch: function (name, startDate, endDate, size, noOfLectures, lectureShortCode, hoursPerLecture, courseId, centreId, teacherId, done) {
+  newBatch: function (name, startDate, endDate, size, noOfLectures, lectureShortCode, hoursPerLecture, defaultTime, courseId, centreId, teacherId, roomId, done) {
     models.Batches.create({
       name: name,
       startDate: startDate,
@@ -14,10 +14,12 @@ module.exports = {
       noOfLectures: noOfLectures,
       lectureShortCode: lectureShortCode,
       hoursPerLecture: hoursPerLecture,
+      defaultTime: defaultTime,
       status: "active",
       courseId: courseId,
       centreId: centreId,
-      teacherId: teacherId
+      teacherId: teacherId,
+      roomId: roomId
     }).then(function (data) {
       done(null, data)
     }).catch(function (err) {
@@ -27,7 +29,7 @@ module.exports = {
   getAll: function (conditions, done) {
     models.Batches.findAll({
       where: conditions,
-      include: [models.Centres, models.Courses, models.Teachers, models.Lectures]
+      include: [models.Centres, models.Courses, models.Teachers, models.Lectures, models.Rooms]
     }).then(function (data) {
 
       done(null, data)
@@ -39,10 +41,10 @@ module.exports = {
     models.Batches.findOne({
       where: {
         id: id
-      },include:
+      }, include:
         [
-          models.Centres, models.Courses, models.Teachers,
-        { model: models.Lectures, include: [models.Teachers, models.Rooms], order: [['id']]}]
+          models.Centres, models.Courses, models.Teachers, models.Rooms
+          {model: models.Lectures, include: [models.Teachers, models.Rooms], order: [['id']]}]
 
     }).then(function (data) {
       done(null, data);
