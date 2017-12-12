@@ -50,7 +50,16 @@ $(document).ready(function () {
       editCentreList.append('<option value="' + centres.data[i].id + '" name="centre">' + centres.data[i].name + '</option>');
       // }
     }
-  })
+    centreId = $('#centreList').val();
+    $.get(`/api/v1/centres/${centreId}/rooms`, function (rooms) {
+      let roomList = $('#roomList');
+      let editRoomList = $('#editRoomList');
+      for (let i = 0; i < rooms.data.length; i++) {
+        roomList.append(`<option value="${rooms.data[i].id}">${rooms.data[i].name}</option>`);
+        editRoomList.append(`<option value="${rooms.data[i].id}">${rooms.data[i].name}</option>`);
+      }
+    })
+  });
 
   $.get('/api/v1/courses', function (courses) {
 
@@ -245,17 +254,34 @@ $(document).ready(function () {
     }
   })
 
+  $('#centreList').change(function () {
+    $.get(`/api/v1/centres/${$('#centreList').val()}/rooms`, function (rooms) {
+      let roomList = $('#roomList');
+      roomList.empty();
+      for (let i = 0; i < rooms.data.length; i++) {
+        roomList.append(`<option value="${rooms.data[i].id}">${rooms.data[i].name}</option>`);
+      }
+    })
+  });
+
+  $('#editCentreList').change(function () {
+    $.get(`/api/v1/centres/${$('#editCentreList').val()}/rooms`, function (rooms) {
+      let editRoomList = $('#editRoomList');
+      editRoomList.empty();
+      for (let i = 0; i < rooms.data.length; i++) {
+        editRoomList.append(`<option value="${rooms.data[i].id}">${rooms.data[i].name}</option>`);
+      }
+    })
+  });
+
   $('#courseList').change(function () {
     $('#batchNoOfLectures').val(($('option[value=' + $('#courseList').val() + '][name="course"]').attr('nol')))
     $('#hoursPerLecture').val(($('option[value=' + $('#courseList').val() + '][name="course"]').attr('hours')))
-
   })
-
 
   $('#editcourselist').change(function () {
     $('#editBatchNoOfLectures').val(($('option[value=' + $('#editCourseList').val() + '][name="course"]').attr('nol')))
     $('#editHoursPerLectures').val(($('option[value=' + $('#editCourseList').val() + '][name="course"]').attr('hours')))
-
   })
 
   $('#batchSubmit').click(function () {
@@ -266,38 +292,53 @@ $(document).ready(function () {
     let shortcode = $('#lectureShortCode').val();
     let startDate = $('#startDate').val();
     let endDate = $('#endDate').val();
+    let defaultTime = $('#defaultTime').val();
     let centreId = $('#centreList').val();
+    let roomId = $('#roomList').val();
     let courseId = $('#courseList').val();
     let teacherId = $('#teacherList').val();
-    //console.log(hoursPerLecture)
-    $.ajax({
-      url: '/api/v1/batches/new',
-      data: {
-        name: name,
-        startDate: startDate,
-        endDate: endDate,
-        size: size,
-        noOfLectures: nol,
-        hoursPerLecture: hoursPerLecture,
-        lectureShortCode: shortcode,
-        courseId: courseId,
-        centreId: centreId,
-        teacherId: teacherId
-      },
-      method: 'POST',
-      headers: {
-        "Authorization": "Bearer " + localStorage.getItem("clienttoken")
-      }
-    }).done(function (batch) {
-      if (batch.success === true) {
 
-        $('#addBatchesModal').modal('hide');
-        window.location.reload();
-      }
-      else {
-        console.log("could not add the batch right now")
-      }
-    });
+    if (!name || !size || !nol || !hoursPerLecture || !shortcode || !startDate || !endDate || !defaultTime || !centreId || !roomId || !courseId || !teacherId) {
+      console.log(1);
+      $('#addBatchError').text('Please Enter All The Details');
+
+    } else {
+
+      //console.log(hoursPerLecture)
+      $.ajax({
+        url: '/api/v1/batches/new',
+        data: {
+          name,
+          startDate,
+          endDate,
+          size,
+          noOfLectures: nol,
+          hoursPerLecture,
+          lectureShortCode: shortcode,
+          defaultTime,
+          courseId,
+          centreId,
+          teacherId,
+          roomId
+        },
+        method: 'POST',
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+        }
+      }).done(function (batch) {
+        if (batch.success === true) {
+
+          $('#addBatchesModal').modal('hide');
+          window.location.reload();
+        }
+        else {
+          console.log("could not add the batch right now")
+        }
+      }).fail(function (err) {
+        console.log(err);
+        alert('Could not add the batch');
+      });
+    }
   });
 
   $('#batchcentreList').change(function () {
