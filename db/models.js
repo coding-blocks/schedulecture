@@ -107,7 +107,7 @@ Teachers.hasMany(Batches);
 Lectures.belongsTo(Teachers);
 Teachers.hasMany(Lectures);
 
-sequelize.sync({force: true}).then(function () {
+sequelize.sync({force: false}).then(function () {
   console.log("Database Configured");
 });
 
