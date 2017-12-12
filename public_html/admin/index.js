@@ -117,7 +117,6 @@ $(document).ready(function () {
 
             batches.forEach(function (batch) {
               const $lectures = $(`#batch-${batch.name}`);
-              console.log(batch);
               let lectures = batch.lectures.sort(function (batch1, batch2) {
                 return batch1.id - batch2.id;
               });
@@ -146,7 +145,8 @@ $(document).ready(function () {
                     hours: batch.hoursPerLecture !== null ? batch.hoursPerLecture : batch.course.hours,
                     start: moment().startOf('day'),
                     stick: true,
-                    resourceId: resources[0].id
+                    resourceId: batch.roomId,
+                    defaultTime: batch.defaultTime
                   });
 
                   $lecture.draggable({
@@ -219,13 +219,16 @@ $(document).ready(function () {
               },
               eventReceive: function (event) {
                 console.log(event);
-                event.start = event.start.add(10, 'hours');
+                let defaultTime = event.defaultTime;
+                let defaultHours = +defaultTime.split(':')[0];
+                let defaultMinutes = +defaultTime.split(':')[1];
+
+                event.start = event.start.add(defaultHours, 'hours').add(defaultMinutes, 'minutes');
                 event.end = moment(event.start).add(event.hours, 'hours');
                 // console.log(event.start._d.getDay())
                 $('#calendar').fullCalendar('updateEvent', event);
                 updateLecture(event);
               }
-
             });
 
           } else {
