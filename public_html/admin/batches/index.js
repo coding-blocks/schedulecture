@@ -3,30 +3,18 @@ $(document).ready(function () {
   let name = localStorage.getItem('name').split('%20').join(' ');
   $('#name').text('Hey ' + name);
 
-  let centreId, statusId;
+  let centreId, statusId, courseId;
   let url = '/api/v1/batches'
   let conditions = window.location.href.split('?')[1];
   if (conditions) {
     conditions = conditions.split('&');
-    if (conditions.length === 1) {
-      if (conditions[0].split('=')[0] === 'status') {
-        statusId = conditions[0].split('=')[1];
-      } else {
-        centreId = conditions[0].split('=')[1];
-      }
-    } else {
-      if (conditions[0].split('=')[0] === 'status') {
-        statusId = conditions[0].split('=')[1];
-        centreId = conditions[1].split('=')[1];
-      } else {
-        centreId = conditions[0].split('=')[1];
-        statusId = conditions[1].split('=')[1];
-      }
-    }
+    centreId = conditions[0].split('centreId=')[1];
+    courseId = conditions[1].split('courseId=')[1];
+    statusId = conditions[2].split('status=')[1];
   }
-
-  url += "?" + window.location.href.split('?')[1];
-
+  if (window.location.href.split('?')[1]) {
+    url += "?" + window.location.href.split('?')[1];
+  }
   $(`option[value=${statusId}]`).attr('selected', true);
 
   $.get('/api/v1/centres', function (centres) {
@@ -62,9 +50,13 @@ $(document).ready(function () {
         editRoomList.append(`<option value="${rooms.data[i].id}" name="room">${rooms.data[i].name}</option>`);
       }
     })
+
   });
 
   $.get('/api/v1/courses', function (courses) {
+
+    const batchCourseList = $('#batchCourseList');
+    batchCourseList.append(`<option value="0">All</option>`);
 
     let courseList = $('#courseList');
     let editCourseList = $('#editCourseList');
@@ -72,11 +64,11 @@ $(document).ready(function () {
     $('#hoursPerLecture').val(courses.data[0].hours);
     for (let i = 0; i < courses.data.length; i++) {
 
-      // if(centres.data[i].id==centreId){
-      //   $('#title').text("Rooms for " + centres.data[i].name + " Centre");
-      //   centreList.append('<option value="'+centres.data[i].id+'" selected>'+centres.data[i].name+'</option>');
-      //   editCentreList.append('<option value="'+centres.data[i].id+'" selected>'+centres.data[i].name+'</option>');
-      // } else {
+      if (courses.data[i].id == courseId) {
+        batchCourseList.append('<option value="' + courses.data[i].id + '" selected>' + courses.data[i].name + '</option>');
+      } else {
+        batchCourseList.append('<option value="' + courses.data[i].id + '">' + courses.data[i].name + '</option>');
+      }
       courseList.append('<option value="' + courses.data[i].id + '" nol = "' + courses.data[i].lect + '" hours ="' + courses.data[i].hours + '" name="course">' + courses.data[i].name + '</option>');
       editCourseList.append('<option value="' + courses.data[i].id + '" nol = "' + courses.data[i].lect + '" hours ="' + courses.data[i].hours + '" name="course">' + courses.data[i].name + '</option>');
       // }
@@ -160,6 +152,7 @@ $(document).ready(function () {
 
       $('.archive').click(function (e) {
         let batchId = e.target.getAttribute('batch-id');
+        console.log(batchId)
         $.ajax({
           url: '/api/v1/batches/archive/' + batchId,
           method: 'PUT',
@@ -167,11 +160,14 @@ $(document).ready(function () {
             "Authorization": "Bearer " + localStorage.getItem("clienttoken")
           }
         }).done(function (res) {
-          if (res.success === true) {
+          if (res.success) {
             window.location.reload();
           } else {
-            window.alert('Could Not Delete The Centre Right Now!')
+            window.alert('Could Not Archive The Batch Right Now!')
           }
+        }).fail(function (err) {
+          console.log(err)
+          alert('Could Not Archive The Batch Right now!');
         })
       })
 
@@ -251,6 +247,7 @@ $(document).ready(function () {
           }
         })
       })
+
       $('.delete').click(function (e) {
         let batchId = e.target.getAttribute('batch-id');
         $.ajax({
@@ -263,7 +260,7 @@ $(document).ready(function () {
           if (res.success === true) {
             window.location.reload();
           } else {
-            window.alert('Could Not Delete The Centre Right Now!')
+            window.alert('Could Not Delete The Batch Right Now!')
           }
         })
       })
@@ -359,28 +356,33 @@ $(document).ready(function () {
 
   $('#batchcentreList').change(function () {
     let changedCI = $('#batchcentreList').val();
+    let changedCoI = $('#batchCourseList').val();
     let changedSI = $('#batchstatuslist').val();
 
     let newurl = '/admin/batches';
-    if (+changedCI === 0) {
-      newurl += "?status=" + changedSI;
-    } else {
-      newurl += "?centreId=" + changedCI + "&status=" + changedSI;
-    }
+    newurl += `?centreId=${changedCI == '0' ? 'all' : changedCI}&courseId=${changedCoI == '0' ? 'all' : changedCoI}&status=${changedSI}`
     console.log(newurl)
     window.location.href = (newurl);
   })
 
   $('#batchstatuslist').change(function () {
     let changedCI = $('#batchcentreList').val();
+    let changedCoI = $('#batchCourseList').val();
     let changedSI = $('#batchstatuslist').val();
 
     let newurl = '/admin/batches';
-    if (+changedCI === 0) {
-      newurl += "?status=" + changedSI;
-    } else {
-      newurl += "?centreId=" + changedCI + "&status=" + changedSI;
-    }
+    newurl += `?centreId=${changedCI == '0' ? 'all' : changedCI}&courseId=${changedCoI == '0' ? 'all' : changedCoI}&status=${changedSI}`
+    console.log(newurl)
+    window.location.href = (newurl);
+  })
+
+  $('#batchCourseList').change(function () {
+    let changedCI = $('#batchcentreList').val();
+    let changedCoI = $('#batchCourseList').val();
+    let changedSI = $('#batchstatuslist').val();
+
+    let newurl = '/admin/batches';
+    newurl += `?centreId=${changedCI == '0' ? 'all' : changedCI}&courseId=${changedCoI == '0' ? 'all' : changedCoI}&status=${changedSI}`
     console.log(newurl)
     window.location.href = (newurl);
   })
