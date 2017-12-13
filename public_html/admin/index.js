@@ -120,8 +120,6 @@ $(document).ready(function () {
               let lectures = batch.lectures.sort(function (batch1, batch2) {
                 return batch1.id - batch2.id;
               });
-              console.log(111111)
-              console.log(batch)
               lectures.forEach((lecture) => {
                 if (lecture.startTime && lecture.endTime) {
                   events.push({
@@ -238,9 +236,22 @@ $(document).ready(function () {
                 $('#calendar').fullCalendar('updateEvent', event);
                 updateLecture(event);
 
-                if(event.batchCapacity > resources[event.resourceId].capacity){
+                if (event.batchCapacity > resources[event.resourceId].capacity) {
                   alert("Batch Capacity greater than room size.");
                 }
+              },
+              eventClick: function (event, jsEvent, view) {
+                var index = -1;
+                resources.map(function (v, i) {
+                  if (v.id === +event.resourceId) {
+                    index = i;
+                  }
+                  return v;
+                });
+                event.resourceId = resources[(index + 1) % resources.length].id;
+
+                $('#calendar').fullCalendar('updateEvent', event);
+                updateLecture(event);
               }
             });
 
@@ -277,7 +288,7 @@ $(document).ready(function () {
         "Authorization": "Bearer " + localStorage.getItem("clienttoken")
       }
     }).done(function (data) {
-      console.log(data)
+      // console.log(data)
     }).fail(function (err) {
       alert('Could Not Update The Lecture');
       console.log(err);
