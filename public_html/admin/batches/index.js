@@ -117,7 +117,12 @@ $(document).ready(function () {
                         Teacher: ` + batches.data[i].teacher.name + `
                         <br>Size: ` + batches.data[i].size + `<br>
                         Number Of Lectures: ` + batches.data[i].noOfLectures + `<br>
-                        Start: ` + batches.data[i].startDate.split('T')[0] + `<br>End:` + batches.data[i].endDate.split('T')[0] + `</p>
+                        Start: ` + batches.data[i].startDate.split('T')[0] + `<br>End: ` + batches.data[i].endDate.split('T')[0] + `
+                        <br/>
+                        Default Start Time: ${batches.data[i].defaultTime}<br/>
+                        Default Room: ${batches.data[i].room.name}
+                     
+                        </p>
                         <a class="btn btn-success view-lectures" style=" font-size: 16px; color: white; padding: 5px 8px"  href="/admin/batches/` + batches.data[i].id + `/lectures">Lectures</a>
                         <a class="btn btn-success ` + statusClass + `" style=" font-size: 16px; color: white; padding: 5px 8px" batch-id="` + batches.data[i].id + `">` + status + `</a>
                         <i class="fa fa-pencil edit" style="color: #1EB3E2; font-size: 24px" batch-id="` + batches.data[i].id + `"></i>&nbsp;
