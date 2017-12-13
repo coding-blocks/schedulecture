@@ -128,8 +128,11 @@ router.post('/new', passport.authenticate('bearer'), function (req, res) {
  */
 router.get('/', function (req, res) {
   let conditions = {};
-  if (req.query.centreId) {
+  if (req.query.centreId && req.query.centreId != 'all') {
     conditions.centreId = req.query.centreId
+  }
+  if (req.query.courseId && req.query.courseId != 'all') {
+    conditions.courseId = req.query.courseId
   }
   if (req.query.status) {
     console.log('status')
@@ -331,7 +334,7 @@ router.put('/:id', passport.authenticate('bearer'), function (req, res) {
   })
 });
 
-router.put('/archive/:id', acl.ensureadmin(), function (req, res) {
+router.put('/archive/:id', passport.authenticate('bearer'), acl.ensureadmin(), function (req, res) {
   console.log(req.params.id)
   db.actions.batches.archiveBatch(req.params.id, function (err, batch) {
     if (err) {
