@@ -206,6 +206,9 @@ $(document).ready(function () {
               let centreId = $('#editCentreList').val();
               let courseId = $('#editCourseList').val();
               let teacherId = $('#editTeacherList').val();
+              let defaultTime = $('#editdefaultTime').val();
+              let roomId = $('#editRoomList').val();
+
               $.ajax({
 
                 url: '/api/v1/batches/' + batchId,
@@ -220,13 +223,17 @@ $(document).ready(function () {
                     lectureShortCode: shortcode,
                     courseId: courseId,
                     centreId: centreId,
-                    teacherId: teacherId
+                    teacherId: teacherId,
+                    roomId: roomId,
+                    defaultTime: defaultTime
                   }
                 },
                 method: 'PUT',
-                headers: {
-                  "Authorization": "Bearer " + localStorage.getItem("clienttoken")
-                }
+                headers:
+                  {
+                    "Authorization":
+                    "Bearer " + localStorage.getItem("clienttoken")
+                  }
               }).done(function (centre) {
                 if (centre.success === true) {
 
