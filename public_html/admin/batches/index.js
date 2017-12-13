@@ -387,4 +387,9 @@ $(document).ready(function () {
     window.location.href = (newurl);
   })
 
+
+    $('#logout').click(function () {
+        localStorage.clear();
+        window.location.replace('/users/logout');
+    })
 });
