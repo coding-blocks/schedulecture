@@ -1,5 +1,8 @@
 $(document).ready(function () {
 
+  let name = localStorage.getItem('name').split('%20').join(' ');
+  $('#name').text('Hey ' + name);
+
   let centreId, statusId;
   let url = '/api/v1/batches'
   let conditions = window.location.href.split('?')[1];

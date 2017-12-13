@@ -1,5 +1,8 @@
 $(document).ready(function () {
 
+  let name = localStorage.getItem('name').split('%20').join(' ');
+  $('#name').text('Hey ' + name);
+
   $.get('/api/v1/centres', function (centres) {
     if (centres.success === true) {
       let centreList = $('#minicourses-list');

@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+  let name = localStorage.getItem('name').split('%20').join(' ');
+  $('#name').text('Hey ' + name);
 
   $.get('/api/v1/courses', function (courses) {
     if (courses.success === true) {

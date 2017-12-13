@@ -1,4 +1,8 @@
 $(document).ready(function () {
+
+  let name = localStorage.getItem('name').split('%20').join(' ');
+  $('#name').text('Hey ' + name);
+
   let centreId = window.location.href.split('/centres/')[1].split('/rooms/')[0];
 
   $.get('/api/v1/centres', function (centres) {

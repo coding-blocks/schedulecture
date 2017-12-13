@@ -1,4 +1,8 @@
 $(document).ready(function () {
+
+  let name = localStorage.getItem('name').split('%20').join(' ');
+  $('#name').text('Hey ' + name);
+
   let batchId = window.location.href.split('/batches/')[1].split('/lectures/')[0];
 
   $.get('/api/v1/teachers', function (teachers) {

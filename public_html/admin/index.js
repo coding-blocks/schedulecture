@@ -5,6 +5,9 @@ $(document).ready(function () {
 
   var api = '/api/v1';
 
+  let name = localStorage.getItem('name').split('%20').join(' ');
+  $('#name').text('Hey ' + name);
+
   getCentres();
 
   function getCentres() {
