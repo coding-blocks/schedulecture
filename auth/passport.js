@@ -1,7 +1,7 @@
 const passport = require('passport');
 const oneauthStrategy = require('passport-oneauth');
 const models = require('../db/models');
-const secrets = require('../secrets.json');
+const config = require('../config');
 const randtoken = require('rand-token')
 const bearerStrategy = require('./strategies/bearerStrategy');
 
@@ -10,9 +10,9 @@ passport.use('oneauth', new oneauthStrategy({
     authorizationURL: 'https://account.codingblocks.com/oauth/authorize',
     tokenURL: 'https://account.codingblocks.com/oauth/token',
     include: ['lms'],
-    clientID: secrets.clientID,
-    clientSecret: secrets.clientSecret,
-    callbackURL: 'http://localhost:4000/users/login/cb/callback'
+    clientID: config.clientId,
+    clientSecret: config.clientSecret,
+    callbackURL: config.callBackURL
   },
   function (accessToken, refreshToken, profile, done) {
     if (profile.role === 'admin' || profile.role === 'employee' || profile.role === 'intern') {
