@@ -53,7 +53,7 @@ $(document).ready(function () {
 
     const events = [];
     const resources = [];
-    const colors = ['#C2185B', '#512DA8', '#1976D2', '#0097A7', '#388E3C', '#FBC02D'];
+    const colors = ['#C2185B', '#512DA8', '#1976D2', '#0097A7', '#388E3C', '#E64A19'];
     let colorCounter = 0;
 
     $('#calendar').remove();
@@ -261,6 +261,17 @@ $(document).ready(function () {
 
                 $('#calendar').fullCalendar('updateEvent', event);
                 updateLecture(event);
+
+                $.toast({
+                  heading: 'Information',
+                  icon: 'info',
+                  text: 'Room Changed',
+                  position: 'top-right',
+                  stack: 4,
+                  hideAfter: 1500,
+                  showHideTransition: 'slide',
+                  loaderBg: '#fc4f4f;'
+                })
               }
             });
 
