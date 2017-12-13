@@ -120,6 +120,8 @@ $(document).ready(function () {
               let lectures = batch.lectures.sort(function (batch1, batch2) {
                 return batch1.id - batch2.id;
               });
+              console.log(111111)
+              console.log(batch)
               lectures.forEach((lecture) => {
                 if (lecture.startTime && lecture.endTime) {
                   events.push({
@@ -128,7 +130,8 @@ $(document).ready(function () {
                     start: moment.utc(lecture.startTime),
                     end: moment.utc(lecture.endTime),
                     stick: true,
-                    resourceId: lecture.roomId
+                    resourceId: lecture.roomId,
+                    batchCapacity: batch.size
                   });
                 } else {
                   $lectures.append(`
@@ -146,7 +149,8 @@ $(document).ready(function () {
                     start: moment().startOf('day'),
                     stick: true,
                     defaultRoom: batch.roomId,
-                    defaultTime: batch.defaultTime
+                    defaultTime: batch.defaultTime,
+                    batchCapacity: batch.size
                   });
 
                   $lecture.draggable({
@@ -233,6 +237,10 @@ $(document).ready(function () {
 
                 $('#calendar').fullCalendar('updateEvent', event);
                 updateLecture(event);
+
+                if(event.batchCapacity > resources[event.resourceId].capacity){
+                  alert("Batch Capacity greater than room size.");
+                }
               }
             });
 
