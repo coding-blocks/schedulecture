@@ -55,8 +55,8 @@ $(document).ready(function () {
       let roomList = $('#roomList');
       let editRoomList = $('#editRoomList');
       for (let i = 0; i < rooms.data.length; i++) {
-        roomList.append(`<option value="${rooms.data[i].id}">${rooms.data[i].name}</option>`);
-        editRoomList.append(`<option value="${rooms.data[i].id}">${rooms.data[i].name}</option>`);
+        roomList.append(`<option value="${rooms.data[i].id}" name="room">${rooms.data[i].name}</option>`);
+        editRoomList.append(`<option value="${rooms.data[i].id}" name="room">${rooms.data[i].name}</option>`);
       }
     })
   });
@@ -184,13 +184,14 @@ $(document).ready(function () {
             $('#editBatchSize').val(batch.data.size);
             $('#editBatchNoOfLectures').val(batch.data.noOfLectures);
             $('#editHoursPerLectures').val(batch.data.hoursPerLecture);
-            console.log(batch.data.hoursPerLecture);
             $('#editLectureShortCode').val(batch.data.lectureShortCode);
             $('#editStartDate').val(batch.data.startDate.split('T')[0]);
             $('#editEndDate').val(batch.data.endDate.split('T')[0]);
-            $('option[value="' + batch.centreId + '"][name="centre"]').attr('selected', true);
-            $('option[value="' + batch.courseId + '"][name="course"]').attr('selected', true);
-            $('option[value="' + batch.teacherId + '"][name="teacher"]').attr('selected', true);
+            $('option[value="' + batch.data.centreId + '"][name="centre"]').attr('selected', true);
+            $('option[value="' + batch.data.courseId + '"][name="course"]').attr('selected', true);
+            $('option[value="' + batch.data.teacherId + '"][name="teacher"]').attr('selected', true);
+            $('#editdefaultTime').val(batch.data.defaultTime);
+            $('option[value="' + batch.data.roomId + '"][name="room"]').attr('selected', true);
 
             $('#editBatchesModal').modal('show');
 
@@ -264,7 +265,7 @@ $(document).ready(function () {
       let roomList = $('#roomList');
       roomList.empty();
       for (let i = 0; i < rooms.data.length; i++) {
-        roomList.append(`<option value="${rooms.data[i].id}">${rooms.data[i].name}</option>`);
+        roomList.append(`<option value="${rooms.data[i].id}" name="room">${rooms.data[i].name}</option>`);
       }
     })
   });
@@ -274,7 +275,7 @@ $(document).ready(function () {
       let editRoomList = $('#editRoomList');
       editRoomList.empty();
       for (let i = 0; i < rooms.data.length; i++) {
-        editRoomList.append(`<option value="${rooms.data[i].id}">${rooms.data[i].name}</option>`);
+        editRoomList.append(`<option value="${rooms.data[i].id}" name="room">${rooms.data[i].name}</option>`);
       }
     })
   });
