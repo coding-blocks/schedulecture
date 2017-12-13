@@ -4,10 +4,18 @@
 
 $(document).ready(function () {
 
-  let clienttokenArray = window.location.href.split('?clienttoken=');
-  if(clienttokenArray && clienttokenArray.length ===2 && clienttokenArray[1].length===16){
-    let clientToken = clienttokenArray[1];
+  let clienttokenArray = window.location.href.split('?');
+  if (clienttokenArray && clienttokenArray.length === 2) {
+
+    let queryArray = clienttokenArray[1].split('&');
+    let clientToken = queryArray[0].split('clienttoken=')[1];
+    let name = queryArray[1].split('name=')[1];
+
+    console.log(clientToken)
+    console.log(name);
     localStorage.setItem('clienttoken', clientToken);
+    localStorage.setItem('name', name);
+
     window.location.replace('/admin');
   }
 
