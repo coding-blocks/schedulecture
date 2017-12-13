@@ -145,7 +145,7 @@ $(document).ready(function () {
                     hours: batch.hoursPerLecture !== null ? batch.hoursPerLecture : batch.course.hours,
                     start: moment().startOf('day'),
                     stick: true,
-                    resourceId: batch.roomId,
+                    defaultRoom: batch.roomId,
                     defaultTime: batch.defaultTime
                   });
 
@@ -222,10 +222,15 @@ $(document).ready(function () {
                 let defaultTime = event.defaultTime;
                 let defaultHours = +defaultTime.split(':')[0];
                 let defaultMinutes = +defaultTime.split(':')[1];
+                console.log(event.start);
+                if (event.start._d.getUTCHours() == 0) {
+                  event.start = moment(event.start).add(defaultHours, 'hours').add(defaultMinutes, 'minutes');
+                  event.end = moment(event.start).add(event.hours, 'hours');
+                } else {
+                  event.end = moment(event.start).add(event.hours, 'hours');
+                }
+                event.resourceId = event.resourceId || event.defaultRoom;
 
-                event.start = event.start.add(defaultHours, 'hours').add(defaultMinutes, 'minutes');
-                event.end = moment(event.start).add(event.hours, 'hours');
-                // console.log(event.start._d.getDay())
                 $('#calendar').fullCalendar('updateEvent', event);
                 updateLecture(event);
               }
