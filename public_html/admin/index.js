@@ -227,7 +227,6 @@ $(document).ready(function () {
                 let defaultTime = event.defaultTime;
                 let defaultHours = +defaultTime.split(':')[0];
                 let defaultMinutes = +defaultTime.split(':')[1];
-                console.log(event.start);
                 if (event.start._d.getUTCHours() == 0) {
                   event.start = moment(event.start).add(defaultHours, 'hours').add(defaultMinutes, 'minutes');
                   event.end = moment(event.start).add(event.hours, 'hours');
@@ -239,7 +238,14 @@ $(document).ready(function () {
                 $('#calendar').fullCalendar('updateEvent', event);
                 updateLecture(event);
 
-                if (event.batchCapacity > resources[event.resourceId].capacity) {
+                var index = -1;
+                resources.map(function (v, i) {
+                  if (v.id === +event.resourceId) {
+                    index = i;
+                  }
+                  return v;
+                });
+                if (index != -1 && event.batchCapacity > resources[index].capacity) {
                   alert("Batch Capacity greater than room size.");
                 }
               },
