@@ -6,7 +6,7 @@ const models = require('./../db/models');
 
 router.get('/login/cb', passport.authenticate('oneauth'));
 
-router.get('/login/cb/callback', passport.authenticate('oneauth', {failureRedirect: '/hello'}), function (req, res) {
+router.get('/login/cb/callback', passport.authenticate('oneauth', {failureRedirect: '/'}), function (req, res) {
   console.log('******')
   console.log(req.user.user.dataValues);
   return res.redirect('/?clienttoken=' + req.user.clientoken + '&name=' + req.user.user.dataValues.name);
