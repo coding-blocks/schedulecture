@@ -110,4 +110,9 @@ $(document).ready(function () {
     })
   });
 
+    $('#logout').click(function () {
+        localStorage.clear();
+        window.location.replace('/users/logout');
+    })
+
 });
