@@ -1,7 +1,0 @@
-{
-  "DB": "db",
-  "USER": "user",
-  "PASSWORD": "password",
-  "DIALECT": "postgres",
-  "HOST": "localhost"
-}

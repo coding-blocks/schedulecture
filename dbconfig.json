@@ -1,7 +1,0 @@
-{
-  "DB": "scheduledb",
-  "USER": "schedulecture",
-  "PASSWORD": "schedulecture",
-  "DIALECT": "postgres",
-  "HOST": "localhost"
-}

@@ -3,24 +3,17 @@
  */
 const Sequelize = require('sequelize');
 
-var dbconfig;
-try {
-  dbconfig = require('./../dbconfig.json');
-} catch (e) {
-  console.error('Create your own db file lazybones');
-  dbconfig = require('../dbconfig-sample.json');
-}
-
-const DATABASE_URL = process.env.DATABASE_URL || ('postgres://' + dbconfig.USER + ":" + dbconfig.PASSWORD + "@" + dbconfig.HOST + ":5432/" + dbconfig.DB);
+var dbconfig = require('../config').db;
 
 
-const sequelize = new Sequelize(DATABASE_URL, {
+const sequelize = new Sequelize(dbconfig.DB, dbconfig.USER, dbconfig.PASSWORD, {
   host: dbconfig.HOST,
   dialect: dbconfig.DIALECT,
+  port: dbconfig.PORT,
   pool: {
     min: 0,
     max: 5,
-    idle: 1000
+    idle: 10000
   }
 });
 

@@ -2,5 +2,5 @@
 node_modules/
 .DS_Store/
 public_html/bower_components/
-/dbconfig.json
+/secrets.json
 npm-debug.log
