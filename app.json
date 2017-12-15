@@ -6,6 +6,7 @@
   "name": "CB Schedulecture",
   "addons": [
     "heroku-postgresql:hobby-dev",
-    "sentry:f1"
+    "sentry:f1",
+    "newrelic:wayne"
   ]
 }
