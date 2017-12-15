@@ -2,8 +2,8 @@
  * Created by tech4GT on 8/25/17.
  */
 const Sequelize = require('sequelize');
-
-var dbconfig = require('../config').db;
+const config = require('../config')
+const dbconfig = config.db;
 
 
 const sequelize = new Sequelize(dbconfig.DB, dbconfig.USER, dbconfig.PASSWORD, {
@@ -100,7 +100,10 @@ Teachers.hasMany(Batches);
 Lectures.belongsTo(Teachers);
 Teachers.hasMany(Lectures);
 
-sequelize.sync({force: false}).then(function () {
+sequelize.sync({
+  force: process.env.SCHEDULECTURE_FORCE_DB_RECREATE || false,
+  alter: (config.DEPLOY_CONFIG === 'localhost' || config.DEPLOY_CONFIG === 'heroku')
+}).then(function () {
   console.log("Database Configured");
 });
 

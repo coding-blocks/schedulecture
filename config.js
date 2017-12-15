@@ -5,13 +5,10 @@ config = {
   clientId,
   clientSecret,
   callBackURL,
-  server: {
-
-  }
 };
-const DEPLOY_CONFIG = process.env.SCHEDULECTURE_ENV || 'production'
+config.DEPLOY_CONFIG = process.env.SCHEDULECTURE_ENV || 'production'
 
-switch (DEPLOY_CONFIG) {
+switch (config.DEPLOY_CONFIG) {
   case 'production':
     config.db = require('./secrets').DATABASE
     config.clientId = require('./secrets').ONEAUTH.CLIENT_ID;
