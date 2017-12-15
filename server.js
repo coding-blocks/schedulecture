@@ -7,6 +7,10 @@ const express = require('express');
 const app = express();
 const bp = require('body-parser')
 const passport = require('passport')
+const config = require('./config')
+
+const Raven = require('raven');
+Raven.config(config.SENTRY_DSN).install();
 
 
 app.use(bp.json())

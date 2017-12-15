@@ -10,16 +10,18 @@ config.DEPLOY_CONFIG = process.env.SCHEDULECTURE_ENV || 'production'
 
 switch (config.DEPLOY_CONFIG) {
   case 'production':
-    config.db = require('./secrets').DATABASE
-    config.clientId = require('./secrets').ONEAUTH.CLIENT_ID;
-    config.clientSecret = require('./secrets').ONEAUTH.CLIENT_SECRET;
+    config.secrets = require('./secrets')
+    config.db = config.secrets.DATABASE
+    config.clientId = config.secrets.ONEAUTH.CLIENT_ID;
+    config.clientSecret = config.secrets.ONEAUTH.CLIENT_SECRET;
     config.callBackURL = 'http://localhost:4000/users/login/cb/callback';
     break;
 
   case 'localhost':
-    config.db = require('./secrets-sample').DATABASE
-    config.clientId = require('./secrets-sample').ONEAUTH.CLIENT_ID;
-    config.clientSecret = require('./secrets-sample').ONEAUTH.CLIENT_SECRET;
+    config.secrets = require('./secrets-sample')
+    config.db = config.secrets.DATABASE
+    config.clientId = config.secrets.ONEAUTH.CLIENT_ID;
+    config.clientSecret = config.secrets.ONEAUTH.CLIENT_SECRET;
     config.callBackURL = 'http://localhost:4000/users/login/cb/callback';
     break;
 
@@ -38,6 +40,8 @@ switch (config.DEPLOY_CONFIG) {
     config.callBackURL = "http://schedulecture.herokuapp.com/users/login/cb/callback";
     break;
 }
+
+config.SENTRY_DSN = process.env.SENTRY_DSN || config.secrets.SENTRY_DSN
 
 
 exports = module.exports = config
