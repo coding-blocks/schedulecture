@@ -8,6 +8,7 @@
     "bower": "^1.8.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
+    "newrelic": "^2.4.2",
     "parse-database-url": "^0.3.0",
     "passport": "^0.4.0",
     "passport-http-bearer": "^1.0.1",

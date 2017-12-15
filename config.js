@@ -42,6 +42,7 @@ switch (config.DEPLOY_CONFIG) {
 }
 
 config.SENTRY_DSN = process.env.SENTRY_DSN || config.secrets.SENTRY_DSN
+config.NEW_RELIC_LICENSE_KEY = process.env.NEW_RELIC_LICENSE_KEY || config.secrets.NEW_RELIC_LICENSE_KEY
 
 
 exports = module.exports = config
