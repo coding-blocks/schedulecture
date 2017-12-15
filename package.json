@@ -14,8 +14,8 @@
     "passport-oneauth": "^1.0.5",
     "pg": "^6.4.2",
     "pg-hstore": "^2.3.2",
-    "rand-token": "^0.3.0",
-    "sequelize": "^4.23.1"
+    "sequelize": "^4.23.1",
+    "uid2": "0.0.3"
   },
   "devDependencies": {},
   "scripts": {

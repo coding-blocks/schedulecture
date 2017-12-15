@@ -1,8 +1,8 @@
 const passport = require('passport');
-const oneauthStrategy = require('passport-oneauth');
+const oneauthStrategy = require('passport-oneauth').Strategy;
 const models = require('../db/models');
 const config = require('../config');
-const randtoken = require('rand-token')
+const uid = require('uid2')
 const bearerStrategy = require('./strategies/bearerStrategy');
 
 
@@ -23,7 +23,7 @@ passport.use('oneauth', new oneauthStrategy({
           },
           defaults: {
             accesstoken: accessToken,
-            clientoken: randtoken.generate(16),
+            clientoken: uid(16),
             user: {
               name: profile.name,
               email: profile.email,
