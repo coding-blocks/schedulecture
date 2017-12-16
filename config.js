@@ -14,7 +14,7 @@ switch (config.DEPLOY_CONFIG) {
     config.db = config.secrets.DATABASE
     config.clientId = config.secrets.ONEAUTH.CLIENT_ID;
     config.clientSecret = config.secrets.ONEAUTH.CLIENT_SECRET;
-    config.callBackURL = 'http://localhost:4000/users/login/cb/callback';
+    config.hostName = 'https://timetable.codingblocks.com'
     break;
 
   case 'localhost':
@@ -22,7 +22,7 @@ switch (config.DEPLOY_CONFIG) {
     config.db = config.secrets.DATABASE
     config.clientId = config.secrets.ONEAUTH.CLIENT_ID;
     config.clientSecret = config.secrets.ONEAUTH.CLIENT_SECRET;
-    config.callBackURL = 'http://localhost:4000/users/login/cb/callback';
+    config.hostName = 'http://localhost:4000'
     break;
 
   case 'heroku':
@@ -37,10 +37,10 @@ switch (config.DEPLOY_CONFIG) {
     }
     config.clientId = process.env.ONEAUTH_CLIENT_ID || "305318444";
     config.clientSecret = process.env.ONEAUTH_CLIENT_SECRET || "0LH6aQvR6avoCOkJtUFOIMxQqbN3LJP2FyLenoQqp5VpV2MuFZ7t6NFK55tFbUQC";
-    config.callBackURL = "http://schedulecture.herokuapp.com/users/login/cb/callback";
+    config.hostName = 'http://schedulecture.herokuapp.com'
     break;
 }
-
+config.callBackURL = `${config.hostName}/users/login/cb/callback`;
 config.SENTRY_DSN = process.env.SENTRY_DSN || config.secrets.SENTRY_DSN
 config.NEW_RELIC_LICENSE_KEY = process.env.NEW_RELIC_LICENSE_KEY || config.secrets.NEW_RELIC_LICENSE_KEY
 
