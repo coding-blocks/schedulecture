@@ -9,6 +9,7 @@ $(document).ready(function () {
   $('#name').text('Hey ' + name);
 
   getCentres();
+  $('[data-toggle="tooltip"]').tooltip()
 
   function getCentres() {
 
@@ -261,10 +262,6 @@ $(document).ready(function () {
                 let prevRoom = resources[(index) % resources.length];
                 let newRoom = resources[(index + 1) % resources.length]
                 event.resourceId = newRoom.id;
-
-                console.log(prevRoom)
-                console.log(newRoom)
-                console.log(resources)
                 $('#calendar').fullCalendar('updateEvent', event);
                 updateLecture(event);
 
@@ -278,6 +275,11 @@ $(document).ready(function () {
                   showHideTransition: 'slide',
                   loaderBg: '#fc4f4f;'
                 })
+              },
+
+              eventMouseover: function (event, jsEvent, view) {
+                console.log(1)
+                $(jsEvent.currentTarget).tooltip({title: "Hello"})
               }
             });
 
