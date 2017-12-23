@@ -4,3 +4,4 @@ node_modules/
 public_html/bower_components/
 /secrets.json
 npm-debug.log
+newrelic_agent.log

@@ -68,9 +68,9 @@ const Teachers = sequelize.define('teacher', {
   contact: {type: Sequelize.DataTypes.STRING(12), isNumeric: true}
 });
 const AuthToken = sequelize.define('authtoken', {
-    id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
-    accesstoken: {type: Sequelize.STRING, unique: true},
-    clientoken: {type: Sequelize.STRING, unique: true}
+  id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
+  accesstoken: {type: Sequelize.STRING, unique: true},
+  clientoken: {type: Sequelize.STRING, unique: true}
 });
 
 AuthToken.belongsTo(Users);
@@ -102,7 +102,7 @@ Teachers.hasMany(Lectures);
 
 sequelize.sync({
   force: process.env.SCHEDULECTURE_FORCE_DB_RECREATE || false,
-  alter: (config.DEPLOY_CONFIG === 'localhost' || config.DEPLOY_CONFIG === 'heroku')
+  alter: (config.DEPLOY_CONFIG === 'heroku')
 }).then(function () {
   console.log("Database Configured");
 });
