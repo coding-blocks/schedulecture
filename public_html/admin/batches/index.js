@@ -115,7 +115,7 @@ $(document).ready(function () {
                         Start: ` + batches.data[i].startDate.split('T')[0] + `<br>End: ` + batches.data[i].endDate.split('T')[0] + `
                         <br/>
                         Default Start Time: ${batches.data[i].defaultTime}<br/>
-                        Default Room: ${batches.data[i].room.name}
+                        Default Room: ${batches.data[i].room ? batches.data[i].room.name : "Not Selected"}
                      
                         </p>
                         <a class="btn btn-success view-lectures" style=" font-size: 16px; color: white; padding: 5px 8px"  href="/admin/batches/` + batches.data[i].id + `/lectures">Lectures</a>
@@ -388,8 +388,8 @@ $(document).ready(function () {
   })
 
 
-    $('#logout').click(function () {
-        localStorage.clear();
-        window.location.replace('/users/logout');
-    })
+  $('#logout').click(function () {
+    localStorage.clear();
+    window.location.replace('/users/logout');
+  })
 });
