@@ -257,15 +257,21 @@ $(document).ready(function () {
                   }
                   return v;
                 });
-                event.resourceId = resources[(index + 1) % resources.length].id;
 
+                let prevRoom = resources[(index) % resources.length];
+                let newRoom = resources[(index + 1) % resources.length]
+                event.resourceId = newRoom.id;
+
+                console.log(prevRoom)
+                console.log(newRoom)
+                console.log(resources)
                 $('#calendar').fullCalendar('updateEvent', event);
                 updateLecture(event);
 
                 $.toast({
                   heading: 'Information',
                   icon: 'info',
-                  text: 'Room Changed',
+                  text: `Room Changed from ${prevRoom.title} to ${newRoom.title}`,
                   position: 'top-right',
                   stack: 4,
                   hideAfter: 1500,
