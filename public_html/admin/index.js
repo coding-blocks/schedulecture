@@ -107,20 +107,20 @@ $(document).ready(function () {
             let batches = data.data;
             batches.forEach((batch) => {
               $batches.append(`
-                <a href="#batch-${batch.name}" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar"
+                <a href="#batch-${batch.id}" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar"
                     aria-expanded="false">
                 <span class="hidden-sm-down">
                     ${batch.name}
                 </span>
                 </a>
                         
-                <div class="collapse" id="batch-${batch.name}">                 
+                <div class="collapse" id="batch-${batch.id}">                 
                 </div>
               `);
             });
 
             batches.forEach(function (batch) {
-              const $lectures = $(`#batch-${batch.name}`);
+              const $lectures = $(`#batch-${batch.id}`);
               let lectures = batch.lectures.sort(function (batch1, batch2) {
                 return batch1.id - batch2.id;
               });
@@ -137,7 +137,7 @@ $(document).ready(function () {
                   });
                 } else {
                   $lectures.append(`
-                    <a id="lecture-${lecture.id}" class="list-group-item" data-parent="#batch-${batch.name}" draggable="true">
+                    <a id="lecture-${lecture.id}" class="list-group-item" data-parent="#batch-${batch.id}" draggable="true">
                         ${lecture.name}
                     </a>
                   `);
@@ -277,10 +277,7 @@ $(document).ready(function () {
                 })
               },
 
-              eventMouseover: function (event, jsEvent, view) {
-                console.log(1)
-                $(jsEvent.currentTarget).tooltip({title: "Hello"})
-              }
+
             });
 
           } else {
