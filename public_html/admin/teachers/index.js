@@ -37,6 +37,12 @@ $(document).ready(function () {
               let name = $('#editTeacherName').val();
               let email = $('#EditTeacherEmail').val();
               let contact = $('#editTeacherContact').val();
+
+              if (!name || !email || !contact ) {
+
+                $('#editTeacherError').text('Please Enter All The Details');
+
+              } else {
               $.ajax({
 
                 url: '/api/v1/teachers/' + teacherId,
@@ -58,6 +64,7 @@ $(document).ready(function () {
                   console.log("could not edit the teacher right now")
                 }
               });
+            }
             })
           }
         })
@@ -85,6 +92,13 @@ $(document).ready(function () {
     let name = $('#teacherName').val();
     let email = $('#teacherEmail').val();
     let contact = $('#teacherContact').val();
+
+    if (!name || !email || !contact) {
+
+      $('#addTeacherError').text('Please Enter All The Details');
+
+    } else {
+
     $.ajax({
       url: '/api/v1/teachers/new',
       data: {
@@ -109,6 +123,7 @@ $(document).ready(function () {
     }).fail(function (err) {
       alert('Could not add teacher right now');
     })
+  }
   })
 
     $('#logout').click(function () {
