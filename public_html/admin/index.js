@@ -257,6 +257,8 @@ $(document).ready(function () {
                 }
               },
               eventClick: function (event, jsEvent, view) {
+                $(jsEvent.currentTarget).tooltip('dispose');
+
                 var index = -1;
                 resources.map(function (v, i) {
                   if (v.id === +event.resourceId) {
