@@ -156,7 +156,7 @@
           >
         </div>
       </div>
-      <p class="text-center" style="color: red;" id="aeditCourseError"></p>
+      <p class="text-center" style="color: red;" id="editCourseError"></p>
       <div class="modal-footer" style="border: none; justify-content: center; padding-top: 5px">
         <!--<a id="submit-review" class="btn btn-success text-uppercase"-->
         <!--style="background-color:#4bca81;padding: 10px 45px;color: white;font-size: 12px;font-weight:-->
@@ -171,7 +171,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="addBatchesModal" tabindex="-1" role="dialog" aria-labelledby="Add Centre Modal"
+<div class="modal fade" id="addBatchesModal" tabindex="-1" role="dialog" aria-labelledby="Add Batch Modal"
      aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -185,53 +185,53 @@
       <div class="modal-body">
         <div class="form-group" style="margin-bottom: 0">
           <label class="mr-2" for="batchName" style="color: #777; font-size: 1rem; display: inline-block">Name: </label>
-          <input id="batchName" required type="text" class="form-control input"
-                 style="margin-bottom: 15px"><br>
+          <input id="batchName" required type="text" class="form-control input" style="margin-bottom: 15px"><br>
+
           <label class="mr-2" for="batchSize" style="color: #777; font-size: 1rem; display: inline-block">Batch
             Size: </label>
+          <input id="batchSize" required type="text" class="form-control input" style="margin-bottom: 15px"><br>
 
-          <input id="batchSize" required type="text" class="form-control input"
-                 style="margin-bottom: 15px"><br>
           <label class="mr-2" for="lectureShortCode" style="color: #777; font-size: 1rem; display: inline-block">Lecture
             Short Code: </label>
+          <input id="lectureShortCode" required type="text" class="form-control input" style="margin-bottom: 15px"><br>
 
-          <input id="lectureShortCode" required type="text" class="form-control input"
-                 style="margin-bottom: 15px"><br>
           <label class="mr-2" for="batchNoOfLectures" style="color: #777; font-size: 1rem; display: inline-block">No. of
             Lectures: </label>
+          <input id="batchNoOfLectures" required type="text" class="form-control input" style="margin-bottom: 15px"><br>
 
-          <input id="batchNoOfLectures" required type="text" class="form-control input"
-                 style="margin-bottom: 15px"><br>
-          <label class="mr-2" for="hoursPerLectures" style="color: #777; font-size: 1rem; display: inline-block">Hours
+          <label class="mr-2" for="hoursPerLecture" style="color: #777; font-size: 1rem; display: inline-block">Hours
             per Lecture: </label>
-
-          <input id="hoursPerLectures" required type="text" class="form-control input"
-                 style="margin-bottom: 15px"><br>
+          <input id="hoursPerLecture" required type="text" class="form-control input" style="margin-bottom: 15px"><br>
 
           <label class="mr-2" for="startDate" style="color: #777; font-size: 1rem; display: inline-block">Start
             Date: </label>
-          <input type="date" id="startDate" class="form-control input"
+          <input type="date" placeholder="dd-mm-yyyy" required id="startDate" class="form-control input"
                  style="display: inline-block; width: auto;margin-bottom: 15px"><br>
 
           <label class="mr-2" for="endDate" style="color: #777; font-size: 1rem; display: inline-block">End
             Date: </label>
-          <input type="date" id="endDate" class="form-control input"
+          <input type="date" placeholder="dd-mm-yyyy" required id="endDate" class="form-control input"
                  style="display: inline-block; width: auto;margin-bottom: 15px"><br>
-          <label class="mr-2" for="centreList" style="color: #777; font-size: 1rem">Centre
-            : </label>
 
-          <select id="centreList" class="custom-select mb-2" class="form-control input">
-          </select><br>
-          <label class="mr-2" for="courseList" style="color: #777; font-size: 1rem">Course
+          <label class="mr-2" for="defaultTime" style="color: #777; font-size: 1rem; display: inline-block">Default Time
             : </label>
-          <select id="courseList" class="custom-select mb-2" class="form-control input">
-          </select><br>
-          <label class="mr-2" for="teacherList" style="color: #777; font-size: 1rem">Teacher
-            : </label>
-          <select id="teacherList" class="custom-select mb-2" class="form-control input">
-          </select>
+          <input type="time" placeholder="hh:mm" required min="" id="defaultTime" class="form-control input"
+                 style="display: inline-block; width: auto;margin-bottom: 15px"><br>
+
+          <label class="mr-2" for="centreList" style="color: #777; font-size: 1rem">Centre : </label>
+          <select id="centreList" class="custom-select mb-2" class="form-control input"></select><br>
+
+          <label class="mr-2" for="roomList" style="color: #777; font-size: 1rem">Default Room : </label>
+          <select id="roomList" class="custom-select mb-2" class="form-control input"></select><br>
+
+          <label class="mr-2" for="courseList" style="color: #777; font-size: 1rem">Course : </label>
+          <select id="courseList" class="custom-select mb-2" class="form-control input"></select><br>
+
+          <label class="mr-2" for="teacherList" style="color: #777; font-size: 1rem">Teacher : </label>
+          <select id="teacherList" class="custom-select mb-2" class="form-control input"></select>
         </div>
       </div>
+      <p class="text-center" style="color: red;" id="addBatchesError"></p>
       <div class="modal-footer" style="border: none; justify-content: center; padding-top: 5px">
         <button id="batchSubmit" class=" btn btn-success"
                 style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer;">
@@ -241,7 +241,6 @@
     </div>
   </div>
 </div>
-
 
 <div class="container" style="margin-top: 30px">
   <div class="row titlerow text-center">

@@ -45,10 +45,17 @@ $(document).ready(function () {
           let shortcode = $('#lectureShortCode').val();
           let startDate = $('#startDate').val();
           let endDate = $('#endDate').val();
+          let defaultTime = $('#defaultTime').val();
           let centreId = $('#centreList').val();
+          let roomId = $('#roomList').val();
           let courseId = $('#courseList').val();
           let teacherId = $('#teacherList').val();
 
+          if (!name || !size || !nol || !hoursPerLecture || !shortcode || !startDate || !endDate || !defaultTime || !centreId || !roomId || !courseId || !teacherId) {
+
+            $('#addBatchesError').text('Please Enter All The Details');
+
+          } else {
           $.ajax({
             url: '/api/v1/batches/new',
             data: {
@@ -78,6 +85,8 @@ $(document).ready(function () {
           }).fail(function (err) {
             alert("could not add the batch right now")
           })
+
+        }
         });
       })
 
@@ -98,6 +107,12 @@ $(document).ready(function () {
               let desc = $('#editCourseDesc').val();
               let lect = $('#editLectures').val();
               let hours = $('#editHours').val();
+
+              if (!name || !desc || !lect || !hours ) {
+
+                $('#editCourseError').text('Please Enter All The Details');
+
+              } else {
               $.ajax({
                 url: '/api/v1/courses/' + courseId,
                 data: {
@@ -122,6 +137,8 @@ $(document).ready(function () {
                   console.log("could not add the centre right now")
                 }
               });
+
+            }
             })
           }
         })
@@ -200,6 +217,11 @@ $(document).ready(function () {
     let desc = $('#courseDesc').val();
     let lect = $('#lectures').val();
     let hours = $('#hours').val();
+    if (!name || !desc || !lect || !hours) {
+
+      $('#addCourseError').text('Please Enter All The Details');
+
+    } else {
     $.ajax({
       url: '/api/v1/courses/new',
       data: {
@@ -225,6 +247,8 @@ $(document).ready(function () {
     }).fail(function (err) {
       alert("could not add the centre right now");
     })
+
+  }
   })
 
     $('#logout').click(function () {
