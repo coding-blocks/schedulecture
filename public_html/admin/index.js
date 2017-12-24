@@ -54,7 +54,7 @@ $(document).ready(function () {
 
     const events = [];
     const resources = [];
-    const colors = ['#EB5667', '#F6AB60', '#28B294', '#31C6C7', '#B96BC6', '#2278CF'];
+    const colors = ['#EB5667', '#F6DB60', '#B96BC6', '#31C6C7', '#28B294', '#2278CF'];
     let colorCounter = 0;
 
     $('#calendar').remove();
