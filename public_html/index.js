@@ -126,7 +126,11 @@ $(document).ready(function () {
                     start: moment.utc(lecture.startTime),
                     end: moment.utc(lecture.endTime),
                     stick: true,
-                    resourceId: lecture.roomId
+                    resourceId: lecture.roomId,
+                    batchCapacity: batch.size,
+                    batchName: batch.name,
+                    teacherName: batch.teacher.name,
+                    courseName: batch.course.name
                   });
                 }
               });
