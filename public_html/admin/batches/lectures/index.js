@@ -72,33 +72,39 @@ $(document).ready(function () {
 
             let name = $('#editLectureName').val();
             let teacherId = $('#editTeachersList').val();
-            console.log(teacherId)
             let roomId = $('#editRoomsList').val();
-            $.ajax({
+            if (!name || !roomId || !teacherId) {
 
-              url: '/api/v1/lectures/' + lectureId,
-              data: {
-                values: {
-                  name: name,
-                  teacherId: teacherId,
-                  roomId: roomId
+              $('#editLecturesError').text('Please Enter All The Details');
+
+            } else {
+              $.ajax({
+
+                url: '/api/v1/lectures/' + lectureId,
+                data: {
+                  values: {
+                    name: name,
+                    teacherId: teacherId,
+                    roomId: roomId
+                  }
+                },
+                method: 'PUT',
+                headers: {
+                  "Authorization": "Bearer " + localStorage.getItem("clienttoken")
                 }
-              },
-              method: 'PUT',
-              headers: {
-                "Authorization": "Bearer " + localStorage.getItem("clienttoken")
-              }
-            }).done(function (lecture) {
+              }).done(function (lecture) {
 
-              if (lecture.success === true) {
+                if (lecture.success === true) {
 
-                $('#editLecturesModal').modal('hide');
-                window.location.reload();
-              }
-              else {
-                console.log("could not edit the room right now")
-              }
-            });
+                  $('#editLecturesModal').modal('hide');
+                  window.location.reload();
+                }
+                else {
+                  console.log("could not edit the room right now")
+                }
+              });
+
+            }
           })
         }
       })
@@ -128,31 +134,39 @@ $(document).ready(function () {
     let teacherId = $('#teachersList').val();
     let roomId = $('#roomsList').val();
 
-    $.ajax({
-      url: '/api/v1/lectures/new',
+    if (!name || !roomId || !teacherId) {
 
-      data: {
-        name: name,
-        teacherId: teacherId,
-        roomId: roomId,
-        batchId: batchId
+      $('#addLecturesError').text('Please Enter All The Details');
 
-      },
-      method: 'POST',
+    } else {
 
-      headers: {
-        "Authorization": "Bearer " + localStorage.getItem("clienttoken")
-      }
-    }).done(function (lecture) {
-      if (lecture.success === true) {
+      $.ajax({
+        url: '/api/v1/lectures/new',
 
-        $('#addLecturesModal').modal('hide');
-        window.location.reload();
-      }
-      else {
-        console.log("could not add the room right now")
-      }
-    })
+        data: {
+          name: name,
+          teacherId: teacherId,
+          roomId: roomId,
+          batchId: batchId
+
+        },
+        method: 'POST',
+
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+        }
+      }).done(function (lecture) {
+        if (lecture.success === true) {
+
+          $('#addLecturesModal').modal('hide');
+          window.location.reload();
+        }
+        else {
+          console.log("could not add the room right now")
+        }
+      })
+
+    }
   });
 
     $('#logout').click(function () {
