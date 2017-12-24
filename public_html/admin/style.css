@@ -1,6 +1,8 @@
 
-body{
-    background-color: #F4F6F9
+body {
+    background-color: #F4F6F9;
+    height: 100vh;
+    /*overflow-y: hidden;*/
 }
 
 .container-fluid {
@@ -18,6 +20,9 @@ body{
     background-color: #343a40;
     z-index: 10;
     height: auto;
+    position: fixed;
+    top: 0px;
+    width: 100%;
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -38,12 +43,13 @@ body{
     overflow: hidden;
     z-index: 1;
 }
-ul{
+
+ul {
     padding-left: 20px;
 }
 
 /*#calendar{*/
-    /*margin-top: 20px;*/
+/*margin-top: 20px;*/
 /*}*/
 
 #sidebar .list-group-item {
@@ -74,6 +80,7 @@ ul{
 #sidebar .list-group .list-group-item[aria-expanded="true"] {
     background-color: #343a40;
 }
+
 #sidebar .list-group .list-group-item[aria-expanded="true"]::after {
     content: " \f0da";
     font-family: FontAwesome;
@@ -83,7 +90,7 @@ ul{
 }
 
 /* level 1*/
-#sidebar .list-group .collapse .list-group-item  {
+#sidebar .list-group .collapse .list-group-item {
     padding-left: 50px;
     border: solid 1px #666;
     background-color: #495057;
@@ -108,21 +115,23 @@ ul{
     padding-left: 40px;
 }
 
-@media (max-width:48em) {
+@media (max-width: 48em) {
     /* overlay sub levels on small screens */
     #sidebar .list-group .collapse.in, #sidebar .list-group .collapsing {
         position: absolute;
         z-index: 1;
         width: 190px;
     }
+
     #sidebar .list-group > .list-group-item {
         text-align: center;
         padding: .75rem .5rem;
     }
+
     /* hide caret icons of top level when collapsed */
     #sidebar .list-group > .list-group-item[aria-expanded="true"]::after,
     #sidebar .list-group > .list-group-item[aria-expanded="false"]::after {
-        display:none;
+        display: none;
     }
 }
 
@@ -148,16 +157,16 @@ ul{
 
 }
 
-.title{
+.title {
     background-color: white;
-    box-shadow: #DDD 0 0 8px 1px ;
+    box-shadow: #DDD 0 0 8px 1px;
     border-radius: .125rem;
     height: auto;
     padding: 10px;
 
 }
 
-.titlerow{
+.titlerow {
     /*background-color: white;*/
     height: auto;
     padding: 30px;
@@ -167,7 +176,7 @@ ul{
     /*border-radius: .125rem;*/
 }
 
-.minicourses{
+.minicourses {
     /*background-color: white;*/
     height: auto;
     padding: 20px;
@@ -175,43 +184,42 @@ ul{
     /*border-radius: .125rem;*/
 }
 
-.minicourses-list{
+.minicourses-list {
     list-style-type: none;
     width: 100%;
     padding: 0;
     margin: 0;
 }
 
-.minicourses-list-li{
+.minicourses-list-li {
     width: 100%;
     height: auto;
     padding: 10px;
 }
 
-.minicourses-list-li-div{
+.minicourses-list-li-div {
     width: 100%;
     /*padding-top: 10px;*/
     height: auto;
     border-bottom: solid 2px #EEE;
     background-color: white;
-    box-shadow: #DDD 0 0 8px 1px ;
+    box-shadow: #DDD 0 0 8px 1px;
     border-radius: .125rem;
     /*cursor: pointer;*/
 }
 
-#minicourses-list > li{
+#minicourses-list > li {
     float: left;
 }
 
-a{
+a {
     cursor: pointer;
 }
 
-
-.btn:focus{
+.btn:focus {
     box-shadow: none;
 }
 
-.fc-content{
+.fc-content {
     color: white;
 }

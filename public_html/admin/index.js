@@ -2,8 +2,11 @@
  * Created by apoorvaagupta on 9/05/17.
  */
 $(document).ready(function () {
-
   var api = '/api/v1';
+
+  $('#mainContent').css('padding-top', ($('#header-bar').height() + 20) + 'px')
+   $('#side-menu').css('height', ($(document.body).height() - $('#header-bar').height() - 20) + 'px')
+   $('#calendarContainer').css('height', ($(document.body).height() - $('#header-bar').height() - 20) + 'px')
 
   let name = localStorage.getItem('name').split('%20').join(' ');
   $('#name').text('Hey ' + name);
