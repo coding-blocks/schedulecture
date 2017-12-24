@@ -38,6 +38,12 @@ $(document).ready(function () {
               let name = $('#editCentreName').val();
               let head = $('#editCentreHead').val();
               let contact = $('#editCentreContact').val();
+              if (!name || !head || !contact ) {
+
+                $('#editCentreError').text('Please Enter All The Details');
+
+              } else {
+
               $.ajax({
 
                 url: '/api/v1/centres/' + centreId,
@@ -62,6 +68,8 @@ $(document).ready(function () {
                   console.log("could not add the centre right now")
                 }
               });
+
+            }
             })
           }
         })
@@ -89,6 +97,11 @@ $(document).ready(function () {
     let name = $('#centreName').val();
     let head = $('#centreHead').val();
     let contact = $('#centreContact').val();
+    if (!name  || !head || !contact) {
+
+      $('#addCentreError').text('Please Enter All The Details');
+
+    } else {
     $.ajax({
       url: '/api/v1/centres/new', data: {
         name: name,
@@ -108,6 +121,8 @@ $(document).ready(function () {
         console.log("could not add the centre right now")
       }
     })
+
+  }
   });
 
     $('#logout').click(function () {

@@ -60,32 +60,40 @@ $(document).ready(function () {
               let capacity = $('#editRoomCapacity').val();
               let config = $('#editRoomConfig').val();
               let centreId = $('#editCentreList').val();
-              $.ajax({
 
-                url: '/api/v1/rooms/' + roomId,
-                data: {
-                  values: {
-                    name: name,
-                    capacity: capacity,
-                    config: config,
-                    centreId: centreId
-                  }
-                },
-                method: 'PUT',
+              if (!name || !centreId || !capacity || !config) {
+
+                $('#editRoomError').text('Please Enter All The Details');
+
+              } else {
+                $.ajax({
+
+                  url: '/api/v1/rooms/' + roomId,
+                  data: {
+                    values: {
+                      name: name,
+                      capacity: capacity,
+                      config: config,
+                      centreId: centreId
+                    }
+                  },
+                  method: 'PUT',
                   headers: {
-                      "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+                    "Authorization": "Bearer " + localStorage.getItem("clienttoken")
                   }
-              }).done(function (room) {
+                }).done(function (room) {
 
-                if (room.success === true) {
+                  if (room.success === true) {
 
-                  $('#editRoomsModal').modal('hide');
-                  window.location.reload();
-                }
-                else {
-                  console.log("could not edit the room right now")
-                }
-              });
+                    $('#editRoomsModal').modal('hide');
+                    window.location.reload();
+                  }
+                  else {
+                    console.log("could not edit the room right now")
+                  }
+                });
+              }
+
             })
           }
         })
@@ -115,24 +123,33 @@ $(document).ready(function () {
     let config = $('#roomConfig').val();
     let centreId = $('#centreList').val();
 
-    $.ajax({url: '/api/v1/rooms/new',data: {
-      name: name,
-      capacity: capacity,
-      config: config,
-      centreId: centreId
-    },method:'POST',
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("clienttoken")
-        }}).done( function (room) {
-      if (room.success === true) {
+    if (!name || !centreId || !capacity || !config ) {
 
-        $('#addRoomsModal').modal('hide');
-        window.location.reload();
-      }
-      else {
-        console.log("could not add the room right now")
-      }
-    })
+      $('#addRoomError').text('Please Enter All The Details');
+
+    } else {
+      $.ajax({
+        url: '/api/v1/rooms/new', data: {
+          name: name,
+          capacity: capacity,
+          config: config,
+          centreId: centreId
+        }, method: 'POST',
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+        }
+      }).done(function (room) {
+        if (room.success === true) {
+
+          $('#addRoomsModal').modal('hide');
+          window.location.reload();
+        }
+        else {
+          console.log("could not add the room right now")
+        }
+      })
+    }
+
   });
 
     $('#logout').click(function () {
