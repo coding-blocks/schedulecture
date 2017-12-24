@@ -208,41 +208,50 @@ $(document).ready(function () {
               let defaultTime = $('#editdefaultTime').val();
               let roomId = $('#editRoomList').val();
 
-              $.ajax({
+              if (!name || !size || !nol || !hoursPerLecture || !shortcode || !startDate || !endDate || !defaultTime || !centreId || !roomId || !courseId || !teacherId) {
 
-                url: '/api/v1/batches/' + batchId,
-                data: {
-                  values: {
-                    name: name,
-                    startDate: startDate,
-                    endDate: endDate,
-                    size: size,
-                    noOfLectures: nol,
-                    hoursPerLecture: hoursPerLecture,
-                    lectureShortCode: shortcode,
-                    courseId: courseId,
-                    centreId: centreId,
-                    teacherId: teacherId,
-                    roomId: roomId,
-                    defaultTime: defaultTime
-                  }
-                },
-                method: 'PUT',
-                headers:
-                  {
-                    "Authorization":
-                    "Bearer " + localStorage.getItem("clienttoken")
-                  }
-              }).done(function (centre) {
-                if (centre.success === true) {
+                $('#editBatchError').text('Please Enter All The Details');
 
-                  $('#editCentresModal').modal('hide');
-                  window.location.reload();
-                }
-                else {
-                  console.log("could not add the centre right now")
-                }
-              });
+              } else {
+
+                $.ajax({
+
+                  url: '/api/v1/batches/' + batchId,
+                  data: {
+                    values: {
+                      name: name,
+                      startDate: startDate,
+                      endDate: endDate,
+                      size: size,
+                      noOfLectures: nol,
+                      hoursPerLecture: hoursPerLecture,
+                      lectureShortCode: shortcode,
+                      courseId: courseId,
+                      centreId: centreId,
+                      teacherId: teacherId,
+                      roomId: roomId,
+                      defaultTime: defaultTime
+                    }
+                  },
+                  method: 'PUT',
+                  headers:
+                    {
+                      "Authorization":
+                      "Bearer " + localStorage.getItem("clienttoken")
+                    }
+                }).done(function (centre) {
+                  if (centre.success === true) {
+
+                    $('#editCentresModal').modal('hide');
+                    window.location.reload();
+                  }
+                  else {
+                    console.log("could not add the centre right now")
+                  }
+                });
+
+              }
+
             })
           }
         })
@@ -312,12 +321,11 @@ $(document).ready(function () {
     let teacherId = $('#teacherList').val();
 
     if (!name || !size || !nol || !hoursPerLecture || !shortcode || !startDate || !endDate || !defaultTime || !centreId || !roomId || !courseId || !teacherId) {
-      console.log(1);
+
       $('#addBatchError').text('Please Enter All The Details');
 
     } else {
 
-      //console.log(hoursPerLecture)
       $.ajax({
         url: '/api/v1/batches/new',
         data: {
