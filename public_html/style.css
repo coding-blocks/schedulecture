@@ -1,0 +1,225 @@
+
+body {
+    background-color: #F4F6F9;
+    /*height: 100vh;*/
+    /*overflow-y: hidden;*/
+}
+
+.container-fluid {
+    padding: 0;
+    margin: 0;
+}
+
+#side-menu {
+    /*height: 100vh;*/
+    /*position: fixed;*/
+    background-color: #343a40;
+}
+
+.header-bar {
+    background-color: #343a40;
+    z-index: 10;
+    height: auto;
+    /*position: fixed;*/
+    /*top: 0px;*/
+    /*width: 100%;*/
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.lecture {
+    position: relative;
+    display: inline-block;
+    padding-left: 12px;
+    padding-right: 12px;
+    height: 32px;
+    line-height: 32px;
+    background-color: #e0e0e0;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(66, 66, 66, 0.7);
+    border-radius: 16px;
+    border-bottom: 2px solid lightgray;
+    overflow: hidden;
+    z-index: 1;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+/*#calendar{*/
+/*margin-top: 20px;*/
+/*}*/
+
+#sidebar .list-group-item {
+    border-radius: 0;
+    background-color: #343a40;
+    color: #eee;
+    border-left: 0;
+    border-right: 0;
+    border: none;
+    white-space: nowrap;
+}
+
+/* highlight active menu */
+#sidebar .list-group-item:not(.collapsed) {
+    background-color: #343a40;
+}
+
+/* closed state */
+#sidebar .list-group .list-group-item[aria-expanded="false"]::after {
+    content: " \f0d7";
+    font-family: FontAwesome;
+    display: inline;
+    text-align: right;
+    padding-left: 5px;
+}
+
+/* open state */
+#sidebar .list-group .list-group-item[aria-expanded="true"] {
+    background-color: #343a40;
+}
+
+#sidebar .list-group .list-group-item[aria-expanded="true"]::after {
+    content: " \f0da";
+    font-family: FontAwesome;
+    display: inline;
+    text-align: right;
+    padding-left: 5px;
+}
+
+/* level 1*/
+#sidebar .list-group .collapse .list-group-item {
+    padding-left: 50px;
+    border: solid 1px #666;
+    background-color: #495057;
+    border-radius: 1rem;
+    width: auto;
+    padding: 4px 20px;
+    margin-bottom: 5px;
+    margin-left: 35px;
+    display: inline-block;
+    color: #eee;
+}
+
+/* level 2*/
+#sidebar .list-group .collapse > .collapse .list-group-item {
+    padding-left: 50px;
+    border: solid 1px #555;
+    background-color: #666;
+}
+
+/* level 3*/
+#sidebar .list-group .collapse > .collapse > .collapse .list-group-item {
+    padding-left: 40px;
+}
+
+@media (max-width: 48em) {
+    /* overlay sub levels on small screens */
+    #sidebar .list-group .collapse.in, #sidebar .list-group .collapsing {
+        position: absolute;
+        z-index: 1;
+        width: 190px;
+    }
+
+    #sidebar .list-group > .list-group-item {
+        text-align: center;
+        padding: .75rem .5rem;
+    }
+
+    /* hide caret icons of top level when collapsed */
+    #sidebar .list-group > .list-group-item[aria-expanded="true"]::after,
+    #sidebar .list-group > .list-group-item[aria-expanded="false"]::after {
+        display: none;
+    }
+}
+
+/* change transition animation to width when entire sidebar is toggled */
+#sidebar.collapse {
+    -webkit-transition-timing-function: ease;
+    -o-transition-timing-function: ease;
+    transition-timing-function: ease;
+    -webkit-transition-duration: .2s;
+    -o-transition-duration: .2s;
+    transition-duration: .2s;
+}
+
+#sidebar.collapsing {
+    opacity: 0.8;
+    width: 0;
+    -webkit-transition-timing-function: ease-in;
+    -o-transition-timing-function: ease-in;
+    transition-timing-function: ease-in;
+    -webkit-transition-property: width;
+    -o-transition-property: width;
+    transition-property: width;
+
+}
+
+.title {
+    background-color: white;
+    box-shadow: #DDD 0 0 8px 1px;
+    border-radius: .125rem;
+    height: auto;
+    padding: 10px;
+
+}
+
+.titlerow {
+    /*background-color: white;*/
+    height: auto;
+    padding: 30px;
+    padding-top: 0;
+    padding-bottom: 0;
+    /*box-shadow: #DDD 0 0 8px 1px ;*/
+    /*border-radius: .125rem;*/
+}
+
+.minicourses {
+    /*background-color: white;*/
+    height: auto;
+    padding: 20px;
+    /*box-shadow: #DDD 0 0 8px 1px ;*/
+    /*border-radius: .125rem;*/
+}
+
+.minicourses-list {
+    list-style-type: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.minicourses-list-li {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+}
+
+.minicourses-list-li-div {
+    width: 100%;
+    /*padding-top: 10px;*/
+    height: auto;
+    border-bottom: solid 2px #EEE;
+    background-color: white;
+    box-shadow: #DDD 0 0 8px 1px;
+    border-radius: .125rem;
+    /*cursor: pointer;*/
+}
+
+#minicourses-list > li {
+    float: left;
+}
+
+a {
+    cursor: pointer;
+}
+
+.btn:focus {
+    box-shadow: none;
+}
+
+.fc-content {
+    color: white;
+}

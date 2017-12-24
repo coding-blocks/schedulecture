@@ -179,6 +179,28 @@ $(document).ready(function () {
                   dateIncrement: {days: 1}
                 }
 
+              },
+              eventMouseover: function (event, jsEvent, view) {
+                console.log(event)
+                var index = -1;
+                resources.map(function (v, i) {
+                  if (v.id === +event.resourceId) {
+                    index = i;
+                  }
+                  return v;
+                });
+
+                $(jsEvent.currentTarget).tooltip(
+                  {
+                    html: true,
+                    title: `
+                              Course: ${event.courseName}<br/>
+                              Batch: ${event.batchName}<br/>
+                              Teacher: ${event.teacherName}<br/>
+                              Batch Capacity: ${event.batchCapacity}<br/>                             
+                              Room: ${resources[index].title}<br/>
+                    `
+                  })
               }
             });
 
