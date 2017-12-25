@@ -268,7 +268,18 @@ $(document).ready(function () {
                   return v;
                 });
                 if (index != -1 && event.batchCapacity > resources[index].capacity) {
-                  alert("Batch Capacity greater than room size.");
+                  // alert("Batch Capacity greater than room size.");
+
+                  $.toast({
+                    heading: 'Warning',
+                    icon: 'error',
+                    text: `Batch Capacity greater than room size.`,
+                    position: 'top-right',
+                    stack: 4,
+                    hideAfter: 2000,
+                    showHideTransition: 'slide',
+                    loaderBg: '#fc4f4f;'
+                  })
                 }
               },
               eventClick: function (event, jsEvent, view) {
