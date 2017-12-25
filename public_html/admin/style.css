@@ -8,12 +8,17 @@ body {
 .container-fluid {
     padding: 0;
     margin: 0;
+    /*height: 100vh;*/
 }
 
 #side-menu {
     /*height: 100vh;*/
     /*position: fixed;*/
     background-color: #343a40;
+}
+
+div.fc-scroller.fc-day-grid-container {
+    overflow-y: scroll !important;
 }
 
 .header-bar {
@@ -60,6 +65,18 @@ ul {
     border-right: 0;
     border: none;
     white-space: nowrap;
+}
+
+.ui-draggable {
+    border: solid 1px #666;
+    background-color: #495057;
+    border-radius: 1rem !important;
+    width: auto;
+    padding: 4px 20px;
+    margin-bottom: 5px;
+    margin-left: 35px;
+    display: inline-block;
+    color: #eee !important;
 }
 
 /* highlight active menu */

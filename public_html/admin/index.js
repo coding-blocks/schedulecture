@@ -8,6 +8,14 @@ $(document).ready(function () {
   $('#side-menu').css('height', ($(document.body).height() - $('#header-bar').height() - 20) + 'px')
   $('#calendarContainer').css('height', ($(document.body).height() - $('#header-bar').height() - 20) + 'px')
 
+  $(window).resize(function () {
+    $('#mainContent').css('padding-top', ($('#header-bar').height() + 20) + 'px')
+    $('#side-menu').css('height', ($(document.body).height() - $('#header-bar').height() - 20) + 'px')
+    $('#calendarContainer').css('height', ($(document.body).height() - $('#header-bar').height() - 20) + 'px')
+    $('#calendar').fullCalendar('option', 'height', $('#calendarContainer').height() - 60);
+
+  });
+
   let name = localStorage.getItem('name').split('%20').join(' ');
   $('#name').text('Hey ' + name);
 
@@ -65,6 +73,7 @@ $(document).ready(function () {
     $('#calendarContainer').append(`
     <div id="calendar"></div>
     `);
+
 
     $.get(`${api}/centres/${centre.id}/rooms`).done((roomsData) => {
       if (roomsData.success) {
@@ -165,15 +174,18 @@ $(document).ready(function () {
                   });
 
                   $lecture.draggable({
-                    zIndex: 999,
+                    zIndex: 9999,
                     revert: true,
-                    revertDuration: 0
-                  });
+                    revertDuration: 0,
+                    scroll: false,
+                    helper: "clone",
+                    appendTo: "body"
+                  }).css('z-index', 1000);
                 }
               });
 
             });
-
+            $('#calendar').css('overflow-y', 'scroll');
             $('#calendar').fullCalendar({
               // put your options and callbacks here
               schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
@@ -187,7 +199,7 @@ $(document).ready(function () {
               droppable: true,
               minTime: "07:00:00",
               maxTime: "22:00:00",
-              //height: 500,
+              height: $('#calendarContainer').height() - 60,
               events: events,
               dayClick: function (date, jsEvent, view, resourceObj) {
                 $('#calendar').fullCalendar('changeView', 'agendaOneDay', date);
