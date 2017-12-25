@@ -29,7 +29,8 @@ module.exports = {
   getAll: function (conditions, done) {
     models.Batches.findAll({
       where: conditions,
-      include: [models.Centres, models.Courses, models.Teachers, models.Lectures, models.Rooms]
+      include: [models.Centres, models.Courses, models.Teachers, models.Lectures, models.Rooms],
+      order: ['id']
     }).then(function (data) {
 
       done(null, data)
@@ -106,7 +107,8 @@ module.exports = {
     models.Lectures.findAll({
       where: {
         batchId: id
-      }
+      },
+      order: ['id']
     }).then(function (data) {
       done(null, data)
     }).catch(function (err) {

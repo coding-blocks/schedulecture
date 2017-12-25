@@ -16,7 +16,7 @@ module.exports = {
     });
   },
   getAll: function (done) {
-    models.Centres.findAll({}).then(function (data) {
+    models.Centres.findAll({order: ['id']}).then(function (data) {
       done(null, data)
     }).catch(function (err) {
       if (err) done(err);
@@ -67,7 +67,8 @@ module.exports = {
       where: {
         centreId: id
       },
-      include: [models.Courses, models.Teachers, models.Lectures]
+      include: [models.Courses, models.Teachers, models.Lectures],
+      order: ['id']
     }).then(function (data) {
       done(null, data);
     }).catch(function (err) {
@@ -79,7 +80,8 @@ module.exports = {
     models.Rooms.findAll({
       where: {
         centreId: id
-      }
+      },
+      order: ['id']
     }).then(function (data) {
       done(null, data);
     }).catch(function (err) {
