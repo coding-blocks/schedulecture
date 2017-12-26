@@ -148,7 +148,7 @@ $(document).ready(function () {
               fixedWeekCount: false,
               minTime: "07:00:00",
               maxTime: "22:00:00",
-              height: 800,
+              height: 'auto',
               events: events,
               dayClick: function (date, jsEvent, view, resourceObj) {
                 $('#calendar').fullCalendar('changeView', 'agendaOneDay', date);
