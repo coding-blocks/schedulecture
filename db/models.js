@@ -102,7 +102,6 @@ Teachers.hasMany(Lectures);
 
 sequelize.sync({
   force: process.env.SCHEDULECTURE_FORCE_DB_RECREATE || false,
-  alter: (config.DEPLOY_CONFIG === 'heroku')
 }).then(function () {
   console.log("Database Configured");
 });
