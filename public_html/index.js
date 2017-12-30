@@ -185,7 +185,6 @@ $(document).ready(function () {
 
               },
               eventMouseover: function (event, jsEvent, view) {
-                console.log(event)
                 var index = -1;
                 resources.map(function (v, i) {
                   if (v.id === +event.resourceId) {
@@ -223,25 +222,4 @@ $(document).ready(function () {
       console.log(err)
     });
   }
-
-  function updateLecture(event) {
-    $.ajax({
-      method: 'PUT',
-      url: `${api}/lectures/${event.lectureId}`,
-      data: {
-        values: {
-          startTime: event.start._d,
-          endTime: event.end._d,
-          date: event.start._d,
-          roomId: +event.resourceId
-        }
-      }
-    }).done(function (data) {
-      console.log(data)
-    }).fail(function (err) {
-      alert('Could Not Update The Lecture');
-      console.log(err);
-    })
-  }
-
 });

@@ -237,7 +237,6 @@ $(document).ready(function () {
 
               },
               eventDrop: function (event, delta, revertFunction, jsEvent, ui, view) {
-                console.log(event);
                 updateLecture(event);
               },
               drop: function (date, jsEvent, ui, resourceId) {
@@ -246,7 +245,6 @@ $(document).ready(function () {
 
               },
               eventReceive: function (event) {
-                console.log(event);
                 let defaultTime = event.defaultTime;
                 let defaultHours = +defaultTime.split(':')[0];
                 let defaultMinutes = +defaultTime.split(':')[1];
@@ -313,7 +311,6 @@ $(document).ready(function () {
               },
 
               eventMouseover: function (event, jsEvent, view) {
-                console.log(event)
                 var index = -1;
                 resources.map(function (v, i) {
                   if (v.id === +event.resourceId) {
@@ -371,7 +368,9 @@ $(document).ready(function () {
         "Authorization": "Bearer " + localStorage.getItem("clienttoken")
       }
     }).done(function (data) {
-      // console.log(data)
+      if (!data.success) {
+        alert('Could Not Update The Lecture');
+      }
     }).fail(function (err) {
       alert('Could Not Update The Lecture');
       console.log(err);
