@@ -207,7 +207,7 @@ $(document).ready(function () {
                   })
               }
             });
-
+            $('[data-toggle="tooltip"]').tooltip();
           } else {
             alert('There are no Batches');
           }
