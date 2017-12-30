@@ -20,7 +20,8 @@ $(document).ready(function () {
   $('#name').text('Hey ' + name);
 
   getCentres();
-  $('[data-toggle="tooltip"]').tooltip();
+
+  // $('[data-toggle="tooltip"]').tooltip();
 
   function getCentres() {
 
@@ -331,11 +332,11 @@ $(document).ready(function () {
                               Batch Capacity: ${event.batchCapacity}<br/>                             
                               Room: ${resources[index].title}<br/>
                     `
-                  })
+                  }).tooltip('show');
               }
 
             });
-            $('[data-toggle="tooltip"]').tooltip();
+            // $('[data-toggle="tooltip"]').tooltip();
 
           } else {
             alert('There are no Batches');
