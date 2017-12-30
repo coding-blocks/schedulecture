@@ -204,10 +204,9 @@ $(document).ready(function () {
                               Batch Capacity: ${event.batchCapacity}<br/>                             
                               Room: ${resources[index].title}<br/>
                     `
-                  })
+                  }).tooltip('show');
               }
             });
-            $('[data-toggle="tooltip"]').tooltip();
           } else {
             alert('There are no Batches');
           }
