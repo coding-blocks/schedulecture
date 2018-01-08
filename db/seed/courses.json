@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Android",
+    "desc": "Android Development Classroom Course",
+    "lect": "22",
+    "hours": "4"
+  },
+  {
+    "name": "Webdev",
+    "desc": "Webdev with NodeJS Classroom Course",
+    "lect": "22",
+    "hours": "4"
+  },
+  {
+    "name": "Java Combined",
+    "desc": "Basics + DS & Algo (Java)",
+    "lect": "24",
+    "hours": "4"
+  }
+]
