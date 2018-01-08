@@ -20,7 +20,8 @@ $(document).ready(function () {
   $('#name').text('Hey ' + name);
 
   getCentres();
-  $('[data-toggle="tooltip"]').tooltip();
+
+  // $('[data-toggle="tooltip"]').tooltip();
 
   function getCentres() {
 
@@ -65,7 +66,7 @@ $(document).ready(function () {
 
     const events = [];
     const resources = [];
-    const colors = ['#EB5667', '#F6DB60', '#B96BC6', '#31C6C7', '#28B294', '#2278CF'];
+    const colors = ['#EB5667', '#1E88E5', '#B96BC6', '#31C6C7', '#28B294', '#2278CF'];
     let colorCounter = 0;
 
     $('#calendar').remove();
@@ -236,7 +237,6 @@ $(document).ready(function () {
 
               },
               eventDrop: function (event, delta, revertFunction, jsEvent, ui, view) {
-                console.log(event);
                 updateLecture(event);
               },
               drop: function (date, jsEvent, ui, resourceId) {
@@ -245,7 +245,6 @@ $(document).ready(function () {
 
               },
               eventReceive: function (event) {
-                console.log(event);
                 let defaultTime = event.defaultTime;
                 let defaultHours = +defaultTime.split(':')[0];
                 let defaultMinutes = +defaultTime.split(':')[1];
@@ -312,7 +311,6 @@ $(document).ready(function () {
               },
 
               eventMouseover: function (event, jsEvent, view) {
-                console.log(event)
                 var index = -1;
                 resources.map(function (v, i) {
                   if (v.id === +event.resourceId) {
@@ -331,11 +329,11 @@ $(document).ready(function () {
                               Batch Capacity: ${event.batchCapacity}<br/>                             
                               Room: ${resources[index].title}<br/>
                     `
-                  })
+                  }).tooltip('show');
               }
 
             });
-            $('[data-toggle="tooltip"]').tooltip();
+            // $('[data-toggle="tooltip"]').tooltip();
 
           } else {
             alert('There are no Batches');
@@ -370,7 +368,9 @@ $(document).ready(function () {
         "Authorization": "Bearer " + localStorage.getItem("clienttoken")
       }
     }).done(function (data) {
-      // console.log(data)
+      if (!data.success) {
+        alert('Could Not Update The Lecture');
+      }
     }).fail(function (err) {
       alert('Could Not Update The Lecture');
       console.log(err);
