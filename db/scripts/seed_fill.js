@@ -10,7 +10,7 @@ models.DATABASE.sync({
 }).then(function () {
   console.log("Database Configured");
 
-  models.Teachers.bulkCreate(seed.teachers).then(function (r) {
+  models.Teachers.bulkCreate(seed.teachers, {returning: true}).then(function (r) {
     console.log(r.map(v => v.get()));
   }).catch(function (err) {
     console.log(err);
