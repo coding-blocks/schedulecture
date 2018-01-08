@@ -259,7 +259,7 @@ $(document).ready(function () {
                   $.toast({
                     heading: 'Warning',
                     icon: 'error',
-                    text: `${event.teacherName} has other class during this time.`,
+                    text: `${event.teacherName} has another class during this time.`,
                     position: 'top-right',
                     stack: 4,
                     hideAfter: 4000,
@@ -359,7 +359,7 @@ $(document).ready(function () {
                   $.toast({
                     heading: 'Warning',
                     icon: 'error',
-                    text: `${event.teacherName} has other class during this time.`,
+                    text: `${event.teacherName} has another class during this time.`,
                     position: 'top-right',
                     stack: 4,
                     hideAfter: 4000,
@@ -391,7 +391,7 @@ $(document).ready(function () {
                   $.toast({
                     heading: 'Warning',
                     icon: 'error',
-                    text: `${event.teacherName} has other class during this time.`,
+                    text: `${event.teacherName} has another class during this time.`,
                     position: 'top-right',
                     stack: 4,
                     hideAfter: 4000,
