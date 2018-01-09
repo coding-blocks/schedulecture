@@ -56,7 +56,7 @@ $(document).ready(function () {
       }
     }).fail((err) => {
       alert('No Centres.');
-      console.log(err);
+      console.log(err);/**/
     });
 
   }
@@ -374,6 +374,8 @@ $(document).ready(function () {
 
               },
               eventDrop: function (event, delta, revertFunction, jsEvent, ui, view) {
+
+
                 let overlappingLectures = $('#calendar').fullCalendar('clientEvents', function (curEvent) {
                   if ((event.start.format() >= curEvent.start.format() && event.start.format() < curEvent.end.format())
                     || (event.end.format() > curEvent.start.format() && event.end.format() <= curEvent.end.format()))
@@ -382,19 +384,36 @@ $(document).ready(function () {
                     return false;
                 })
 
-                let flag = false;
+                let flagTeacher, flagRoom = false;
 
                 overlappingLectures.map(function (v) {
-                  if (+event.lectureId != v.lectureId && +event.teacherId == v.teacherId) {
-                    flag = true;
+                  if (+event.lectureId != +v.lectureId && +event.teacherId === +v.teacherId) {
+                    flagTeacher = true;
                   }
+                  if (+event.lectureId != +v.lectureId && +event.resourceId === +v.resourceId) {
+                    flagRoom = true;
+                  }
+
+
                 })
 
-                if (flag)
+                if (flagTeacher)
                   $.toast({
                     heading: 'Warning',
                     icon: 'error',
                     text: `${event.teacherName} has another class during this time.`,
+                    position: 'top-right',
+                    stack: 4,
+                    hideAfter: 4000,
+                    showHideTransition: 'slide',
+                    loaderBg: '#fc4f4f;'
+                  })
+
+                if (flagRoom)
+                  $.toast({
+                    heading: 'Warning',
+                    icon: 'error',
+                    text: `The room already has a scheduled class.`,
                     position: 'top-right',
                     stack: 4,
                     hideAfter: 4000,
@@ -483,15 +502,21 @@ $(document).ready(function () {
                     return false;
                 })
 
-                let flag = false;
+                let flagTeacher, flagRoom = false;
 
                 overlappingLectures.map(function (v) {
-                  if (+event.lectureId != v.lectureId && +event.teacherId == v.teacherId) {
-                    flag = true;
+                  if (+event.lectureId != +v.lectureId && +event.teacherId === +v.teacherId) {
+                    flagTeacher = true;
+                  }
+                  if (+event.lectureId != +v.lectureId && +event.resourceId === +v.resourceId) {
+                    flagRoom = true;
                   }
                 })
 
-                if (flag)
+                console.log(overlappingLectures);
+                console.log(flagRoom);
+
+                if (flagTeacher)
                   $.toast({
                     heading: 'Warning',
                     icon: 'error',
@@ -503,9 +528,23 @@ $(document).ready(function () {
                     loaderBg: '#fc4f4f;'
                   })
 
+                if (flagRoom)
+                  $.toast({
+                    heading: 'Warning',
+                    icon: 'error',
+                    text: `The room already has a scheduled class.`,
+                    position: 'top-right',
+                    stack: 4,
+                    hideAfter: 4000,
+                    showHideTransition: 'slide',
+                    loaderBg: '#fc4f4f;'
+                  })
+
+
 
               },
               eventResize: function (event, delta, revertFunc) {
+
 
                 let overlappingLectures = $('#calendar').fullCalendar('clientEvents', function (curEvent) {
                   if ((event.start.format() >= curEvent.start.format() && event.start.format() < curEvent.end.format())
@@ -515,15 +554,20 @@ $(document).ready(function () {
                     return false;
                 })
 
-                let flag = false;
+                let flagTeacher, flagRoom = false;
 
                 overlappingLectures.map(function (v) {
-                  if (+event.lectureId != v.lectureId && +event.teacherId == v.teacherId) {
-                    flag = true;
+                  if (+event.lectureId != +v.lectureId && +event.teacherId === +v.teacherId) {
+                    flagTeacher = true;
                   }
+                  if (+event.lectureId != +v.lectureId && +event.resourceId === +v.resourceId) {
+                    flagRoom = true;
+                  }
+
+
                 })
 
-                if (flag)
+                if (flagTeacher)
                   $.toast({
                     heading: 'Warning',
                     icon: 'error',
@@ -535,8 +579,21 @@ $(document).ready(function () {
                     loaderBg: '#fc4f4f;'
                   })
 
+                if (flagRoom)
+                  $.toast({
+                    heading: 'Warning',
+                    icon: 'error',
+                    text: `The room already has a scheduled class.`,
+                    position: 'top-right',
+                    stack: 4,
+                    hideAfter: 4000,
+                    showHideTransition: 'slide',
+                    loaderBg: '#fc4f4f;'
+                  })
+
               },
               eventClick: function (event, jsEvent, view) {
+
                 $(jsEvent.currentTarget).tooltip('dispose');
 
                 var index = -1;
@@ -586,8 +643,36 @@ $(document).ready(function () {
                   })
                 }
 
-              },
 
+                let overlappingLectures = $('#calendar').fullCalendar('clientEvents', function (curEvent) {
+                  if ((event.start.format() >= curEvent.start.format() && event.start.format() < curEvent.end.format())
+                    || (event.end.format() > curEvent.start.format() && event.end.format() <= curEvent.end.format()))
+                    return true;
+                  else
+                    return false;
+                })
+
+                let flagRoom = false;
+
+                overlappingLectures.map(function (v) {
+                  if (+event.lectureId != +v.lectureId && +event.resourceId === +v.resourceId) {
+                    flagRoom = true;
+                  }
+                })
+
+                if (flagRoom)
+                  $.toast({
+                    heading: 'Warning',
+                    icon: 'error',
+                    text: `The room already has a scheduled class.`,
+                    position: 'top-right',
+                    stack: 4,
+                    hideAfter: 4000,
+                    showHideTransition: 'slide',
+                    loaderBg: '#fc4f4f;'
+                  })
+
+              },
               eventMouseover: function (event, jsEvent, view) {
                 var index = -1;
                 resources.map(function (v, i) {
@@ -611,8 +696,6 @@ $(document).ready(function () {
               }
 
             });
-            // $('[data-toggle="tooltip"]').tooltip();
-
 
           } else {
             alert('There are no Batches');
