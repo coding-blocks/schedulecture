@@ -229,7 +229,7 @@ ul {
     float: left;
 }
 
-a {
+a, button {
     cursor: pointer;
 }
 
