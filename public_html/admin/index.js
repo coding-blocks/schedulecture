@@ -308,7 +308,7 @@ $(document).ready(function () {
         const $batches = $('#batches');
         $batches.empty();
 
-        $.get(`${api}/centres/${centre.id}/batches/`).done((data) => {
+        $.get(`${api}/centres/${centre.id}/batches/active`).done((data) => {
           if (data.success) {
             let batches = data.data;
             $('#batchMode').click(function (e) {
