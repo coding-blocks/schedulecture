@@ -197,8 +197,9 @@ $(document).ready(function () {
   function showBatchesAndRooms(centre) {
 
     const events = [];
-    const resources = [];
+    const resources = []
     const colors = ['#EB5667', '#1E88E5', '#B96BC6', '#28B294', '#FF8F00', '#31C6C7'];
+    let batchColors = {};
     let colorCounter = 0;
 
     $('#calendar').remove();
@@ -206,7 +207,6 @@ $(document).ready(function () {
     $('#calendarContainer').append(`
     <div id="calendar"></div>
     `);
-
 
     $.get(`${api}/centres/${centre.id}/rooms`).done((roomsData) => {
       if (roomsData.success) {
@@ -241,24 +241,33 @@ $(document).ready(function () {
               <div class="col">
               </div>
               <div class="col">
-              <button class="btn btn-sm btn-outline-primary" id="batchMode" current-mode="R">Batch Mode</button>
+              <button class="btn btn-sm btn-outline-primary" id="batchMode">Batch Mode</button>
               </div>
           `);
 
 
         const $batches = $('#batches');
+        const $batchColors = $('#batchColors');
         $batches.empty();
-
         $.get(`${api}/centres/${centre.id}/batches/`).done((data) => {
           if (data.success) {
             let batches = data.data;
-            $('#batchMode').click(function (e) {
-              let mode = e.target.getAttribute('current-mode');
-              toggleBatchMode(mode, batches);
-              e.target.setAttribute('current-mode', mode === "R" ? "B" : "R");
-              e.target.innerText = mode === "R" ? "Room Mode" : "Batch Mode";
-            });
+
+            $batchColors.empty().append(`
+              <div class="col">
+              </div>
+          `);
+            colorCounter = 0;
             batches.forEach((batch) => {
+              batchColors[batch.id] = colors[colorCounter++ % colors.length];
+
+              $batchColors.append(`
+                <div class="col">
+                  <div style="display: inline-block;height: 15px;width: 15px; background-color: ${batchColors[batch.id]}"></div>
+                  <span>${batch.lectureShortCode}</span>
+                </div>
+              `);
+
               $batches.append(`
                 <a href="#batch-${batch.id}" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar"
                     aria-expanded="false">
@@ -270,6 +279,28 @@ $(document).ready(function () {
                 <div class="collapse" id="batch-${batch.id}">                 
                 </div>
               `);
+
+            });
+            $batchColors.append(`
+              <div class="col">
+              </div>
+              <div class="col">
+              <button class="btn btn-sm btn-outline-primary" id="roomMode">Room Mode</button>
+              </div>
+          `);
+
+            $batchColors.hide();
+
+            $('#batchMode').click(function (e) {
+              toggleBatchMode("R", batchColors);
+              $('#batchColors').show();
+              $('#colors').hide()
+            });
+
+            $('#roomMode').click(function (e) {
+              toggleBatchMode("B", batchColors);
+              $('#batchColors').hide();
+              $('#colors').show()
             });
 
             batches.forEach(function (batch) {
@@ -629,20 +660,13 @@ $(document).ready(function () {
       console.log(err)
     });
 
-    function toggleBatchMode(mode, batches) {
-      let batchColor = {};
-      let colorCounter = 0;
-      batches.forEach((batch) => {
-        batchColor[batch.id] = colors[colorCounter++ % colors.length];
-      });
-
+    function toggleBatchMode(mode, batchColors) {
       let $calendar = $('#calendar');
 
       let events = $calendar.fullCalendar('clientEvents');
       let resources = $calendar.fullCalendar('getResources');
       if (mode === "B") {
         events.map((e) => {
-
           let index = -1;
           for (let j = 0; j < resources.length; j++) {
             if (+(resources[j].id) === +(e.resourceId)) {
@@ -655,7 +679,7 @@ $(document).ready(function () {
         });
       } else {
         events.map((e) => {
-          e.color = batchColor[e.batchId];
+          e.color = batchColors[e.batchId];
           return e;
         });
       }
