@@ -21,6 +21,18 @@ $(document).ready(function () {
 
   getCentres();
 
+  $('#course-btn').click(function () {
+    $('#filters').hide();
+    $('#batches').show();
+  })
+
+
+  $('#filters-btn').click(function () {
+    $('#batches').hide();
+    $('#filters').show();
+
+  })
+
   // $('[data-toggle="tooltip"]').tooltip();
 
   function getCentres() {
@@ -35,9 +47,11 @@ $(document).ready(function () {
           `);
         });
         showBatchesAndRooms(centres[0]);
+        getFilters(centres[0].id);
 
         $centres.change(() => {
           getCentre(+($centres.val()));
+          getFilters(+($centres.val()));
         })
       } else {
         alert('No Centres.');
@@ -61,6 +75,124 @@ $(document).ready(function () {
       console.log(err);
     });
   }
+
+  function getFilters(centreId) {
+
+    const filters = $('#filters');
+    let teachersString = "";
+    let batchesString = "";
+    let roomsString = "";
+
+    $.get(`${api}/teachers`, function (teachersData) {
+      if (teachersData.success && teachersData.data.length > 1) {
+        teachersString = `<div class="filter-column-divs">
+                    <div class="filter-column-divs-heading">Teachers</div>
+                    <div class="filter-column-divs-content">`;
+        for (let i = 0; i < teachersData.data.length; i++) {
+          teachersString += `
+                        <label class="label-style">
+                            <input class="checkbox-style" name="teachers" value="` + teachersData.data[i].id + `" type="checkbox">&nbsp;&nbsp;` + teachersData.data[i].name + `<br/>
+                        </label>
+                        <br>
+                    `;
+        }
+        teachersString += `</div></div>`;
+        filters.append(teachersString);
+
+      }
+    });
+    $.get(`${api}/centres/${centreId}/batches/active`, function (batchesData) {
+      if (batchesData.success && batchesData.data.length > 1) {
+        batchesString = `<div class="filter-column-divs">
+                    <div class="filter-column-divs-heading">Batches</div>
+                    <div class="filter-column-divs-content">`;
+        for (let i = 0; i < batchesData.data.length; i++) {
+          batchesString += `
+                        <label class="label-style">
+                            <input class="checkbox-style" name="batches" value="` + batchesData.data[i].id + `" type="checkbox">&nbsp;&nbsp;` + batchesData.data[i].name + `<br/>
+                        </label>
+                        <br>
+                    `;
+        }
+        batchesString += `</div></div>`;
+        filters.append(batchesString);
+
+      }
+    });
+    $.get(`${api}/centres/${centreId}/rooms`, function (roomsData) {
+      if (roomsData.success && roomsData.data.length > 1) {
+        roomsString = `<div class="filter-column-divs">
+                    <div class="filter-column-divs-heading">Rooms</div>
+                    <div class="filter-column-divs-content">`;
+        for (let i = 0; i < roomsData.data.length; i++) {
+          roomsString += `
+                        <label class="label-style">
+                            <input class="checkbox-style" name="rooms" value="` + roomsData.data[i].id + `" type="checkbox">&nbsp;&nbsp;` + roomsData.data[i].name + `<br/>
+                        </label>
+                        <br>
+                    `;
+        }
+        roomsString += `</div></div>`;
+        filters.append(roomsString);
+
+      }
+    });
+
+
+  }
+
+  // $.get("/api/extra/filters", function (filters) {
+  //
+  //   const allFilter = $('#allFilters');
+  //   if (filters.categoryObject && filters.categoryObject.length > 1) {
+  //     let categoryString = `<div class="filter-column-divs">
+  //                   <div class="filter-column-divs-heading"><b>CATEGORY</b></div>
+  //                   <div class="filter-column-divs-content">`;
+  //     for (let i = 0; i < filters.categoryObject.length; i++) {
+  //       categoryString += `
+  //                       <label class="label-style">
+  //                           <input class="checkbox-style" name="category" value="` + filters.categoryObject[i].id + `" type="checkbox">` + filters.categoryObject[i].categoryName + `<br/>
+  //                       </label>
+  //                       <br>
+  //                   `;
+  //     }
+  //     categoryString += `</div></div>`;
+  //     allFilter.append(categoryString);
+  //
+  //   }
+  //   if (filters.subjectObject && filters.subjectObject.length > 1) {
+  //     let subjectString = `<div class="filter-column-divs">
+  //                   <div class="filter-column-divs-heading"><b>SUBJECT</b></div>
+  //                   <div class="filter-column-divs-content">`;
+  //     for (let i = 0; i < filters.subjectObject.length; i++) {
+  //       subjectString += `
+  //                       <label class="label-style">
+  //                           <input class="checkbox-style" name="subject" value="` + filters.subjectObject[i].id + `" type="checkbox">` + filters.subjectObject[i].subjectName + `<br/>
+  //                       </label>
+  //                       <br>
+  //                   `;
+  //     }
+  //     subjectString += `</div></div>`;
+  //     allFilter.append(subjectString);
+  //
+  //   }
+  //   if (filters.classObject && filters.classObject.length > 1) {
+  //     let classString = `<div class="filter-column-divs">
+  //                   <div class="filter-column-divs-heading"><b>CLASS</b></div>
+  //                   <div class="filter-column-divs-content">`;
+  //     for (let i = 0; i < filters.classObject.length; i++) {
+  //       classString += `
+  //                       <label class="label-style">
+  //                           <input class="checkbox-style" name="class" value="` + filters.classObject[i].id + `" type="checkbox">` + filters.classObject[i].className + `<br/>
+  //                       </label>
+  //                       <br>
+  //                   `;
+  //     }
+  //     classString += `</div></div>`;
+  //     allFilter.append(classString);
+  //
+  //   }
+  // })
 
   function showBatchesAndRooms(centre) {
 
@@ -240,7 +372,7 @@ $(document).ready(function () {
               },
               eventDrop: function (event, delta, revertFunction, jsEvent, ui, view) {
                 let overlappingLectures = $('#calendar').fullCalendar('clientEvents', function (curEvent) {
-                  if((event.start.format() >= curEvent.start.format() && event.start.format() < curEvent.end.format())
+                  if ((event.start.format() >= curEvent.start.format() && event.start.format() < curEvent.end.format())
                     || (event.end.format() > curEvent.start.format() && event.end.format() <= curEvent.end.format()))
                     return true;
                   else
@@ -250,12 +382,12 @@ $(document).ready(function () {
                 let flag = false;
 
                 overlappingLectures.map(function (v) {
-                  if(+event.lectureId != v.lectureId && +event.teacherId == v.teacherId) {
+                  if (+event.lectureId != v.lectureId && +event.teacherId == v.teacherId) {
                     flag = true;
                   }
                 })
 
-                if(flag)
+                if (flag)
                   $.toast({
                     heading: 'Warning',
                     icon: 'error',
@@ -340,7 +472,7 @@ $(document).ready(function () {
 
 
                 let overlappingLectures = $('#calendar').fullCalendar('clientEvents', function (curEvent) {
-                  if((event.start.format() >= curEvent.start.format() && event.start.format() < curEvent.end.format())
+                  if ((event.start.format() >= curEvent.start.format() && event.start.format() < curEvent.end.format())
                     || (event.end.format() > curEvent.start.format() && event.end.format() <= curEvent.end.format()))
                     return true;
                   else
@@ -350,12 +482,12 @@ $(document).ready(function () {
                 let flag = false;
 
                 overlappingLectures.map(function (v) {
-                  if(+event.lectureId != v.lectureId && +event.teacherId == v.teacherId) {
+                  if (+event.lectureId != v.lectureId && +event.teacherId == v.teacherId) {
                     flag = true;
                   }
                 })
 
-                if(flag)
+                if (flag)
                   $.toast({
                     heading: 'Warning',
                     icon: 'error',
@@ -369,10 +501,10 @@ $(document).ready(function () {
 
 
               },
-              eventResize: function(event, delta, revertFunc) {
+              eventResize: function (event, delta, revertFunc) {
 
                 let overlappingLectures = $('#calendar').fullCalendar('clientEvents', function (curEvent) {
-                  if((event.start.format() >= curEvent.start.format() && event.start.format() < curEvent.end.format())
+                  if ((event.start.format() >= curEvent.start.format() && event.start.format() < curEvent.end.format())
                     || (event.end.format() > curEvent.start.format() && event.end.format() <= curEvent.end.format()))
                     return true;
                   else
@@ -382,12 +514,12 @@ $(document).ready(function () {
                 let flag = false;
 
                 overlappingLectures.map(function (v) {
-                  if(+event.lectureId != v.lectureId && +event.teacherId == v.teacherId) {
+                  if (+event.lectureId != v.lectureId && +event.teacherId == v.teacherId) {
                     flag = true;
                   }
                 })
 
-                if(flag)
+                if (flag)
                   $.toast({
                     heading: 'Warning',
                     icon: 'error',
