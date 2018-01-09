@@ -68,7 +68,8 @@ module.exports = {
       data.update({
         startTime: null,
         endTime: null,
-        date: null
+        date: null,
+        roomId: null,
       }).then(function (resData) {
         done(null, resData);
       }).catch(function (err) {
