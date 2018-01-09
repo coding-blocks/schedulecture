@@ -34,7 +34,6 @@ $(document).ready(function () {
         $('#courseList').change(function () {
           $('#batchNoOfLectures').val(($('option[value=' + $('#courseList').val() + '][name="course"]').attr('nol')))
 
-          console.log()
         })
 
         $('#batchSubmit').click(function () {

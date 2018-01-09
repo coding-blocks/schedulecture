@@ -22,7 +22,6 @@ module.exports = new BearerStrategy(function (token, done) {
       return done(null, false, {message: 'Could not authorize'});
     }
   }).catch(function (err) {
-    // console.log(err);
     return done(err, false);
   });
 

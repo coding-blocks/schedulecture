@@ -11,8 +11,6 @@ $(document).ready(function () {
     let clientToken = queryArray[0].split('clienttoken=')[1];
     let name = queryArray[1].split('name=')[1];
 
-    console.log(clientToken)
-    console.log(name);
     localStorage.setItem('clienttoken', clientToken);
     localStorage.setItem('name', name);
 

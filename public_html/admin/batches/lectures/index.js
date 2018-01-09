@@ -32,16 +32,12 @@ $(document).ready(function () {
 
   $.get('/api/v1/batches/' + batchId, function (batch) {
     $('#title').text("Lectures for " + batch.data.name + " Batch");
-    console.log(batch);
     let lectures = batch.data.lectures;
-    console.log(lectures)
     lectures.sort(function (a, b) {
       return (+a.id) - (+b.id);
     });
-    console.log(lectures)
     let lecturesList = $('#minicourses-list');
     for (let i = 0; i < lectures.length; i++) {
-      console.log("hey")
 
       lecturesList.append(`<li class="list-group-item" style="height: auto">
                 <div class="row">

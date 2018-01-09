@@ -27,14 +27,11 @@ $(document).ready(function () {
     $('#batches').show();
   })
 
-
   $('#filters-btn').click(function () {
     $('#batches').hide();
     $('#filters').show();
 
   })
-
-  // $('[data-toggle="tooltip"]').tooltip();
 
   function getCentres() {
 
@@ -143,7 +140,6 @@ $(document).ready(function () {
 
           $('input[type="checkbox"]').change(function () {
 
-            console.log("reached");
             let teachersArray = [];
             let batchesArray = [];
             let roomsArray = [];
@@ -182,14 +178,8 @@ $(document).ready(function () {
               else
                 return false;
             })
-            console.log(filteredevents);
 
-            // console.log(teachersArray)
-            // console.log(batchesArray)
-            // console.log(roomsArray)
-            console.log("1111")
             $('#calendar').fullCalendar('removeEventSources');
-            // console.log(filteredevents);
             $('#calendar').fullCalendar('addEventSource', filteredevents);
 
           })
@@ -199,59 +189,6 @@ $(document).ready(function () {
 
 
   }
-
-  // $.get("/api/extra/filters", function (filters) {
-  //
-  //   const allFilter = $('#allFilters');
-  //   if (filters.categoryObject && filters.categoryObject.length > 1) {
-  //     let categoryString = `<div class="filter-column-divs">
-  //                   <div class="filter-column-divs-heading"><b>CATEGORY</b></div>
-  //                   <div class="filter-column-divs-content">`;
-  //     for (let i = 0; i < filters.categoryObject.length; i++) {
-  //       categoryString += `
-  //                       <label class="label-style">
-  //                           <input class="checkbox-style" name="category" value="` + filters.categoryObject[i].id + `" type="checkbox">` + filters.categoryObject[i].categoryName + `<br/>
-  //                       </label>
-  //                       <br>
-  //                   `;
-  //     }
-  //     categoryString += `</div></div>`;
-  //     allFilter.append(categoryString);
-  //
-  //   }
-  //   if (filters.subjectObject && filters.subjectObject.length > 1) {
-  //     let subjectString = `<div class="filter-column-divs">
-  //                   <div class="filter-column-divs-heading"><b>SUBJECT</b></div>
-  //                   <div class="filter-column-divs-content">`;
-  //     for (let i = 0; i < filters.subjectObject.length; i++) {
-  //       subjectString += `
-  //                       <label class="label-style">
-  //                           <input class="checkbox-style" name="subject" value="` + filters.subjectObject[i].id + `" type="checkbox">` + filters.subjectObject[i].subjectName + `<br/>
-  //                       </label>
-  //                       <br>
-  //                   `;
-  //     }
-  //     subjectString += `</div></div>`;
-  //     allFilter.append(subjectString);
-  //
-  //   }
-  //   if (filters.classObject && filters.classObject.length > 1) {
-  //     let classString = `<div class="filter-column-divs">
-  //                   <div class="filter-column-divs-heading"><b>CLASS</b></div>
-  //                   <div class="filter-column-divs-content">`;
-  //     for (let i = 0; i < filters.classObject.length; i++) {
-  //       classString += `
-  //                       <label class="label-style">
-  //                           <input class="checkbox-style" name="class" value="` + filters.classObject[i].id + `" type="checkbox">` + filters.classObject[i].className + `<br/>
-  //                       </label>
-  //                       <br>
-  //                   `;
-  //     }
-  //     classString += `</div></div>`;
-  //     allFilter.append(classString);
-  //
-  //   }
-  // })
 
   function showBatchesAndRooms(centre) {
 
@@ -490,7 +427,6 @@ $(document).ready(function () {
                 updateLecture(event);
               },
               drop: function (date, jsEvent, ui, resourceId) {
-                // console.log(2);
                 $(this).remove();
 
               },
