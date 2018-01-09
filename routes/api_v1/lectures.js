@@ -306,6 +306,36 @@ router.put('/:id',passport.authenticate('bearer'), function (req, res) {
   })
 });
 
+// cancel a lecture
+router.put('/cancel/:id', passport.authenticate('bearer'), function (req, res) {
+  db.actions.lectures.cancel(req.params.id, function (err, lecture) {
+    if (err) {
+      console.log(err);
+      res.status(500).send({
+        success: false
+        , code: "500"
+        , error: {
+          message: `Could not cancel the lecture with id ${req.params.id} (Internal Server Error).`
+        }
+      })
+    }
+    else {
+      if (lecture) {
+        res.status(201).send({success: true, data: lecture.get()});
+      } else {
+        res.status(400).send({
+          success: false
+          , code: "400"
+          , error: {
+            message: `Could not cancel the lecture with lecture id(Incorrect details)  ${req.params.id} .`
+          }
+        })
+      }
+    }
+  })
+})
+
+
 /**
  * @api {delete} /api/v1/lectures/:id DELETE /api/v1/lectures/:id
  * @apiName DeleteLecture

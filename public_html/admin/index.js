@@ -66,7 +66,7 @@ $(document).ready(function () {
 
     const events = [];
     const resources = [];
-    const colors = ['#EB5667', '#1E88E5', '#B96BC6', '#31C6C7', '#28B294', '#2278CF'];
+    const colors = ['#EB5667', '#1E88E5', '#B96BC6', '#28B294', '#FF8F00', '#31C6C7'];
     let colorCounter = 0;
 
     $('#calendar').remove();
@@ -148,6 +148,7 @@ $(document).ready(function () {
                     resourceId: lecture.roomId,
                     batchCapacity: batch.size,
                     batchName: batch.name,
+                    teacherId: batch.teacher.id,
                     teacherName: batch.teacher.name,
                     courseName: batch.course.name
                   });
@@ -170,6 +171,7 @@ $(document).ready(function () {
                     defaultTime: batch.defaultTime,
                     batchCapacity: batch.size,
                     batchName: batch.name,
+                    teacherId: batch.teacher.id,
                     teacherName: batch.teacher.name,
                     courseName: batch.course.name
                   });
@@ -237,6 +239,56 @@ $(document).ready(function () {
 
               },
               eventDrop: function (event, delta, revertFunction, jsEvent, ui, view) {
+                let overlappingLectures = $('#calendar').fullCalendar('clientEvents', function (curEvent) {
+                  if((event.start.format() >= curEvent.start.format() && event.start.format() < curEvent.end.format())
+                    || (event.end.format() > curEvent.start.format() && event.end.format() <= curEvent.end.format()))
+                    return true;
+                  else
+                    return false;
+                })
+
+                let flag = false;
+
+                overlappingLectures.map(function (v) {
+                  if(+event.lectureId != v.lectureId && +event.teacherId == v.teacherId) {
+                    flag = true;
+                  }
+                })
+
+                if(flag)
+                  $.toast({
+                    heading: 'Warning',
+                    icon: 'error',
+                    text: `${event.teacherName} has another class during this time.`,
+                    position: 'top-right',
+                    stack: 4,
+                    hideAfter: 4000,
+                    showHideTransition: 'slide',
+                    loaderBg: '#fc4f4f;'
+                  })
+
+                var index = -1;
+                resources.map(function (v, i) {
+                  if (v.id === +event.resourceId) {
+                    index = i;
+                  }
+                  return v;
+                });
+                if (index != -1 && event.batchCapacity > resources[index].capacity) {
+                  // alert("Batch Capacity greater than room size.");
+
+                  $.toast({
+                    heading: 'Warning',
+                    icon: 'error',
+                    text: `Batch Capacity greater than room size.`,
+                    position: 'top-right',
+                    stack: 4,
+                    hideAfter: 2000,
+                    showHideTransition: 'slide',
+                    loaderBg: '#fc4f4f;'
+                  })
+                }
+
                 updateLecture(event);
               },
               drop: function (date, jsEvent, ui, resourceId) {
@@ -280,6 +332,73 @@ $(document).ready(function () {
                     loaderBg: '#fc4f4f;'
                   })
                 }
+
+                // warning: only one lecture for the teacher at a time.
+                // events.map(function (v,i) {
+                //   if()
+                // })
+
+
+                let overlappingLectures = $('#calendar').fullCalendar('clientEvents', function (curEvent) {
+                  if((event.start.format() >= curEvent.start.format() && event.start.format() < curEvent.end.format())
+                    || (event.end.format() > curEvent.start.format() && event.end.format() <= curEvent.end.format()))
+                    return true;
+                  else
+                    return false;
+                })
+
+                let flag = false;
+
+                overlappingLectures.map(function (v) {
+                  if(+event.lectureId != v.lectureId && +event.teacherId == v.teacherId) {
+                    flag = true;
+                  }
+                })
+
+                if(flag)
+                  $.toast({
+                    heading: 'Warning',
+                    icon: 'error',
+                    text: `${event.teacherName} has another class during this time.`,
+                    position: 'top-right',
+                    stack: 4,
+                    hideAfter: 4000,
+                    showHideTransition: 'slide',
+                    loaderBg: '#fc4f4f;'
+                  })
+
+
+              },
+              eventResize: function(event, delta, revertFunc) {
+
+                let overlappingLectures = $('#calendar').fullCalendar('clientEvents', function (curEvent) {
+                  if((event.start.format() >= curEvent.start.format() && event.start.format() < curEvent.end.format())
+                    || (event.end.format() > curEvent.start.format() && event.end.format() <= curEvent.end.format()))
+                    return true;
+                  else
+                    return false;
+                })
+
+                let flag = false;
+
+                overlappingLectures.map(function (v) {
+                  if(+event.lectureId != v.lectureId && +event.teacherId == v.teacherId) {
+                    flag = true;
+                  }
+                })
+
+                if(flag)
+                  $.toast({
+                    heading: 'Warning',
+                    icon: 'error',
+                    text: `${event.teacherName} has another class during this time.`,
+                    position: 'top-right',
+                    stack: 4,
+                    hideAfter: 4000,
+                    showHideTransition: 'slide',
+                    loaderBg: '#fc4f4f;'
+                  })
+
               },
               eventClick: function (event, jsEvent, view) {
                 $(jsEvent.currentTarget).tooltip('dispose');
@@ -308,6 +427,29 @@ $(document).ready(function () {
                   showHideTransition: 'slide',
                   loaderBg: '#fc4f4f;'
                 })
+
+                var index = -1;
+                resources.map(function (v, i) {
+                  if (v.id === +event.resourceId) {
+                    index = i;
+                  }
+                  return v;
+                });
+                if (index != -1 && event.batchCapacity > resources[index].capacity) {
+                  // alert("Batch Capacity greater than room size.");
+
+                  $.toast({
+                    heading: 'Warning',
+                    icon: 'error',
+                    text: `Batch Capacity greater than room size.`,
+                    position: 'top-right',
+                    stack: 4,
+                    hideAfter: 2000,
+                    showHideTransition: 'slide',
+                    loaderBg: '#fc4f4f;'
+                  })
+                }
+
               },
 
               eventMouseover: function (event, jsEvent, view) {
