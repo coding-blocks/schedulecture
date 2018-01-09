@@ -3,6 +3,7 @@
  */
 $(document).ready(function () {
   var api = '/api/v1';
+  var eventsData;
 
   $('#mainContent').css('padding-top', ($('#header-bar').height() + 20) + 'px')
   $('#side-menu').css('height', ($(document.body).height() - $('#header-bar').height() - 20) + 'px')
@@ -79,6 +80,8 @@ $(document).ready(function () {
   function getFilters(centreId) {
 
     const filters = $('#filters');
+    filters.empty();
+
     let teachersString = "";
     let batchesString = "";
     let roomsString = "";
@@ -100,42 +103,98 @@ $(document).ready(function () {
         filters.append(teachersString);
 
       }
-    });
-    $.get(`${api}/centres/${centreId}/batches/active`, function (batchesData) {
-      if (batchesData.success && batchesData.data.length > 1) {
-        batchesString = `<div class="filter-column-divs">
+
+      $.get(`${api}/centres/${centreId}/batches/active`, function (batchesData) {
+        if (batchesData.success && batchesData.data.length > 1) {
+          batchesString = `<div class="filter-column-divs">
                     <div class="filter-column-divs-heading">Batches</div>
                     <div class="filter-column-divs-content">`;
-        for (let i = 0; i < batchesData.data.length; i++) {
-          batchesString += `
+          for (let i = 0; i < batchesData.data.length; i++) {
+            batchesString += `
                         <label class="label-style">
                             <input class="checkbox-style" name="batches" value="` + batchesData.data[i].id + `" type="checkbox">&nbsp;&nbsp;` + batchesData.data[i].name + `<br/>
                         </label>
                         <br>
                     `;
-        }
-        batchesString += `</div></div>`;
-        filters.append(batchesString);
+          }
+          batchesString += `</div></div>`;
+          filters.append(batchesString);
 
-      }
-    });
-    $.get(`${api}/centres/${centreId}/rooms`, function (roomsData) {
-      if (roomsData.success && roomsData.data.length > 1) {
-        roomsString = `<div class="filter-column-divs">
+        }
+
+        $.get(`${api}/centres/${centreId}/rooms`, function (roomsData) {
+          if (roomsData.success && roomsData.data.length > 1) {
+            roomsString = `<div class="filter-column-divs">
                     <div class="filter-column-divs-heading">Rooms</div>
                     <div class="filter-column-divs-content">`;
-        for (let i = 0; i < roomsData.data.length; i++) {
-          roomsString += `
+            for (let i = 0; i < roomsData.data.length; i++) {
+              roomsString += `
                         <label class="label-style">
                             <input class="checkbox-style" name="rooms" value="` + roomsData.data[i].id + `" type="checkbox">&nbsp;&nbsp;` + roomsData.data[i].name + `<br/>
                         </label>
                         <br>
                     `;
-        }
-        roomsString += `</div></div>`;
-        filters.append(roomsString);
+            }
+            roomsString += `</div></div>`;
+            filters.append(roomsString);
 
-      }
+          }
+          $('input[type="checkbox"]').off('change');
+
+          $('input[type="checkbox"]').change(function () {
+
+            console.log("reached");
+            let teachersArray = [];
+            let batchesArray = [];
+            let roomsArray = [];
+            let count = 0;
+
+            const teachersFilters = $('input[name="teachers"]');
+            const batchesFilters = $('input[name="batches"]');
+            const roomsFilters = $('input[name="rooms"]');
+
+            for (let i = 0; i < teachersFilters.length; i++) {
+              if (teachersFilters[i].checked) {
+                teachersArray.push(+teachersFilters[i].value);
+                count++;
+              }
+            }
+
+            for (let i = 0; i < batchesFilters.length; i++) {
+              if (batchesFilters[i].checked) {
+                batchesArray.push(+batchesFilters[i].value);
+                count++;
+              }
+            }
+
+            for (let i = 0; i < roomsFilters.length; i++) {
+              if (roomsFilters[i].checked) {
+                roomsArray.push(+roomsFilters[i].value);
+                count++;
+              }
+            }
+
+            let filteredevents = eventsData.filter(function (event) {
+              if ((teachersArray.length === 0 || teachersArray.includes(+event.teacherId)) &&
+                (roomsArray.length === 0 || roomsArray.includes(+event.resourceId)) &&
+                (batchesArray.length === 0 || batchesArray.includes(event.batchId)))
+                return true;
+              else
+                return false;
+            })
+            console.log(filteredevents);
+
+            // console.log(teachersArray)
+            // console.log(batchesArray)
+            // console.log(roomsArray)
+            console.log("1111")
+            $('#calendar').fullCalendar('removeEventSources');
+            // console.log(filteredevents);
+            $('#calendar').fullCalendar('addEventSource', filteredevents);
+
+          })
+        });
+      });
     });
 
 
@@ -322,11 +381,13 @@ $(document).ready(function () {
                 };
 
                 if (lecture.startTime && lecture.endTime) {
+
                   events.push(Object.assign({}, eventObject, {
                     start: moment.utc(lecture.startTime),
                     end: moment.utc(lecture.endTime),
                     resourceId: lecture.roomId,
                   }));
+
                 } else {
                   $lectures.append(`
                     <a id="lecture-${lecture.id}" class="list-group-item" data-parent="#batch-${batch.id}" draggable="true">
@@ -356,6 +417,7 @@ $(document).ready(function () {
 
             });
             $('#calendar').css('overflow-y', 'scroll');
+            eventsData = events.slice();
             $('#calendar').fullCalendar({
               // put your options and callbacks here
               schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
@@ -475,8 +537,10 @@ $(document).ready(function () {
                 }
                 event.resourceId = event.resourceId || event.defaultRoom;
 
+
                 $('#calendar').fullCalendar('updateEvent', event);
                 updateLecture(event);
+                eventsData.push(event);
 
                 var index = -1;
                 resources.map(function (v, i) {
@@ -643,6 +707,7 @@ $(document).ready(function () {
 
             });
             // $('[data-toggle="tooltip"]').tooltip();
+
 
           } else {
             alert('There are no Batches');
