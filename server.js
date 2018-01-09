@@ -15,6 +15,7 @@ const app = express();
 const bp = require('body-parser')
 const passport = require('passport')
 
+const sequelize = require('./db/models').DATABASE;
 
 app.use(bp.json())
 app.use(bp.urlencoded({extended: true}));
@@ -72,7 +73,15 @@ app.use('/docs', express.static(__dirname + "/docs"));
 app.use('/api/v1', api_v1)
 app.use('/users', users)
 // app.use('/bower_components', express.static(__dirname + "/bower_components"));
-app.listen(process.env.PORT || 4000, function () {
 
-  console.log(`Server listening at ` + (process.env.PORT || 4000));
+sequelize.sync({
+  force: process.env.SCHEDULECTURE_FORCE_DB_RECREATE || false,
+}).then(function () {
+  console.log("Database Configured");
+  app.listen(process.env.PORT || 4000, function () {
+
+    console.log(`Server listening at ` + (process.env.PORT || 4000));
+  });
 });
+
+
