@@ -80,6 +80,8 @@ $(document).ready(function () {
   function getFilters(centreId) {
 
     const filters = $('#filters');
+    filters.empty();
+
     let teachersString = "";
     let batchesString = "";
     let roomsString = "";
@@ -137,9 +139,10 @@ $(document).ready(function () {
             filters.append(roomsString);
 
           }
+          $('input[type="checkbox"]').off('change');
 
           $('input[type="checkbox"]').change(function () {
-            getCentre(centreId);
+
             console.log("reached");
             let teachersArray = [];
             let batchesArray = [];
@@ -170,8 +173,8 @@ $(document).ready(function () {
                 count++;
               }
             }
-            eventsData = $('#calendar')
-            let filteredevents = $('#calendar').fullCalendar('clientEvents', function (event) {
+
+            let filteredevents = eventsData.filter(function (event) {
               if ((teachersArray.length === 0 || teachersArray.includes(+event.teacherId)) &&
                 (roomsArray.length === 0 || roomsArray.includes(+event.resourceId)) &&
                 (batchesArray.length === 0 || batchesArray.includes(event.batchId)))
@@ -184,7 +187,8 @@ $(document).ready(function () {
             // console.log(teachersArray)
             // console.log(batchesArray)
             // console.log(roomsArray)
-            $('#calendar').fullCalendar('removeEvents');
+            console.log("1111")
+            $('#calendar').fullCalendar('removeEventSources');
             // console.log(filteredevents);
             $('#calendar').fullCalendar('addEventSource', filteredevents);
 
@@ -346,11 +350,13 @@ $(document).ready(function () {
                 };
 
                 if (lecture.startTime && lecture.endTime) {
+
                   events.push(Object.assign({}, eventObject, {
                     start: moment.utc(lecture.startTime),
                     end: moment.utc(lecture.endTime),
                     resourceId: lecture.roomId,
                   }));
+
                 } else {
                   $lectures.append(`
                     <a id="lecture-${lecture.id}" class="list-group-item" data-parent="#batch-${batch.id}" draggable="true">
@@ -380,6 +386,7 @@ $(document).ready(function () {
 
             });
             $('#calendar').css('overflow-y', 'scroll');
+            eventsData = events.slice();
             $('#calendar').fullCalendar({
               // put your options and callbacks here
               schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
@@ -499,8 +506,10 @@ $(document).ready(function () {
                 }
                 event.resourceId = event.resourceId || event.defaultRoom;
 
+
                 $('#calendar').fullCalendar('updateEvent', event);
                 updateLecture(event);
+                eventsData.push(event);
 
                 var index = -1;
                 resources.map(function (v, i) {
@@ -667,6 +676,7 @@ $(document).ready(function () {
 
             });
             // $('[data-toggle="tooltip"]').tooltip();
+
 
           } else {
             alert('There are no Batches');
