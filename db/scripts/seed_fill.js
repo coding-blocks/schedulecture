@@ -16,6 +16,21 @@ models.DATABASE.sync({
     console.log(err);
   });
 
+  models.Courses.bulkCreate(seed.courses, {returning: true}).then(function (r) {
+    console.log(r.map(v => v.get()));
+  }).catch(function (err) {
+    console.log(err);
+  });
+
+  models.Centres.bulkCreate(seed.centres, {returning: true}).then(function (r) {
+    console.log(r.map(v => v.get()));
+    models.Rooms.bulkCreate(seed.rooms, {returning: true}).then(function (r) {
+      console.log(r.map(v => v.get()));
+    })
+  }).catch(function (err) {
+    console.log(err);
+  })
+
 });
 
 
