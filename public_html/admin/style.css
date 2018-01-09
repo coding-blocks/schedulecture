@@ -275,7 +275,7 @@ ul {
     float: left;
 }
 
-a {
+a, button {
     cursor: pointer;
 }
 
@@ -285,4 +285,8 @@ a {
 
 .fc-content {
     color: white;
+}
+
+hr {
+    margin: 10px 0;
 }

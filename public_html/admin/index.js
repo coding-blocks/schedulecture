@@ -296,15 +296,23 @@ $(document).ready(function () {
               <div class="col">
               </div>
               <div class="col">
+              <button class="btn btn-sm btn-outline-primary" id="batchMode" current-mode="R">Batch Mode</button>
               </div>
           `);
+
 
         const $batches = $('#batches');
         $batches.empty();
 
-        $.get(`${api}/centres/${centre.id}/batches`).done((data) => {
+        $.get(`${api}/centres/${centre.id}/batches/`).done((data) => {
           if (data.success) {
             let batches = data.data;
+            $('#batchMode').click(function (e) {
+              let mode = e.target.getAttribute('current-mode');
+              toggleBatchMode(mode, batches);
+              e.target.setAttribute('current-mode', mode === "R" ? "B" : "R");
+              e.target.innerText = mode === "R" ? "Room Mode" : "Batch Mode";
+            });
             batches.forEach((batch) => {
               $batches.append(`
                 <a href="#batch-${batch.id}" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar"
@@ -325,21 +333,24 @@ $(document).ready(function () {
                 return batch1.id - batch2.id;
               });
               lectures.forEach((lecture) => {
+                let eventObject = {
+                  lectureId: lecture.id,
+                  title: lecture.name,
+                  batchCapacity: batch.size,
+                  batchName: batch.name,
+                  batchId: batch.id,
+                  teacherId: batch.teacher.id,
+                  teacherName: batch.teacher.name,
+                  courseName: batch.course.name,
+                  stick: true
+                };
+
                 if (lecture.startTime && lecture.endTime) {
-                  events.push({
-                    lectureId: lecture.id,
-                    title: lecture.name,
+                  events.push(Object.assign({}, eventObject, {
                     start: moment.utc(lecture.startTime),
                     end: moment.utc(lecture.endTime),
-                    stick: true,
                     resourceId: lecture.roomId,
-                    batchCapacity: batch.size,
-                    batchName: batch.name,
-                    teacherId: batch.teacher.id,
-                    teacherName: batch.teacher.name,
-                    courseName: batch.course.name
-                  });
-
+                  }));
                 } else {
                   $lectures.append(`
                     <a id="lecture-${lecture.id}" class="list-group-item" data-parent="#batch-${batch.id}" draggable="true">
@@ -349,20 +360,12 @@ $(document).ready(function () {
 
                   const $lecture = $(`#lecture-${lecture.id}`);
 
-                  $lecture.data('event', {
-                    lectureId: lecture.id,
-                    title: lecture.name,
+                  $lecture.data('event', Object.assign({}, eventObject, {
                     hours: batch.hoursPerLecture !== null ? batch.hoursPerLecture : batch.course.hours,
                     start: moment().startOf('day'),
-                    stick: true,
                     defaultRoom: batch.roomId,
                     defaultTime: batch.defaultTime,
-                    batchCapacity: batch.size,
-                    batchName: batch.name,
-                    teacherId: batch.teacher.id,
-                    teacherName: batch.teacher.name,
-                    courseName: batch.course.name
-                  });
+                  }));
 
                   $lecture.draggable({
                     zIndex: 9999,
@@ -680,6 +683,39 @@ $(document).ready(function () {
       alert('No Rooms At This Centre.');
       console.log(err)
     });
+
+    function toggleBatchMode(mode, batches) {
+      let batchColor = {};
+      let colorCounter = 0;
+      batches.forEach((batch) => {
+        batchColor[batch.id] = colors[colorCounter++ % colors.length];
+      });
+
+      let $calendar = $('#calendar');
+
+      let events = $calendar.fullCalendar('clientEvents');
+      let resources = $calendar.fullCalendar('getResources');
+      if (mode === "B") {
+        events.map((e) => {
+
+          let index = -1;
+          for (let j = 0; j < resources.length; j++) {
+            if (+(resources[j].id) === +(e.resourceId)) {
+              index = j;
+              break;
+            }
+          }
+          e.color = resources[index].eventColor;
+          return e;
+        });
+      } else {
+        events.map((e) => {
+          e.color = batchColor[e.batchId];
+          return e;
+        });
+      }
+      $calendar.fullCalendar('updateEvents', events);
+    }
   }
 
   function updateLecture(event) {
