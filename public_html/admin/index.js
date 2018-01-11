@@ -639,6 +639,9 @@ $(document).ready(function () {
                 let prevRoom = resources[(index) % resources.length];
                 let newRoom = resources[(index + 1) % resources.length]
                 event.resourceId = newRoom.id;
+                event.color = newRoom.eventColor;
+
+
                 $('#calendar').fullCalendar('updateEvent', event);
                 updateLecture(event);
 
