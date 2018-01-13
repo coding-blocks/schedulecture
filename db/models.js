@@ -100,12 +100,6 @@ Teachers.hasMany(Batches);
 Lectures.belongsTo(Teachers);
 Teachers.hasMany(Lectures);
 
-sequelize.sync({
-  force: process.env.SCHEDULECTURE_FORCE_DB_RECREATE || false,
-}).then(function () {
-  console.log("Database Configured");
-});
-
 module.exports = {
   Courses,
   Batches,
@@ -114,6 +108,6 @@ module.exports = {
   Users,
   Centres,
   Teachers,
-  AuthToken
-
+  AuthToken,
+  DATABASE: sequelize
 };

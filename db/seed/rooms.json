@@ -1,0 +1,32 @@
+[
+  {
+    "name": "L1",
+    "capacity": 55,
+    "config": "5x11",
+    "centreId": 1
+  },
+  {
+    "name": "L2",
+    "capacity": 60,
+    "config": "6x10",
+    "centreId": 1
+  },
+  {
+    "name": "L3",
+    "capacity": 25,
+    "config": "5x5",
+    "centreId": 1
+  },
+  {
+    "name": "L4",
+    "capacity": 30,
+    "config": "5x6",
+    "centreId": 1
+  },
+  {
+    "name": "OL",
+    "capacity": 200,
+    "config": "200",
+    "centreId": 1
+  }
+]

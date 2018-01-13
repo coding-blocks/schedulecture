@@ -135,17 +135,17 @@ router.get('/', function (req, res) {
     conditions.courseId = req.query.courseId
   }
   if (req.query.status) {
-    console.log('status')
+
     if (req.query.status !== 'all') {
-      console.log('not all')
+
       conditions.status = req.query.status
     }
   } else {
-    console.log('no status')
+
     conditions.status = "active"
   }
 
-  console.log(conditions)
+
   db.actions.batches.getAll(conditions, function (err, batches) {
     if (err) {
       console.log("ERROR" + err);
@@ -335,7 +335,7 @@ router.put('/:id', passport.authenticate('bearer'), function (req, res) {
 });
 
 router.put('/archive/:id', passport.authenticate('bearer'), acl.ensureadmin(), function (req, res) {
-  console.log(req.params.id)
+
   db.actions.batches.archiveBatch(req.params.id, function (err, batch) {
     if (err) {
       console.log(err);

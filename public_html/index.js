@@ -11,8 +11,6 @@ $(document).ready(function () {
     let clientToken = queryArray[0].split('clienttoken=')[1];
     let name = queryArray[1].split('name=')[1];
 
-    console.log(clientToken)
-    console.log(name);
     localStorage.setItem('clienttoken', clientToken);
     localStorage.setItem('name', name);
 
@@ -66,7 +64,7 @@ $(document).ready(function () {
 
     const events = [];
     const resources = [];
-    const colors = ['#EB5667', '#F6DB60', '#B96BC6', '#31C6C7', '#28B294', '#2278CF'];
+    const colors = ['#EB5667', '#1E88E5', '#B96BC6', '#28B294', '#FF8F00', '#31C6C7'];
     let colorCounter = 0;
 
     $('#calendar').remove();
@@ -148,7 +146,7 @@ $(document).ready(function () {
               fixedWeekCount: false,
               minTime: "07:00:00",
               maxTime: "22:00:00",
-              height: 800,
+              height: 'auto',
               events: events,
               dayClick: function (date, jsEvent, view, resourceObj) {
                 $('#calendar').fullCalendar('changeView', 'agendaOneDay', date);
@@ -185,7 +183,6 @@ $(document).ready(function () {
 
               },
               eventMouseover: function (event, jsEvent, view) {
-                console.log(event)
                 var index = -1;
                 resources.map(function (v, i) {
                   if (v.id === +event.resourceId) {
@@ -204,10 +201,9 @@ $(document).ready(function () {
                               Batch Capacity: ${event.batchCapacity}<br/>                             
                               Room: ${resources[index].title}<br/>
                     `
-                  })
+                  }).tooltip('show');
               }
             });
-
           } else {
             alert('There are no Batches');
           }
@@ -224,25 +220,4 @@ $(document).ready(function () {
       console.log(err)
     });
   }
-
-  function updateLecture(event) {
-    $.ajax({
-      method: 'PUT',
-      url: `${api}/lectures/${event.lectureId}`,
-      data: {
-        values: {
-          startTime: event.start._d,
-          endTime: event.end._d,
-          date: event.start._d,
-          roomId: +event.resourceId
-        }
-      }
-    }).done(function (data) {
-      console.log(data)
-    }).fail(function (err) {
-      alert('Could Not Update The Lecture');
-      console.log(err);
-    })
-  }
-
 });

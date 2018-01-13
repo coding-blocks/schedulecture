@@ -275,9 +275,40 @@ router.get('/:id/batches', function (req, res) {
     })
 });
 
+router.get('/:id/batches/active', function (req, res) {
+  db.actions.centres.getActiveBatches(req.params.id, function(err, batches) {
+    if(err){
+      console.log("ERROR" + err);
+      res.status(500).send({
+        success : false,
+        code : "500",
+        error : {
+          message : `Could not find the active batches for centre with id ${req.params.id} (Internal Server Error).`
+        }
+      });
+    } else {
+      if(batches.length !== 0){
+        res.status(200).send({
+          success : true,
+          data : batches.map((batch) => batch.get())
+        });
+      } else {
+        res.status(404).send({
+          success : false,
+          code : "404",
+          error : {
+            message : `There are no active batches for centre with id ${req.params.id}.`
+          }
+
+        })
+      }
+    }
+  })
+});
+
 //get all rooms
 router.get('/:id/rooms', function(req, res) {
-    console.log(req.params.id);
+
     db.actions.centres.getRooms(req.params.id, function(err, rooms){
         if(err){
             console.log("ERROR" + err);

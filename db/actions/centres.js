@@ -76,6 +76,21 @@ module.exports = {
         done(err);
     })
   },
+  getActiveBatches: function (id, done) {
+    models.Batches.findAll({
+      where: {
+        centreId: id,
+        status: "active"
+      },
+      include: [models.Courses, models.Teachers, models.Lectures],
+      order: ['id']
+    }).then(function (data) {
+      done(null, data);
+    }).catch(function (err) {
+      if (err)
+        done(err);
+    })
+  },
   getRooms: function (id, done) {
     models.Rooms.findAll({
       where: {

@@ -56,6 +56,29 @@ module.exports = {
       if (err) done(err);
     });
   },
+  cancel: function (id, done) {
+    models.Lectures.findOne({
+      where: {
+        id: id
+      }
+    }).then(function (data) {
+      if (!data) {
+        return done(null, null);
+      }
+      data.update({
+        startTime: null,
+        endTime: null,
+        date: null,
+        roomId: null,
+      }).then(function (resData) {
+        done(null, resData);
+      }).catch(function (err) {
+        if (err) done(err);
+      })
+    }).catch(function (err) {
+      if (err) done(err);
+    });
+  },
   deleteLecture: function (id, done) {
     models.Lectures.destroy({
       where: {

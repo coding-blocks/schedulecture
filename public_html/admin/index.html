@@ -1,156 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>ScheduleLecture</title>
+    <meta charset="UTF-8">
+    <title>ScheduleLecture</title>
 
-  <script src='/bower_components/jquery/dist/jquery.js'></script>
-  <script>
-    $.ajax({
-      url: "/checkAdmin",
-      method: 'GET',
-      headers: {
-        "Authorization": "Bearer " + localStorage.getItem("clienttoken")
-      },
-      contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-      async: false
-    }).done(function (data) {
-      if (!data.success) {
+    <script src='/bower_components/jquery/dist/jquery.js'></script>
+    <script>
+      $.ajax({
+        url: "/checkAdmin",
+        method: 'GET',
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+        },
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        async: false
+      }).done(function (data) {
+        if (!data.success) {
+          window.location.replace('/');
+        }
+      }).fail(function (err) {
         window.location.replace('/');
-      }
-    }).fail(function (err) {
-      window.location.replace('/');
-    });
-  </script>
+      });
+    </script>
 
-  <link rel='stylesheet' href='./../bower_components/fullcalendar/dist/fullcalendar.css'/>
-  <link rel='stylesheet' href="./../bower_components/bootstrap/dist/css/bootstrap.css"/>
-  <link rel='stylesheet' href='./../bower_components/fullcalendar/dist/fullcalendar.css'/>
-  <link rel='stylesheet' href="./../bower_components/jquery-ui/themes/base/jquery-ui.css"/>
-  <link rel="stylesheet" href='./../bower_components/fullcalendar-scheduler/dist/scheduler.css'>
-  <link rel="stylesheet" href="./../bower_components/components-font-awesome/css/font-awesome.css">
-  <link rel="stylesheet" href="./../bower_components/jquery-toast-plugin/src/jquery.toast.css"></link>
-  <link rel="stylesheet" href="./style.css">
+    <link rel='stylesheet' href='./../bower_components/fullcalendar/dist/fullcalendar.css'/>
+    <link rel='stylesheet' href="./../bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel='stylesheet' href='./../bower_components/fullcalendar/dist/fullcalendar.css'/>
+    <link rel='stylesheet' href="./../bower_components/jquery-ui/themes/base/jquery-ui.css"/>
+    <link rel="stylesheet" href='./../bower_components/fullcalendar-scheduler/dist/scheduler.css'>
+    <link rel="stylesheet" href="./../bower_components/components-font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="./../bower_components/jquery-toast-plugin/src/jquery.toast.css"></link>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
 
 <div class="container-fluid">
-  <div class="row no-gutters align-content-center header-bar" id="header-bar">
-    <div class="col-sm-2 col-12">
-      <div style="color: white; font-size: 22px;padding: 5px; padding-left: 15px">
-        SCHEDULECTURE
-      </div>
+    <div class="row no-gutters align-content-center header-bar" id="header-bar">
+        <div class="col-sm-2 col-12">
+            <div style="color: white; font-size: 22px;padding: 5px; padding-left: 15px">
+                SCHEDULECTURE
+            </div>
+        </div>
+        <div class="col-sm-2 col-12">
+            <!--empty for search text box later-->
+        </div>
+        <div class="col-sm-5 mt-auto mb-auto pl-auto pr-auto">
+            <a class="btn btn-info" href="#"
+               style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
+                Calender
+            </a>
+            <a class="btn btn-info" href="centres"
+               style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
+                Centres
+            </a>
+            <a class=" btn btn-info" href="courses"
+               style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
+                Courses
+            </a>
+            <a class=" btn btn-info" href="teachers"
+               style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
+                Teachers
+            </a>
+            <a class=" btn btn-info" href="batches"
+               style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
+                Batches
+            </a>
+        </div>
+        <div id="userDetails" class="dropdown col-sm-3 col-12 align-middle header-dropdown text-center mt-auto mb-auto">
+            <!--<img src="/images/boy.png" class="img-circle header-profile-img">-->
+            <span id="name" style="color: white;"></span>&nbsp;&nbsp;
+            <button id="logout" class=" btn btn-info"
+                    style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #02B3E4">
+                Logout
+            </button>
+            </span>
+        </div>
     </div>
-    <div class="col-sm-2 col-12">
-      <!--empty for search text box later-->
-    </div>
-    <div class="col-sm-5 mt-auto mb-auto pl-auto pr-auto">
-      <a class="btn btn-info" href="#"
-         style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
-        Calender
-      </a>
-      <a class="btn btn-info" href="centres"
-         style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
-        Centres
-      </a>
-      <a class=" btn btn-info" href="courses"
-         style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
-        Courses
-      </a>
-      <a class=" btn btn-info" href="teachers"
-         style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
-        Teachers
-      </a>
-      <a class=" btn btn-info" href="batches"
-         style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #FC4F4F; border-color: #FC4F4F">
-        Batches
-      </a>
-    </div>
-    <div id="userDetails" class="dropdown col-sm-3 col-12 align-middle header-dropdown text-center mt-auto mb-auto">
-      <!--<img src="/images/boy.png" class="img-circle header-profile-img">-->
-      <span id="name" style="color: white;"></span>&nbsp;&nbsp;
-      <button id="logout" class=" btn btn-info"
-              style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #02B3E4">
-        Logout
-      </button>
-      </span>
-    </div>
-  </div>
 
-  <div id="mainContent" class="row no-gutters">
-    <div id="side-menu" class="col-sm-2" style="padding: 0; overflow-y: scroll;overflow-x: hidden">
+    <div id="mainContent" class="row no-gutters">
+        <div id="side-menu" class="col-sm-2" style="padding: 0; overflow-y: scroll;overflow-x: hidden">
+
+            <hr style="margin: 0; border-top: solid 1px #999">
+            <div id="selectCentre" style="padding: 15px; color: #eee;font-size: 16px">
+                Centre: &nbsp;
+                <select id="centres" style="background-color: #343a40; color: #eee;padding: 3px"></select>
+            </div>
+
+            <div style="padding: 15px; color: #eee; font-size: 16px;" id="sidebar">
 
 
-      <hr style="margin: 0; border-top: solid 1px #999">
+                <div style="padding: 0; width: 100%">
+                    <ul class="nav" style="width: 100%">
 
-      <div id="selectCentre" style="padding: 15px; color: #eee;font-size: 16px">
-        Centre: &nbsp;
-        <select id="centres" style="background-color: #343a40; color: #eee;padding: 3px">
-          <!--<option value="1">Pitampura</option>-->
-          <!--<option value="2">Dwarka</option>-->
-          <!--<option value="3">Gurgaon</option>-->
-          <!--<option value="4">Greater Noida</option>-->
-        </select>
-      </div>
+                        <li id="course-btn">
+                            <a class="filter-tabs active">Courses</a>
+                        </li>
+                        <li id="filters-btn">
+                            <a class="filter-tabs">Filters</a>
+                        </li>
+                    </ul>
+                </div>
 
-      <div style="padding: 15px; color: #eee; font-size: 16px;" id="sidebar">
-        Courses:
-        <div id="batches" class="list-group panel" style="background-color: #343a40">
-          <!--<a href="#menu1" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar"
-             aria-expanded="false">
-              <span class="hidden-sm-down">Launchpad</span>
-          </a>
-          <div class="collapse" id="menu1">
-              <a href="#" class="list-group-item" data-parent="#menu1" draggable="true">Lecture 1</a>
-              <a href="#" class="list-group-item" data-parent="#menu1" draggable="true">Lecture 2</a>
-              <a href="#" class="list-group-item" data-parent="#menu1" draggable="true">Lecture 3</a>
-          </div>
+                <div id="batches" class="list-group panel" style="background-color: #343a40"></div>
+                <div id="filters" style="color: white; display: none">
+
+                    <!--<div class="filter-column-divs">-->
+                        <!--<div class="filter-column-divs-heading">Teachers</div>-->
+                        <!--<div class="filter-column-divs-content">-->
+                            <!--<label class="label-style">-->
+                                <!--<input type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;XI<br/>-->
+                            <!--</label>-->
+                            <!--<br>-->
+                            <!--<label class="label-style">-->
+                                <!--<input type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;XII<br>-->
+                            <!--</label>-->
+                            <!--<br>-->
+                            <!--<label class="label-style">-->
+                                <!--<input type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;XII +<br>-->
+                            <!--</label>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="filter-column-divs">-->
+                        <!--<div class="filter-column-divs-heading">Batches</div>-->
+                        <!--<div class="filter-column-divs-content">-->
+                            <!--<label class="label-style">-->
+                                <!--<input name="examination" value="" type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;JEE-->
+                                <!--Mains<br/>-->
+                            <!--</label>-->
+                            <!--<br>-->
+                            <!--<label class="label-style">-->
+                                <!--<input name="examination" value="" type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;JEE-->
+                                <!--Advanced<br/>-->
+                            <!--</label>-->
+                            <!--<br>-->
+                            <!--<label class="label-style">-->
+                                <!--<input name="examination" type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;CBSE<br>-->
+                            <!--</label>-->
+                            <!--<br>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="filter-column-divs">-->
+                        <!--<div class="filter-column-divs-heading">Rooms-->
+                        <!--</div>-->
+                        <!--<div class="filter-column-divs-content">-->
+                            <!--<label class="label-style">-->
+                                <!--<input type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;Mathematics<br/>-->
+                            <!--</label>-->
+                            <!--<br>-->
+                            <!--<label class="label-style">-->
+                                <!--<input type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;Physics<br>-->
+                            <!--</label>-->
+                            <!--<br>-->
+                            <!--<label class="label-style">-->
+                                <!--<input type="checkbox">&nbsp;&nbsp;&nbsp;&nbsp;Chemistry<br>-->
+                            <!--</label>-->
+                        <!--</div>-->
+                    <!--</div>-->
 
 
-          <a href="#menu2" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar"
-             aria-expanded="false"> <span class="hidden-sm-down">Crux</span> </a>
-          <div class="collapse" id="menu2">
-              <a href="#" class="list-group-item" data-parent="#menu2" draggable="true">Lecture 1</a>
-              <a href="#" class="list-group-item" data-parent="#menu2" draggable="true">Lecture 2</a>
-              <a href="#" class="list-group-item" data-parent="#menu2" draggable="true">Lecture 3</a>
-          </div>
+                </div>
+
+            </div>
 
 
-          <a href="#menu3" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar"
-             aria-expanded="false"> <span class="hidden-sm-down">Pandora</span> </a>
-          <div class="collapse" id="menu3">
-              <a href="#" class="list-group-item" data-parent="#menu3" draggable="true">Lecture 1</a>
-              <a href="#" class="list-group-item" data-parent="#menu3" draggable="true">Lecture 2</a>
-              <a href="#" class="list-group-item" data-parent="#menu3" draggable="true">Lecture 3</a>
-          </div>
+        </div>
 
+        <div id="calendarContainer" class="col-sm-10 ml-md-auto wrapper"
+             style="padding: 10px; background-color: #F4F6F9; z-index: 0;">
+            <div id="colors" class="row text-center align-items-center" style="width: 100%">
 
-          <a href="#menu4" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar"
-             aria-expanded="false"> <span class="hidden-sm-down">Elixir</span> </a>
-          <div class="collapse" id="menu4">
-              <a href="#" class="list-group-item" data-parent="#menu1" draggable="true">Lecture 1</a>
-              <a href="#" class="list-group-item" data-parent="#menu1" draggable="true">Lecture 2</a>
-              <a href="#" class="list-group-item" data-parent="#menu1" draggable="true">Lecture 3</a>
-          </div>
--->
+            </div>
+            <div id="batchColors" class="row text-center align-items-center" style="width: 100%"></div>
+            <hr>
+            <div id='calendar'></div>
         </div>
 
 
-      </div>
-
     </div>
-    <div id="calendarContainer" class="col-sm-10 ml-md-auto wrapper"
-         style="padding: 10px; background-color: #F4F6F9; z-index: 0;">
-      <div id="colors" class="row text-center" style="height: 20px;width: 100%">
-
-      </div>
-      <hr>
-      <div id='calendar'></div>
-    </div>
-
-
-  </div>
 </div>
 
 <script src='./../bower_components/moment/moment.js'></script>
