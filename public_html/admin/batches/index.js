@@ -3,6 +3,11 @@ $(document).ready(function () {
   let name = localStorage.getItem('name').split('%20').join(' ');
   $('#name').text('Hey ' + name);
 
+  $('#startDate').datepicker();
+  $('#endDate').datepicker();
+  $('#editStartDate').datepicker();
+  $('#editEndDate').datepicker();
+
   let centreId, statusId, courseId;
   let url = '/api/v1/batches'
   let conditions = window.location.href.split('?')[1];

@@ -3,6 +3,9 @@ $(document).ready(function () {
   let name = localStorage.getItem('name').split('%20').join(' ');
   $('#name').text('Hey ' + name);
 
+  $('#startDate').datepicker();
+  $('#endDate').datepicker()
+
   $.get('/api/v1/courses', function (courses) {
     if (courses.success === true) {
       let courseList = $('#minicourses-list');
