@@ -7,6 +7,12 @@ $(document).ready(function () {
   $('#endDate').datepicker();
   $('#editStartDate').datepicker();
   $('#editEndDate').datepicker();
+  $('#defaultTime').datetimepicker({
+    format: 'LT'
+  });
+  $('#editdefaultTime').datetimepicker({
+    format: 'LT'
+  });
 
   let centreId, statusId, courseId;
   let url = '/api/v1/batches'
