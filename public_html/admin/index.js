@@ -27,14 +27,11 @@ $(document).ready(function () {
     $('#batches').show();
   })
 
-
   $('#filters-btn').click(function () {
     $('#batches').hide();
     $('#filters').show();
 
   })
-
-  // $('[data-toggle="tooltip"]').tooltip();
 
   function getCentres() {
 
@@ -59,7 +56,7 @@ $(document).ready(function () {
       }
     }).fail((err) => {
       alert('No Centres.');
-      console.log(err);
+      console.log(err);/**/
     });
 
   }
@@ -143,7 +140,6 @@ $(document).ready(function () {
 
           $('input[type="checkbox"]').change(function () {
 
-            console.log("reached");
             let teachersArray = [];
             let batchesArray = [];
             let roomsArray = [];
@@ -182,14 +178,8 @@ $(document).ready(function () {
               else
                 return false;
             })
-            console.log(filteredevents);
 
-            // console.log(teachersArray)
-            // console.log(batchesArray)
-            // console.log(roomsArray)
-            console.log("1111")
             $('#calendar').fullCalendar('removeEventSources');
-            // console.log(filteredevents);
             $('#calendar').fullCalendar('addEventSource', filteredevents);
 
           })
@@ -199,59 +189,6 @@ $(document).ready(function () {
 
 
   }
-
-  // $.get("/api/extra/filters", function (filters) {
-  //
-  //   const allFilter = $('#allFilters');
-  //   if (filters.categoryObject && filters.categoryObject.length > 1) {
-  //     let categoryString = `<div class="filter-column-divs">
-  //                   <div class="filter-column-divs-heading"><b>CATEGORY</b></div>
-  //                   <div class="filter-column-divs-content">`;
-  //     for (let i = 0; i < filters.categoryObject.length; i++) {
-  //       categoryString += `
-  //                       <label class="label-style">
-  //                           <input class="checkbox-style" name="category" value="` + filters.categoryObject[i].id + `" type="checkbox">` + filters.categoryObject[i].categoryName + `<br/>
-  //                       </label>
-  //                       <br>
-  //                   `;
-  //     }
-  //     categoryString += `</div></div>`;
-  //     allFilter.append(categoryString);
-  //
-  //   }
-  //   if (filters.subjectObject && filters.subjectObject.length > 1) {
-  //     let subjectString = `<div class="filter-column-divs">
-  //                   <div class="filter-column-divs-heading"><b>SUBJECT</b></div>
-  //                   <div class="filter-column-divs-content">`;
-  //     for (let i = 0; i < filters.subjectObject.length; i++) {
-  //       subjectString += `
-  //                       <label class="label-style">
-  //                           <input class="checkbox-style" name="subject" value="` + filters.subjectObject[i].id + `" type="checkbox">` + filters.subjectObject[i].subjectName + `<br/>
-  //                       </label>
-  //                       <br>
-  //                   `;
-  //     }
-  //     subjectString += `</div></div>`;
-  //     allFilter.append(subjectString);
-  //
-  //   }
-  //   if (filters.classObject && filters.classObject.length > 1) {
-  //     let classString = `<div class="filter-column-divs">
-  //                   <div class="filter-column-divs-heading"><b>CLASS</b></div>
-  //                   <div class="filter-column-divs-content">`;
-  //     for (let i = 0; i < filters.classObject.length; i++) {
-  //       classString += `
-  //                       <label class="label-style">
-  //                           <input class="checkbox-style" name="class" value="` + filters.classObject[i].id + `" type="checkbox">` + filters.classObject[i].className + `<br/>
-  //                       </label>
-  //                       <br>
-  //                   `;
-  //     }
-  //     classString += `</div></div>`;
-  //     allFilter.append(classString);
-  //
-  //   }
-  // })
 
   function showBatchesAndRooms(centre) {
 
@@ -308,7 +245,8 @@ $(document).ready(function () {
         const $batches = $('#batches');
         const $batchColors = $('#batchColors');
         $batches.empty();
-        $.get(`${api}/centres/${centre.id}/batches/`).done((data) => {
+        $.get(`${api}/centres/${centre.id}/batches/active`).done((data) => {
+
           if (data.success) {
             let batches = data.data;
 
@@ -468,6 +406,8 @@ $(document).ready(function () {
 
               },
               eventDrop: function (event, delta, revertFunction, jsEvent, ui, view) {
+
+
                 let overlappingLectures = $('#calendar').fullCalendar('clientEvents', function (curEvent) {
                   if ((event.start.format() >= curEvent.start.format() && event.start.format() < curEvent.end.format())
                     || (event.end.format() > curEvent.start.format() && event.end.format() <= curEvent.end.format()))
@@ -476,19 +416,36 @@ $(document).ready(function () {
                     return false;
                 })
 
-                let flag = false;
+                let flagTeacher, flagRoom = false;
 
                 overlappingLectures.map(function (v) {
-                  if (+event.lectureId != v.lectureId && +event.teacherId == v.teacherId) {
-                    flag = true;
+                  if (+event.lectureId != +v.lectureId && +event.teacherId === +v.teacherId) {
+                    flagTeacher = true;
                   }
+                  if (+event.lectureId != +v.lectureId && +event.resourceId === +v.resourceId) {
+                    flagRoom = true;
+                  }
+
+
                 })
 
-                if (flag)
+                if (flagTeacher)
                   $.toast({
                     heading: 'Warning',
                     icon: 'error',
                     text: `${event.teacherName} has another class during this time.`,
+                    position: 'top-right',
+                    stack: 4,
+                    hideAfter: 4000,
+                    showHideTransition: 'slide',
+                    loaderBg: '#fc4f4f;'
+                  })
+
+                if (flagRoom)
+                  $.toast({
+                    heading: 'Warning',
+                    icon: 'error',
+                    text: `The room already has a scheduled class.`,
                     position: 'top-right',
                     stack: 4,
                     hideAfter: 4000,
@@ -521,7 +478,6 @@ $(document).ready(function () {
                 updateLecture(event);
               },
               drop: function (date, jsEvent, ui, resourceId) {
-                // console.log(2);
                 $(this).remove();
 
               },
@@ -578,15 +534,21 @@ $(document).ready(function () {
                     return false;
                 })
 
-                let flag = false;
+                let flagTeacher, flagRoom = false;
 
                 overlappingLectures.map(function (v) {
-                  if (+event.lectureId != v.lectureId && +event.teacherId == v.teacherId) {
-                    flag = true;
+                  if (+event.lectureId != +v.lectureId && +event.teacherId === +v.teacherId) {
+                    flagTeacher = true;
+                  }
+                  if (+event.lectureId != +v.lectureId && +event.resourceId === +v.resourceId) {
+                    flagRoom = true;
                   }
                 })
 
-                if (flag)
+                console.log(overlappingLectures);
+                console.log(flagRoom);
+
+                if (flagTeacher)
                   $.toast({
                     heading: 'Warning',
                     icon: 'error',
@@ -598,9 +560,23 @@ $(document).ready(function () {
                     loaderBg: '#fc4f4f;'
                   })
 
+                if (flagRoom)
+                  $.toast({
+                    heading: 'Warning',
+                    icon: 'error',
+                    text: `The room already has a scheduled class.`,
+                    position: 'top-right',
+                    stack: 4,
+                    hideAfter: 4000,
+                    showHideTransition: 'slide',
+                    loaderBg: '#fc4f4f;'
+                  })
+
+
 
               },
               eventResize: function (event, delta, revertFunc) {
+
 
                 let overlappingLectures = $('#calendar').fullCalendar('clientEvents', function (curEvent) {
                   if ((event.start.format() >= curEvent.start.format() && event.start.format() < curEvent.end.format())
@@ -610,15 +586,20 @@ $(document).ready(function () {
                     return false;
                 })
 
-                let flag = false;
+                let flagTeacher, flagRoom = false;
 
                 overlappingLectures.map(function (v) {
-                  if (+event.lectureId != v.lectureId && +event.teacherId == v.teacherId) {
-                    flag = true;
+                  if (+event.lectureId != +v.lectureId && +event.teacherId === +v.teacherId) {
+                    flagTeacher = true;
                   }
+                  if (+event.lectureId != +v.lectureId && +event.resourceId === +v.resourceId) {
+                    flagRoom = true;
+                  }
+
+
                 })
 
-                if (flag)
+                if (flagTeacher)
                   $.toast({
                     heading: 'Warning',
                     icon: 'error',
@@ -630,8 +611,21 @@ $(document).ready(function () {
                     loaderBg: '#fc4f4f;'
                   })
 
+                if (flagRoom)
+                  $.toast({
+                    heading: 'Warning',
+                    icon: 'error',
+                    text: `The room already has a scheduled class.`,
+                    position: 'top-right',
+                    stack: 4,
+                    hideAfter: 4000,
+                    showHideTransition: 'slide',
+                    loaderBg: '#fc4f4f;'
+                  })
+
               },
               eventClick: function (event, jsEvent, view) {
+
                 $(jsEvent.currentTarget).tooltip('dispose');
 
                 var index = -1;
@@ -645,6 +639,9 @@ $(document).ready(function () {
                 let prevRoom = resources[(index) % resources.length];
                 let newRoom = resources[(index + 1) % resources.length]
                 event.resourceId = newRoom.id;
+                event.color = newRoom.eventColor;
+
+
                 $('#calendar').fullCalendar('updateEvent', event);
                 updateLecture(event);
 
@@ -681,8 +678,36 @@ $(document).ready(function () {
                   })
                 }
 
-              },
 
+                let overlappingLectures = $('#calendar').fullCalendar('clientEvents', function (curEvent) {
+                  if ((event.start.format() >= curEvent.start.format() && event.start.format() < curEvent.end.format())
+                    || (event.end.format() > curEvent.start.format() && event.end.format() <= curEvent.end.format()))
+                    return true;
+                  else
+                    return false;
+                })
+
+                let flagRoom = false;
+
+                overlappingLectures.map(function (v) {
+                  if (+event.lectureId != +v.lectureId && +event.resourceId === +v.resourceId) {
+                    flagRoom = true;
+                  }
+                })
+
+                if (flagRoom)
+                  $.toast({
+                    heading: 'Warning',
+                    icon: 'error',
+                    text: `The room already has a scheduled class.`,
+                    position: 'top-right',
+                    stack: 4,
+                    hideAfter: 4000,
+                    showHideTransition: 'slide',
+                    loaderBg: '#fc4f4f;'
+                  })
+
+              },
               eventMouseover: function (event, jsEvent, view) {
                 var index = -1;
                 resources.map(function (v, i) {
@@ -706,8 +731,6 @@ $(document).ready(function () {
               }
 
             });
-            // $('[data-toggle="tooltip"]').tooltip();
-
 
           } else {
             alert('There are no Batches');
@@ -783,3 +806,5 @@ $(document).ready(function () {
   })
 
 });
+
+

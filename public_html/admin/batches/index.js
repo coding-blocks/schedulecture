@@ -29,9 +29,9 @@ $(document).ready(function () {
     let batchcentrelist = $('#batchcentreList');
 
     let editCentreList = $('#editCentreList');
-    //console.log("heyy")
+
     batchcentrelist.append('<option value="0">All</option>');
-    //console.log("heyy")
+
 
     for (let i = 0; i < centres.data.length; i++) {
 
@@ -101,7 +101,7 @@ $(document).ready(function () {
   $.get(url, function (batches) {
     if (batches.success === true) {
       let batchList = $('#minicourses-list');
-      console.log(batches.data);
+
       for (let i = 0; i < batches.data.length; i++) {
 
         let status = batches.data[i].status === 'active' ? 'Archive' : 'Active';
@@ -157,7 +157,7 @@ $(document).ready(function () {
 
       $('.archive').click(function (e) {
         let batchId = e.target.getAttribute('batch-id');
-        console.log(batchId)
+
         $.ajax({
           url: '/api/v1/batches/archive/' + batchId,
           method: 'PUT',
@@ -374,7 +374,6 @@ $(document).ready(function () {
 
     let newurl = '/admin/batches';
     newurl += `?centreId=${changedCI == '0' ? 'all' : changedCI}&courseId=${changedCoI == '0' ? 'all' : changedCoI}&status=${changedSI}`
-    console.log(newurl)
     window.location.href = (newurl);
   })
 
@@ -385,7 +384,7 @@ $(document).ready(function () {
 
     let newurl = '/admin/batches';
     newurl += `?centreId=${changedCI == '0' ? 'all' : changedCI}&courseId=${changedCoI == '0' ? 'all' : changedCoI}&status=${changedSI}`
-    console.log(newurl)
+
     window.location.href = (newurl);
   })
 
@@ -396,7 +395,7 @@ $(document).ready(function () {
 
     let newurl = '/admin/batches';
     newurl += `?centreId=${changedCI == '0' ? 'all' : changedCI}&courseId=${changedCoI == '0' ? 'all' : changedCoI}&status=${changedSI}`
-    console.log(newurl)
+
     window.location.href = (newurl);
   })
 

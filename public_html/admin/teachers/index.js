@@ -4,7 +4,7 @@ $(document).ready(function () {
   $('#name').text('Hey ' + name);
 
   $.get('/api/v1/teachers', function (teachers) {
-    console.log(1);
+
     if (teachers.success === true) {
       let teacherList = $('#minicourses-list');
       for (let i = 0; i < teachers.data.length; i++) {
