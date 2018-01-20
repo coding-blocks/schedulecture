@@ -29,8 +29,6 @@
   <link rel='stylesheet' href="../../bower_components/jquery-ui/themes/base/jquery-ui.css"/>
   <link rel="stylesheet" href='../../bower_components/fullcalendar-scheduler/dist/scheduler.css'>
   <link rel="stylesheet" href="../../bower_components/components-font-awesome/css/font-awesome.css">
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css"/>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -69,7 +67,7 @@
     </div>
     <div id="userDetails" class="dropdown col-sm-3 col-12 align-middle header-dropdown text-center mt-auto mb-auto">
       <!--<img src="/images/boy.png" class="img-circle header-profile-img">-->
-      <span id="name" style=" color: white;"></span>&nbsp;&nbsp;<button id="logout" class=" btn btn-info"
+      <span id="name" style=" color: white;"></span>&nbsp;&nbsp;<button  id="logout" class=" btn btn-info"
                                                                         style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #02B3E4">
       Logout
     </button>
@@ -126,10 +124,8 @@
 
           <label class="mr-2" for="defaultTime" style="color: #777; font-size: 1rem; display: inline-block">Default Time
             : </label>
-          <input type="text" placeholder="hh:mm" required min="" id="defaultTime"
-                 class="form-control input datetimepicker-input"
-                 style="display: inline-block; width: auto;margin-bottom: 15px" data-toggle="datetimepicker"
-                 data-target="#defaultTime"><br>
+          <input type="time" placeholder="hh:mm" required min="" id="defaultTime" class="form-control input"
+                 style="display: inline-block; width: auto;margin-bottom: 15px"><br>
 
           <label class="mr-2" for="centreList" style="color: #777; font-size: 1rem">Centre : </label>
           <select id="centreList" class="custom-select mb-2" class="form-control input"></select><br>
@@ -197,9 +193,8 @@
 
           <label class="mr-2" for="editdefaultTime" style="color: #777; font-size: 1rem; display: inline-block">Default
             Time : </label>
-          <input type="text" required min="" id="editdefaultTime" class="form-control input"
-                 style="display: inline-block; width: auto;margin-bottom: 15px" data-toggle="datetimepicker"
-                 data-target="#editdefaultTime"><br>
+          <input type="time" required min="" id="editdefaultTime" class="form-control input"
+                 style="display: inline-block; width: auto;margin-bottom: 15px"><br>
 
           <label class="mr-2" for="editEndDate" style="color: #777; font-size: 1rem; display: inline-block">End
             Date: </label>
@@ -279,8 +274,7 @@
 <script src='../../bower_components/fullcalendar-scheduler/dist/scheduler.js'></script>
 <script src="../../bower_components/popper.js/dist/umd/popper.js"></script>
 <script src="../../bower_components/bootstrap/dist/js/bootstrap.js"></script>
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+
 
 <script src="./index.js"></script>
 </body>
