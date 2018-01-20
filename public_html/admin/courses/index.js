@@ -58,37 +58,37 @@ $(document).ready(function () {
             $('#addBatchesError').text('Please Enter All The Details');
 
           } else {
-          $.ajax({
-            url: '/api/v1/batches/new',
-            data: {
-              name: name,
-              startDate: startDate,
-              endDate: endDate,
-              size: size,
-              noOfLectures: nol,
-              hoursPerLecture: hoursPerLecture,
-              lectureShortCode: shortcode,
-              courseId: courseId,
-              centreId: centreId,
-              teacherId: teacherId
-            },
-            method: 'POST',
-            headers: {
-              "Authorization": "Bearer " + localStorage.getItem("clienttoken")
-            }
-          }).done(function (batch) {
-            if (batch.success) {
-              $('#addBatchesModal').modal('hide');
-              window.location.reload();
-            }
-            else {
-              console.log("could not add the batch right now")
-            }
-          }).fail(function (err) {
-            alert("could not add the batch right now")
-          })
+            $.ajax({
+              url: '/api/v1/batches/new',
+              data: {
+                name: name,
+                startDate: startDate,
+                endDate: endDate,
+                size: size,
+                noOfLectures: nol,
+                hoursPerLecture: hoursPerLecture,
+                lectureShortCode: shortcode,
+                courseId: courseId,
+                centreId: centreId,
+                teacherId: teacherId
+              },
+              method: 'POST',
+              headers: {
+                "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+              }
+            }).done(function (batch) {
+              if (batch.success) {
+                $('#addBatchesModal').modal('hide');
+                window.location.reload();
+              }
+              else {
+                console.log("could not add the batch right now")
+              }
+            }).fail(function (err) {
+              alert("could not add the batch right now")
+            })
 
-        }
+          }
         });
       })
 
@@ -110,37 +110,37 @@ $(document).ready(function () {
               let lect = $('#editLectures').val();
               let hours = $('#editHours').val();
 
-              if (!name || !desc || !lect || !hours ) {
+              if (!name || !desc || !lect || !hours) {
 
                 $('#editCourseError').text('Please Enter All The Details');
 
               } else {
-              $.ajax({
-                url: '/api/v1/courses/' + courseId,
-                data: {
-                  values: {
-                    name: name,
-                    desc: desc,
-                    lect: lect,
-                    hours: hours
+                $.ajax({
+                  url: '/api/v1/courses/' + courseId,
+                  data: {
+                    values: {
+                      name: name,
+                      desc: desc,
+                      lect: lect,
+                      hours: hours
+                    }
+                  },
+                  method: 'PUT',
+                  headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("clienttoken")
                   }
-                },
-                method: 'PUT',
-                headers: {
-                  "Authorization": "Bearer " + localStorage.getItem("clienttoken")
-                }
-              }).done(function (course) {
-                if (course.success === true) {
+                }).done(function (course) {
+                  if (course.success === true) {
 
-                  $('#editCoursesModal').modal('hide');
-                  window.location.reload();
-                }
-                else {
-                  console.log("could not add the centre right now")
-                }
-              });
+                    $('#editCoursesModal').modal('hide');
+                    window.location.reload();
+                  }
+                  else {
+                    console.log("could not add the centre right now")
+                  }
+                });
 
-            }
+              }
             })
           }
         })
@@ -176,6 +176,14 @@ $(document).ready(function () {
       // editCentreList.append('<option value="'+centres.data[i].id+'">'+centres.data[i].name+'</option>');
       // }
     }
+
+    centreId = $('#centreList').val();
+    $.get(`/api/v1/centres/${centreId}/rooms`, function (rooms) {
+      let roomList = $('#roomList');
+      for (let i = 0; i < rooms.data.length; i++) {
+        roomList.append(`<option value="${rooms.data[i].id}" name="room">${rooms.data[i].name}</option>`);
+      }
+    })
   })
 
   $.get('/api/v1/courses', function (courses) {
@@ -224,39 +232,39 @@ $(document).ready(function () {
       $('#addCourseError').text('Please Enter All The Details');
 
     } else {
-    $.ajax({
-      url: '/api/v1/courses/new',
-      data: {
-        name: name,
-        desc: desc,
-        lect: lect,
-        hours: hours
-      },
-      method: 'POST',
-      headers: {
-        "Authorization": "Bearer " + localStorage.getItem("clienttoken")
-      }
-    }).done(function (course) {
-      if (course.success === true) {
+      $.ajax({
+        url: '/api/v1/courses/new',
+        data: {
+          name: name,
+          desc: desc,
+          lect: lect,
+          hours: hours
+        },
+        method: 'POST',
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+        }
+      }).done(function (course) {
+        if (course.success === true) {
 
-        $('#addCoursesModal').modal('hide');
-        window.location.reload();
+          $('#addCoursesModal').modal('hide');
+          window.location.reload();
 
-      }
-      else {
-        console.log("could not add the centre right now")
-      }
-    }).fail(function (err) {
-      alert("could not add the centre right now");
-    })
+        }
+        else {
+          console.log("could not add the centre right now")
+        }
+      }).fail(function (err) {
+        alert("could not add the centre right now");
+      })
 
-  }
+    }
   })
 
-    $('#logout').click(function () {
-        localStorage.clear();
-        window.location.replace('/users/logout');
-    })
+  $('#logout').click(function () {
+    localStorage.clear();
+    window.location.replace('/users/logout');
+  })
 
 
 });
