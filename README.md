@@ -2,11 +2,11 @@
 
 ## Demo
 
-Coding Blocks Timetable (Production)
+Coding Blocks Timetable (Production)  
 https://timetable.codingblocks.com
 
 
-Heroku Link (Staging) 
+Heroku Link (Staging)   
 https://schedulecture.herokuapp.com/
 
 Link to API DOCS
