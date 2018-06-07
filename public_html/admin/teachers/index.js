@@ -53,7 +53,10 @@ $(document).ready(function () {
                     contact: contact
                   }
                 },
-                method: 'PUT'
+                method: 'PUT',
+                headers: {
+                  "Authorization": "Bearer " + localStorage.getItem("clienttoken")
+                }
               }).done(function (teacher) {
                 if (teacher.success === true) {
 
