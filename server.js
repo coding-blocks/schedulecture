@@ -83,5 +83,3 @@ sequelize.sync({
     console.log(`Server listening at ` + (process.env.PORT || 4000));
   });
 });
-
-
