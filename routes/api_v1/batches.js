@@ -7,6 +7,7 @@ const router = express.Router();
 const db = require('../../db');
 const acl = require('../../utils/acl');
 const passport = require('../../auth/passport');
+const Raven = require('raven');
 
 /**
  *@api {post} /api/v1/batches/new POST /api/v1/batches/new
@@ -63,6 +64,7 @@ router.post('/new', passport.authenticate('bearer'), function (req, res) {
               }).then((lecture) => {
 
               }).catch((err) => {
+                Raven.captureException(err);
                 console.log(err);
                 res.status(500).send({
                   success: false

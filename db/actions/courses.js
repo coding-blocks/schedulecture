@@ -3,6 +3,7 @@
  */
 
 const models = require('../models')
+const Raven = require('raven');
 
 module.exports = {
   createNew: function (name, desc, lect, hours, done) {
@@ -14,6 +15,7 @@ module.exports = {
     }).then(function (data) {
       done(null, data)
     }).catch(function (err) {
+      Raven.captureException(err);
       if (err) done(err);
     });
   },
@@ -21,6 +23,7 @@ module.exports = {
     models.Courses.findAll({order: ['id']}).then(function (data) {
       done(null, data)
     }).catch(function (err) {
+        Raven.captureException(err);
       if (err) done(err);
     });
   },
@@ -32,6 +35,7 @@ module.exports = {
     }).then(function (data) {
       done(null, data)
     }).catch(function (err) {
+        Raven.captureException(err);
       if (err) done(err);
     });
   },
@@ -47,9 +51,11 @@ module.exports = {
       data.update(obj).then(function (resData) {
         done(null, resData);
       }).catch(function (err) {
+          Raven.captureException(err);
         if (err) done(err);
       })
     }).catch(function (err) {
+        Raven.captureException(err);
       if (err) done(err);
     });
   },
@@ -61,6 +67,7 @@ module.exports = {
     }).then(function (data) {
       done(null, data)
     }).catch(function (err) {
+        Raven.captureException(err);
       if (err) throw err;
     });
   },
@@ -86,6 +93,7 @@ module.exports = {
       }
       done(arr);
     }).catch(function (err) {
+        Raven.captureException(err);
       if (err) done(err);
     });
   },
@@ -98,6 +106,7 @@ module.exports = {
     }).then(function (data) {
       done(null, data);
     }).catch(function (err) {
+        Raven.captureException(err);
       if (err)
         done(err);
     })

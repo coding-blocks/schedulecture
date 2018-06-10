@@ -3,6 +3,7 @@
  * Created by tech4GT on 8/25/17.
  */
 const models = require('../models')
+const Raven = require('raven');
 module.exports = {
 
   newBatch: function (name, startDate, endDate, size, noOfLectures, lectureShortCode, hoursPerLecture, defaultTime, courseId, centreId, teacherId, roomId, done) {
@@ -23,6 +24,7 @@ module.exports = {
     }).then(function (data) {
       done(null, data)
     }).catch(function (err) {
+      Raven.captureException(err);
       if (err) done(err);
     });
   },
@@ -35,6 +37,7 @@ module.exports = {
 
       done(null, data)
     }).catch(function (err) {
+      Raven.captureException(err);
       if (err) done(err);
     });
   },
@@ -50,6 +53,7 @@ module.exports = {
     }).then(function (data) {
       done(null, data);
     }).catch(function (err) {
+      Raven.captureException(err);
       if (err) done(err);
     });
   },
@@ -65,9 +69,11 @@ module.exports = {
       data.update(obj).then(function (resData) {
         done(null, resData);
       }).catch(function (err) {
+        Raven.captureException(err);
         if (err) done(err);
       })
     }).catch(function (err) {
+      Raven.captureException(err);
       if (err) done(err);
     });
   },
@@ -85,9 +91,11 @@ module.exports = {
       }).then(function (resData) {
         done(null, resData);
       }).catch(function (err) {
+        Raven.captureException(err);
         if (err) done(err);
       })
     }).catch(function (err) {
+      Raven.captureException(err);
       if (err) done(err);
     });
   },
@@ -99,6 +107,7 @@ module.exports = {
     }).then(function (data) {
       done(null, data)
     }).catch(function (err) {
+      Raven.captureException(err);
       if (err) done(err);
     });
   }
@@ -112,6 +121,7 @@ module.exports = {
     }).then(function (data) {
       done(null, data)
     }).catch(function (err) {
+      Raven.captureException(err);
       if (err) done(err);
     });
   }
