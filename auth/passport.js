@@ -4,6 +4,7 @@ const models = require('../db/models');
 const config = require('../config');
 const uid = require('uid2')
 const bearerStrategy = require('./strategies/bearerStrategy');
+const Raven = require('raven');
 
 
 passport.use('oneauth', new oneauthStrategy({
@@ -35,6 +36,7 @@ passport.use('oneauth', new oneauthStrategy({
         return done(null, authtokenObject[0].get())
       }).catch(function (err) {
         console.log(err);
+        Raven.captureException(err);
       })
     }
     else {

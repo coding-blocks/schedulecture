@@ -4,6 +4,7 @@
 
 const models = require('./../models');
 const seed = require('./../seed');
+const Raven = require('raven');
 
 models.DATABASE.sync({
   force: true,
@@ -13,12 +14,14 @@ models.DATABASE.sync({
   models.Teachers.bulkCreate(seed.teachers, {returning: true}).then(function (r) {
     console.log(r.map(v => v.get()));
   }).catch(function (err) {
+      Raven.captureException(err);
     console.log(err);
   });
 
   models.Courses.bulkCreate(seed.courses, {returning: true}).then(function (r) {
     console.log(r.map(v => v.get()));
   }).catch(function (err) {
+      Raven.captureException(err);
     console.log(err);
   });
 
@@ -28,6 +31,7 @@ models.DATABASE.sync({
       console.log(r.map(v => v.get()));
     })
   }).catch(function (err) {
+      Raven.captureException(err);
     console.log(err);
   })
 
