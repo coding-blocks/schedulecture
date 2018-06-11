@@ -7,6 +7,7 @@ const router = express.Router();
 const db = require('../../db');
 const acl = require('../../utils/acl');
 const passport = require('../../auth/passport');
+const debug = require('debug')('schedulecture:routes/api_v1/batches');
 
 /**
  *@api {post} /api/v1/batches/new POST /api/v1/batches/new
@@ -40,7 +41,7 @@ router.post('/new', passport.authenticate('bearer'), function (req, res) {
     req.body.lectureShortCode, req.body.hoursPerLecture, req.body.defaultTime, req.body.courseId, req.body.centreId, req.body.teacherId, req.body.roomId,
     function (err, batch) {
       if (err) {
-        console.log(err);
+        debug(err);
         res.status(500).send({
           success: false
           , code: "500"
@@ -63,7 +64,7 @@ router.post('/new', passport.authenticate('bearer'), function (req, res) {
               }).then((lecture) => {
 
               }).catch((err) => {
-                console.log(err);
+                debug(err);
                 res.status(500).send({
                   success: false
                   , code: "500"
@@ -148,7 +149,7 @@ router.get('/', function (req, res) {
 
   db.actions.batches.getAll(conditions, function (err, batches) {
     if (err) {
-      console.log("ERROR" + err);
+      debug("ERROR" + err);
       res.status(500).send({
         success: false
         , code: "500"
@@ -176,7 +177,7 @@ router.get('/', function (req, res) {
 router.get('/active', function (req, res) {
   db.actions.batches.getAll({status: "active"}, function (err, activeBatches) {
     if (err) {
-      console.log("ERROR" + err);
+      debug("ERROR" + err);
       res.status(500).send({
         success: false
         , code: "500"
@@ -204,7 +205,7 @@ router.get('/active', function (req, res) {
 router.get('/archived', function (req, res) {
   db.actions.batches.getAll({status: "archived"}, function (err, archivedBatches) {
     if (err) {
-      console.log("ERROR" + err);
+      debug("ERROR" + err);
       res.status(500).send({
         success: false
         , code: "500"
@@ -256,7 +257,7 @@ router.get('/archived', function (req, res) {
 router.get('/:id', function (req, res) {
   db.actions.batches.search(req.params.id, function (err, batch) {
     if (err) {
-      console.log(err);
+      debug(err);
       res.status(500).send({
         success: false
         , code: "500"
@@ -309,7 +310,7 @@ router.get('/:id', function (req, res) {
 router.put('/:id', passport.authenticate('bearer'), function (req, res) {
   db.actions.batches.edit(req.params.id, req.body.values, function (err, batch) {
     if (err) {
-      console.log(err);
+      debug(err);
       res.status(500).send({
         success: false
         , code: "500"
@@ -338,7 +339,7 @@ router.put('/archive/:id', passport.authenticate('bearer'), acl.ensureadmin(), f
 
   db.actions.batches.archiveBatch(req.params.id, function (err, batch) {
     if (err) {
-      console.log(err);
+      debug(err);
       res.status(500).send({
         success: false
         , code: "500"
@@ -377,7 +378,7 @@ router.put('/archive/:id', passport.authenticate('bearer'), acl.ensureadmin(), f
 router.delete('/:id', passport.authenticate('bearer'), function (req, res) {
   db.actions.batches.deleteBatch(req.params.id, function (err, batchDeleted) {
     if (err) {
-      console.log(err);
+      debug(err);
       res.status(500).send({
         success: false
         , code: "500"
@@ -478,7 +479,7 @@ router.delete('/:id', passport.authenticate('bearer'), function (req, res) {
 router.get('/:id/lectures', function (req, res) {
   db.actions.batches.getLectures(req.params.id, function (err, lectures) {
     if (err) {
-      console.log("ERROR" + err);
+      debug("ERROR" + err);
       res.status(500).send({
         success: false
         , code: "500"
