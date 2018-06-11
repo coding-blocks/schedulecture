@@ -1,7 +1,7 @@
 /**
  * Created by tech4GT on 8/25/17.
  */
-
+const Raven = require('raven')
 const models = require('../models')
 
 module.exports = {
@@ -14,14 +14,16 @@ module.exports = {
     }).then(function (data) {
       done(null, data)
     }).catch(function (err) {
-      if (err) done(err);
+      Raven.captureException(err)
+      if (err) done(err)
     });
   },
   getAll: function (done) {
     models.Courses.findAll({order: ['id']}).then(function (data) {
       done(null, data)
     }).catch(function (err) {
-      if (err) done(err);
+      Raven.captureException(err)
+      if (err) done(err)
     });
   },
   search: function (id, done) {
@@ -32,7 +34,8 @@ module.exports = {
     }).then(function (data) {
       done(null, data)
     }).catch(function (err) {
-      if (err) done(err);
+      Raven.captureException(err)
+      if (err) done(err)
     });
   },
   edit: function (id, obj, done) {
@@ -47,10 +50,12 @@ module.exports = {
       data.update(obj).then(function (resData) {
         done(null, resData);
       }).catch(function (err) {
-        if (err) done(err);
+        Raven.captureException(err)
+        if (err) done(err)
       })
     }).catch(function (err) {
-      if (err) done(err);
+      Raven.captureException(err)
+      if (err) done(err)
     });
   },
   deleteCourse: function (id, done) {
@@ -61,7 +66,8 @@ module.exports = {
     }).then(function (data) {
       done(null, data)
     }).catch(function (err) {
-      if (err) throw err;
+      Raven.captureException(err)
+      if (err) done(err)
     });
   },
   getlectures: function (id, done) {
@@ -86,7 +92,8 @@ module.exports = {
       }
       done(arr);
     }).catch(function (err) {
-      if (err) done(err);
+      Raven.captureException(err)
+      if (err) done(err)
     });
   },
   getBatches: function (id, done) {
@@ -98,8 +105,8 @@ module.exports = {
     }).then(function (data) {
       done(null, data);
     }).catch(function (err) {
-      if (err)
-        done(err);
+      Raven.captureException(err)
+      if (err) done(err)
     })
   }
 }
