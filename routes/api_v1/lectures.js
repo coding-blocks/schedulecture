@@ -5,6 +5,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../../db');
 const passport = require('./../../auth/passport');
+const debug = require('debug')('schedulecture:routes/api_v1/lectures');
 
 /**
  *@api {post} /api/v1/lectures/new POST /api/v1/lectures/new
@@ -48,7 +49,7 @@ router.post('/new',passport.authenticate('bearer'), function (req, res) {
     req.body.roomId, req.body.teacherId, function (err, lecture) {
 
       if (err) {
-        console.log("ERROR" + err);
+        debug("ERROR" + err);
         res.status(500).send({
           success: false
           , code: "500"
@@ -159,7 +160,7 @@ router.post('/new',passport.authenticate('bearer'), function (req, res) {
 router.get('/', function (req, res) {
   db.actions.lectures.getAll(function (err, lectures) {
     if (err) {
-      console.log("ERROR" + err);
+      debug("ERROR" + err);
       res.status(500).send({
         success: false
         , code: "500"
@@ -230,7 +231,7 @@ router.put('/',passport.authenticate('bearer'), function (req, res) {
 router.get('/:id', function (req, res) {
   db.actions.lectures.search(req.params.id, function (err, lecture) {
     if (err) {
-      console.log(err);
+      debug(err);
       res.status(500).send({
         success: false
         , code: "500"
@@ -281,7 +282,7 @@ router.get('/:id', function (req, res) {
 router.put('/:id',passport.authenticate('bearer'), function (req, res) {
   db.actions.lectures.edit(req.params.id, req.body.values, function (err, lecture) {
     if (err) {
-      console.log(err);
+      debug(err);
       res.status(500).send({
         success: false
         , code: "500"
@@ -310,7 +311,7 @@ router.put('/:id',passport.authenticate('bearer'), function (req, res) {
 router.put('/cancel/:id', passport.authenticate('bearer'), function (req, res) {
   db.actions.lectures.cancel(req.params.id, function (err, lecture) {
     if (err) {
-      console.log(err);
+      debug(err);
       res.status(500).send({
         success: false
         , code: "500"
@@ -350,7 +351,7 @@ router.put('/cancel/:id', passport.authenticate('bearer'), function (req, res) {
 router.delete('/:id',passport.authenticate('bearer'), function (req, res) {
   db.actions.lectures.deleteLecture(req.params.id, function (err, lectureDeleted) {
     if (err) {
-      console.log(err);
+      debug(err);
       res.status(500).send({
         success: false
         , code: "500"

@@ -6,7 +6,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../../db');
 const passport = require('./../../auth/passport');
-
+const debug = require('debug')('schedulecture:routes/api_v1/centres');
 
 /**
  *@api {post} /api/v1/centres/new POST /api/v1/centres/new
@@ -29,7 +29,7 @@ const passport = require('./../../auth/passport');
 router.post('/new',passport.authenticate('bearer'), function (req, res) {
     db.actions.centres.createNew(req.body.name, req.body.head, req.body.phone, function (err, centre) {
         if (err) {
-            console.log("ERROR" + err);
+            debug("ERROR" + err);
             res.status(500).send({
                 success: false
                 , code: "500"
@@ -83,7 +83,7 @@ router.post('/new',passport.authenticate('bearer'), function (req, res) {
 router.get('/', function (req, res) {
     db.actions.centres.getAll(function (err, centres) {
         if (err) {
-            console.log("ERROR" + err);
+            debug("ERROR" + err);
             res.status(500).send({
                 success: false
                 , code: "500"
@@ -130,7 +130,7 @@ router.get('/', function (req, res) {
 router.get('/:id', function (req, res) {
     db.actions.centres.search(req.params.id, function (err, centre) {
         if (err) {
-            console.log(err);
+            debug(err);
             res.status(500).send({
                 success: false
                 , code: "500"
@@ -177,7 +177,7 @@ router.put('/:id',passport.authenticate('bearer'), function (req, res) {
     db.actions.centres.edit(req.params.id, req.body.values, function (err, centre) {
 
         if (err) {
-            console.log(err);
+            debug(err);
             res.status(500).send({
                 success: false
                 , code: "500"
@@ -217,7 +217,7 @@ router.put('/:id',passport.authenticate('bearer'), function (req, res) {
 router.delete('/:id',passport.authenticate('bearer'), function (req, res) {
     db.actions.centres.deleteCentre(req.params.id, function (err, centreDeleted) {
         if (err) {
-            console.log(err);
+            debug(err);
             res.status(500).send({
                 success: false
                 , code: "500"
@@ -247,7 +247,7 @@ router.delete('/:id',passport.authenticate('bearer'), function (req, res) {
 router.get('/:id/batches', function (req, res) {
     db.actions.centres.getBatches(req.params.id, function(err, batches) {
         if(err){
-            console.log("ERROR" + err);
+            debug("ERROR" + err);
             res.status(500).send({
                 success : false,
                 code : "500",
@@ -278,7 +278,7 @@ router.get('/:id/batches', function (req, res) {
 router.get('/:id/batches/active', function (req, res) {
   db.actions.centres.getActiveBatches(req.params.id, function(err, batches) {
     if(err){
-      console.log("ERROR" + err);
+      debug("ERROR" + err);
       res.status(500).send({
         success : false,
         code : "500",
@@ -311,7 +311,7 @@ router.get('/:id/rooms', function(req, res) {
 
     db.actions.centres.getRooms(req.params.id, function(err, rooms){
         if(err){
-            console.log("ERROR" + err);
+            debug("ERROR" + err);
             res.status(500).send({
                 success : false,
                 code : "500",

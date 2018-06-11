@@ -6,6 +6,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../../db');
 const passport = require('./../../auth/passport');
+const debug = require('debug')('schedulecture:routes/api_v1/courses');
 
 /**
  *@api {post} /api/v1/courses/new POST /api/v1/courses/new
@@ -28,7 +29,7 @@ const passport = require('./../../auth/passport');
 router.post('/new',passport.authenticate('bearer'), function (req, res) {
     db.actions.courses.createNew(req.body.name, req.body.desc, req.body.lect, req.body.hours, function (err, course) {
         if (err) {
-            console.log("ERROR" + err);
+            debug("ERROR" + err);
             res.status(500).send({
                 success: false
                 , code: "500"
@@ -84,7 +85,7 @@ router.post('/new',passport.authenticate('bearer'), function (req, res) {
 router.get('/', function (req, res) {
     db.actions.courses.getAll(function (err, courses) {
         if (err) {
-            console.log("ERROR" + err);
+            debug("ERROR" + err);
             res.status(500).send({
                 success: false
                 , code: "500"
@@ -129,7 +130,7 @@ router.get('/', function (req, res) {
 router.get('/:id', function (req, res) {
     db.actions.courses.search(req.params.id, function (err, course) {
         if (err) {
-            console.log(err);
+            debug(err);
             res.status(500).send({
                 success: false
                 , code: "500"
@@ -175,7 +176,7 @@ router.get('/:id', function (req, res) {
 router.put('/:id',passport.authenticate('bearer'), function (req, res) {
     db.actions.courses.edit(req.params.id, req.body.values, function (err, course) {
         if (err) {
-            console.log(err);
+            debug(err);
             res.status(500).send({
                 success: false
                 , code: "500"
@@ -215,7 +216,7 @@ router.put('/:id',passport.authenticate('bearer'), function (req, res) {
 router.delete('/:id',passport.authenticate('bearer'), function (req, res) {
     db.actions.courses.deleteCourse(req.params.id, function (err, courseDeleted) {
         if (err) {
-            console.log(err);
+            debug(err);
             res.status(500).send({
                 success: false
                 , code: "500"
@@ -244,7 +245,7 @@ router.delete('/:id',passport.authenticate('bearer'), function (req, res) {
 router.get('/:id/batches', function (req, res) {
     db.actions.courses.getBatches(req.params.id, function(err, batches) {
         if(err){
-            console.log("ERROR" + err);
+            debug("ERROR" + err);
             res.status(500).send({
                 success : false,
                 code : "500",
