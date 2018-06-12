@@ -1,7 +1,9 @@
 $(document).ready(function () {
 
-  let name = localStorage.getItem('name').split('%20').join(' ');
-  $('#name').text('Hey ' + name);
+  let name = localStorage.getItem('name');
+  let endName = name.indexOf('%20');
+  let Name = name.slice(0,endName);
+  $('#name').text('Hey ' + Name);
 
   $.get('/api/v1/centres', function (centres) {
     if (centres.success === true) {
@@ -12,7 +14,7 @@ $(document).ready(function () {
                 <div class="minicourses-list-li-div">
                     <div style="height: 120px; background-color: #999">
                     </div>
-                    <div class="text-center"  style="padding: 15px 0">
+                    <div class="text-minicourse"  style="padding: 15px 0">
                         <h3>` + centres.data[i].name + `</h3>
                         <p>Centre Head: ` + centres.data[i].head + `<br> Mob: ` + centres.data[i].phone + `</p>
                         <a class=" btn btn-success" style=" font-size: 16px; color: white; padding: 5px 12px" href="/admin/centres/` + centres.data[i].id + `/rooms">Rooms</a>&nbsp;<a class=" btn btn-success" style="font-size: 16px; color: white; padding: 5px 12px"  href="/admin/batches?centreId=` + centres.data[i].id + `">Batches</a>&nbsp;

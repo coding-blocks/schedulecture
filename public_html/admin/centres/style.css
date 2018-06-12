@@ -203,6 +203,11 @@ ul{
     /*cursor: pointer;*/
 }
 
+.text-minicourse{
+    text-align: center;
+    word-wrap: break-word;
+}
+
 #minicourses-list > li{
     float: left;
 }

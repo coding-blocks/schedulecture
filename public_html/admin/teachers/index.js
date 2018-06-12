@@ -1,7 +1,9 @@
 $(document).ready(function () {
 
-  let name = localStorage.getItem('name').split('%20').join(' ');
-  $('#name').text('Hey ' + name);
+  let name = localStorage.getItem('name');
+  let endName = name.indexOf('%20');
+  let Name = name.slice(0,endName);
+  $('#name').text('Hey ' + Name);
 
   $.get('/api/v1/teachers', function (teachers) {
 
@@ -12,7 +14,7 @@ $(document).ready(function () {
                 <div class="minicourses-list-li-div">
                     <div style="height: 120px; background-color: #999">
                     </div>
-                    <div class="text-center"  style="padding: 15px 0">
+                    <div class="text-minicourse"  style="padding: 15px 0">
                         <h3>` + teachers.data[i].name + `</h3>
                         <p>Email: ` + teachers.data[i].email + `<br> Contact: ` + teachers.data[i].contact + `</p>
                         <i class="fa fa-pencil edit" style="color: #1EB3E2; font-size: 24px"  teacher-id="` + teachers.data[i].id + `"></i>&nbsp;
