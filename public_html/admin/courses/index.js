@@ -1,7 +1,9 @@
 $(document).ready(function () {
 
-  let name = localStorage.getItem('name').split('%20').join(' ');
-  $('#name').text('Hey ' + name);
+  let name = localStorage.getItem('name');
+  let endName = name.indexOf('%20');
+  let Name = name.slice(0,endName);
+  $('#name').text('Hey ' + Name);
 
   $('#startDate').datepicker();
   $('#endDate').datepicker()
@@ -16,7 +18,7 @@ $(document).ready(function () {
                 <div class="minicourses-list-li-div">
                     <div style="height: 120px; background-color: #999">
                     </div>
-                    <div class="text-center"  style="padding: 15px 0">
+                    <div class="text-minicourse"  style="padding: 15px 0">
                         <h3>` + courses.data[i].name + `</h3>
                         <p>Description: ` + courses.data[i].desc + `<br> Lectures: ` + courses.data[i].lect + `<br> Hours: ` + courses.data[i].hours + `</p>
                         <a class=" btn btn-success addBatch" style=" font-size: 16px; color: white; padding: 5px 12px"  course-id="` + courses.data[i].id + `" nol="` + courses.data[i].lect + ` " hours="` + courses.data[i].hours + `">Add Batch</a>
