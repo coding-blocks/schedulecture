@@ -14,6 +14,7 @@ const express = require('express');
 const app = express();
 const bp = require('body-parser')
 const passport = require('passport')
+const debug = require('debug')('schedulecture:server')
 
 const sequelize = require('./db/models').DATABASE;
 
@@ -77,9 +78,9 @@ app.use('/users', users)
 sequelize.sync({
   force: process.env.SCHEDULECTURE_FORCE_DB_RECREATE || false,
 }).then(function () {
-  console.log("Database Configured");
+  debug("Database Configured");
   app.listen(process.env.PORT || 4000, function () {
 
-    console.log(`Server listening at ` + (process.env.PORT || 4000));
+    debug(`Server listening at ` + (process.env.PORT || 4000));
   });
 });
