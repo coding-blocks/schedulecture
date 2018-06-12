@@ -14,12 +14,14 @@ models.DATABASE.sync({
   models.Teachers.bulkCreate(seed.teachers, {returning: true}).then(function (r) {
     debug(r.map(v => v.get()));
   }).catch(function (err) {
+    Raven.captureException(err)
     debug(err);
   });
 
   models.Courses.bulkCreate(seed.courses, {returning: true}).then(function (r) {
     debug(r.map(v => v.get()));
   }).catch(function (err) {
+    Raven.captureException(err)
     debug(err);
   });
 
@@ -29,9 +31,8 @@ models.DATABASE.sync({
       debug(r.map(v => v.get()));
     })
   }).catch(function (err) {
+    Raven.captureException(err)
     debug(err);
   })
 
 });
-
-

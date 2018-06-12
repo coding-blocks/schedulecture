@@ -18,7 +18,7 @@ switch (config.DEPLOY_CONFIG) {
     break;
 
   case 'localhost':
-    config.secrets = require('./secrets-sample')
+    config.secrets = require('./secrets')
     config.db = config.secrets.DATABASE
     config.clientId = config.secrets.ONEAUTH.CLIENT_ID;
     config.clientSecret = config.secrets.ONEAUTH.CLIENT_SECRET;

@@ -4,7 +4,7 @@ const models = require('../db/models');
 const config = require('../config');
 const uid = require('uid2')
 const bearerStrategy = require('./strategies/bearerStrategy');
-
+const Raven = require('raven');
 
 passport.use('oneauth', new oneauthStrategy({
     authorizationURL: 'https://account.codingblocks.com/oauth/authorize',
@@ -34,7 +34,8 @@ passport.use('oneauth', new oneauthStrategy({
       ).then(function (authtokenObject) {
         return done(null, authtokenObject[0].get())
       }).catch(function (err) {
-        console.log(err);
+        Raven.captureException(err)
+        return done(err, false);
       })
     }
     else {
