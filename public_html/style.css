@@ -11,7 +11,7 @@ body {
 }
 
 #side-menu {
-    /*height: 100vh;*/
+    height: 100vh;
     /*position: fixed;*/
     background-color: #343a40;
 }
@@ -20,9 +20,9 @@ body {
     background-color: #343a40;
     z-index: 10;
     height: auto;
-    /*position: fixed;*/
-    /*top: 0px;*/
-    /*width: 100%;*/
+    position: fixed;
+    top: 0px;
+    width: 100%;
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -60,6 +60,64 @@ ul {
     border-right: 0;
     border: none;
     white-space: nowrap;
+}
+
+.ui-draggable {
+    border: solid 1px #666;
+    background-color: #495057;
+    border-radius: 1rem !important;
+    width: auto;
+    padding: 4px 20px;
+    margin-bottom: 5px;
+    margin-left: 35px;
+    display: inline-block;
+    color: #eee !important;
+}
+
+.filter-tabs {
+    border: solid 1px #666;
+    background-color: #444;
+    width: auto;
+    padding: 4px 20px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    display: inline-block;
+    color: #eee !important;
+}
+
+.filter-tabs.active{
+    background-color: #444;
+}
+
+
+.filter-column{
+    padding: 0;
+    background-color: white;
+    height:auto;
+    box-shadow: #DDD 0 0 8px 1px ;
+    border-radius: .125rem;
+}
+
+.filter-column-divs{
+    width: 100%;
+    height: auto;
+}
+
+.filter-column-divs-heading{
+    padding: 20px;
+    padding-bottom: 15px;
+    width: 100%;
+    color: #ddd;
+}
+
+.filter-column-divs-content{
+    padding-left: 30px;
+    padding-right: 20px;
+    padding-bottom: 13px;
+}
+
+.label-style {
+    color: #aaa;
 }
 
 /* highlight active menu */
@@ -212,7 +270,7 @@ ul {
     float: left;
 }
 
-a {
+a, button {
     cursor: pointer;
 }
 
