@@ -179,9 +179,10 @@ $(document).ready(function () {
       // }
     }
 
-    centreId = $('#centreList').val();
+    centreId = centreList.val();
     $.get(`/api/v1/centres/${centreId}/rooms`, function (rooms) {
       let roomList = $('#roomList');
+
       for (let i = 0; i < rooms.data.length; i++) {
         roomList.append(`<option value="${rooms.data[i].id}" name="room">${rooms.data[i].name}</option>`);
       }
