@@ -1,8 +1,6 @@
 
 body {
     background-color: #F4F6F9;
-    /*height: 100vh;*/
-    /*overflow-y: hidden;*/
 }
 
 .container-fluid {
@@ -12,7 +10,6 @@ body {
 
 #side-menu {
     height: 100vh;
-    /*position: fixed;*/
     background-color: #343a40;
 }
 
