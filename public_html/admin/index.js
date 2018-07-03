@@ -17,8 +17,10 @@ $(document).ready(function () {
 
   });
 
-  let name = localStorage.getItem('name').split('%20').join(' ');
-  $('#name').text('Hey ' + name);
+  let name = localStorage.getItem('name');
+  let endName = name.indexOf('%20');
+  let Name = name.slice(0,endName);
+  $('#name').text('Hey ' + Name);
 
   getCentres();
 
@@ -272,8 +274,8 @@ $(document).ready(function () {
                     ${batch.name}
                 </span>
                 </a>
-                        
-                <div class="collapse" id="batch-${batch.id}">                 
+
+                <div class="collapse" id="batch-${batch.id}">
                 </div>
               `);
 
@@ -724,7 +726,7 @@ $(document).ready(function () {
                               Course: ${event.courseName}<br/>
                               Batch: ${event.batchName}<br/>
                               Teacher: ${event.teacherName}<br/>
-                              Batch Capacity: ${event.batchCapacity}<br/>                             
+                              Batch Capacity: ${event.batchCapacity}<br/>
                               Room: ${resources[index].title}<br/>
                     `
                   }).tooltip('show');
@@ -806,5 +808,3 @@ $(document).ready(function () {
   })
 
 });
-
-

@@ -1,7 +1,9 @@
 $(document).ready(function () {
 
-  let name = localStorage.getItem('name').split('%20').join(' ');
-  $('#name').text('Hey ' + name);
+  let name = localStorage.getItem('name');
+  let endName = name.indexOf('%20');
+  let Name = name.slice(0,endName);
+  $('#name').text('Hey ' + Name);
 
   let batchId = window.location.href.split('/batches/')[1].split('/lectures/')[0];
 

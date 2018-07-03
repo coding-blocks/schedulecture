@@ -1,7 +1,9 @@
 $(document).ready(function () {
 
-  let name = localStorage.getItem('name').split('%20').join(' ');
-  $('#name').text('Hey ' + name);
+  let name = localStorage.getItem('name');
+  let endName = name.indexOf('%20');
+  let Name = name.slice(0,endName);
+  $('#name').text('Hey ' + Name);
 
   $('#startDate').datepicker();
   $('#endDate').datepicker();
@@ -109,8 +111,8 @@ $(document).ready(function () {
 
         batchList.append(`<li class="minicourses-list-li col-3" style="height: auto">
                 <div class="minicourses-list-li-div">
-                    
-                    <div class="text-center"  style="padding: 15px 0">
+
+                    <div class="text-minicourse"  style="padding: 15px 0">
                         <h3>` + batches.data[i].name + `</h3>
                         <p>Centre: ` + batches.data[i].centre.name + `
                         <br>Course: ` + batches.data[i].course.name + `<br>
@@ -121,7 +123,7 @@ $(document).ready(function () {
                         <br/>
                         Default Start Time: ${batches.data[i].defaultTime}<br/>
                         Default Room: ${batches.data[i].room ? batches.data[i].room.name : "Not Selected"}
-                     
+
                         </p>
                         <a class="btn btn-success view-lectures" style=" font-size: 16px; color: white; padding: 5px 8px"  href="/admin/batches/` + batches.data[i].id + `/lectures">Lectures</a>
                         <a class="btn btn-success ` + statusClass + `" style=" font-size: 16px; color: white; padding: 5px 8px" batch-id="` + batches.data[i].id + `">` + status + `</a>

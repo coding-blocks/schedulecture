@@ -1,6 +1,12 @@
 # Schedulecture
 
-Heroku Link
+## Demo
+
+Coding Blocks Timetable (Production)  
+https://timetable.codingblocks.com
+
+
+Heroku Link (Staging)   
 https://schedulecture.herokuapp.com/
 
 Link to API DOCS
