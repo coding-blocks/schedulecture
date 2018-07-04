@@ -18,6 +18,7 @@ $(document).ready(function () {
   }
 
   var api = '/api/v1';
+  var eventsData = [];
 
   $('#mainContent').css('padding-top', ($('#header-bar').height() + 20) + 'px')
   $('#side-menu').css('height', ($(document.body).height() - $('#header-bar').height() - 20) + 'px')
