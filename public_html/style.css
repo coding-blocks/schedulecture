@@ -9,7 +9,7 @@ body {
 }
 
 #side-menu {
-    height: 100vh;
+    height: 108vh;
     background-color: #343a40;
 }
 
@@ -64,7 +64,7 @@ ul {
     background-color: #495057;
     border-radius: 1rem !important;
     width: auto;
-    padding: 4px 20px;
+    padding: 4px 15px;
     margin-bottom: 5px;
     margin-left: 35px;
     display: inline-block;
@@ -75,7 +75,7 @@ ul {
     border: solid 1px #666;
     background-color: #444;
     width: auto;
-    padding: 4px 20px;
+    padding: 4px 15px;
     margin-bottom: 5px;
     margin-right: 5px;
     display: inline-block;
@@ -108,7 +108,7 @@ ul {
 }
 
 .filter-column-divs-content{
-    padding-left: 30px;
+    padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 13px;
 }
