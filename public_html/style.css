@@ -11,7 +11,7 @@ body {
 }
 
 #side-menu {
-    /*height: 100vh;*/
+    height: 100vh;
     /*position: fixed;*/
     background-color: #343a40;
 }
@@ -48,9 +48,35 @@ ul {
     padding-left: 20px;
 }
 
-/*#calendar{*/
-/*margin-top: 20px;*/
-/*}*/
+.filter-column{
+    padding: 0;
+    background-color: white;
+    height:auto;
+    box-shadow: #DDD 0 0 8px 1px ;
+    border-radius: .125rem;
+}
+
+.filter-column-divs{
+    width: 100%;
+    height: auto;
+}
+
+.filter-column-divs-heading{
+    padding: 20px;
+    padding-bottom: 15px;
+    width: 100%;
+    color: #ddd;
+}
+
+.filter-column-divs-content{
+    padding-left: 30px;
+    padding-right: 20px;
+    padding-bottom: 13px;
+}
+
+.label-style {
+    color: #aaa;
+}
 
 #sidebar .list-group-item {
     border-radius: 0;
