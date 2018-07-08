@@ -182,7 +182,7 @@ $(document).ready(function () {
   function showBatchesAndRooms(centre) {
 
     const events = [];
-    const resources = []
+    const resources = [];
     const colors = ['#EB5667', '#1E88E5', '#B96BC6', '#28B294', '#FF8F00', '#31C6C7'];
     let batchColors = {};
     let colorCounter = 0;
@@ -211,13 +211,12 @@ $(document).ready(function () {
             id: room.id,
             title: room.name,
             eventColor: currentColor,
-            capacity: room.capacity,
             centreId: room.centreId
           });
           $colors.append(`
               <div class="col">
                 <div style="display: inline-block;height: 15px;width: 15px; background-color: ${currentColor}"></div>
-                <span>${room.name} (${room.capacity})</span>
+                <span>${room.name}</span>
               </div>
           `)
         });

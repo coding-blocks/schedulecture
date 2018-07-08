@@ -48,30 +48,16 @@ ul {
     padding-left: 20px;
 }
 
-.filter-column{
-    padding: 0;
-    background-color: white;
-    height:auto;
-    box-shadow: #DDD 0 0 8px 1px ;
-    border-radius: .125rem;
-}
-
 .filter-column-divs{
-    width: 100%;
-    height: auto;
-}
-
-.filter-column-divs-heading{
-    padding: 20px;
-    padding-bottom: 15px;
-    width: 100%;
     color: #ddd;
 }
 
+.filter-column-divs-heading{
+    padding-bottom: 15px;
+}
+
 .filter-column-divs-content{
-    padding-left: 30px;
-    padding-right: 20px;
-    padding-bottom: 13px;
+    padding-left: 10px;
 }
 
 .label-style {
