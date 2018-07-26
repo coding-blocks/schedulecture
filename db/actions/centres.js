@@ -69,11 +69,9 @@ module.exports = {
       if (err) done(err)
     });
   },
-  getBatches: function (id, done) {
+  getBatches: function (conditions, done) {
     models.Batches.findAll({
-      where: {
-        centreId: id
-      },
+      where: conditions,
       include: [models.Courses, models.Teachers, models.Lectures],
       order: ['id']
     }).then(function (data) {

@@ -5,7 +5,12 @@
 $(document).ready(function () {
 
   let clienttokenArray = window.location.href.split('?');
-  if (clienttokenArray && clienttokenArray.length === 2) {
+  let getBatch = "all";
+
+  if (clienttokenArray
+    && clienttokenArray.length === 2
+    && clienttokenArray[1].indexOf("clienttoken=") !== -1
+    && clienttokenArray[1].indexOf("name=") !== -1) {
 
     let queryArray = clienttokenArray[1].split('&');
     let clientToken = queryArray[0].split('clienttoken=')[1];
@@ -15,6 +20,12 @@ $(document).ready(function () {
     localStorage.setItem('name', name);
 
     window.location.replace('/admin');
+  }
+
+  if (clienttokenArray
+    && clienttokenArray.length === 2
+    && clienttokenArray[1].indexOf("batch=") !== -1) {
+    getBatch = clienttokenArray[1].split("batch=")[1];
   }
 
   var api = '/api/v1';
@@ -109,7 +120,7 @@ $(document).ready(function () {
               </div>
           `);
 
-        $.get(`${api}/centres/${centre.id}/batches`).done((data) => {
+        $.get(`${api}/centres/${centre.id}/batches/?batch=${getBatch}`).done((data) => {
           if (data.success) {
             let batches = data.data;
 
