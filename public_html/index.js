@@ -5,7 +5,12 @@
 $(document).ready(function () {
 
   let clienttokenArray = window.location.href.split('?');
-  if (clienttokenArray && clienttokenArray.length === 2) {
+  let getBatch = "all";
+
+  if (clienttokenArray
+    && clienttokenArray.length === 2
+    && clienttokenArray[1].indexOf("clienttoken=") !== -1
+    && clienttokenArray[1].indexOf("name=") !== -1) {
 
     let queryArray = clienttokenArray[1].split('&');
     let clientToken = queryArray[0].split('clienttoken=')[1];
@@ -15,6 +20,12 @@ $(document).ready(function () {
     localStorage.setItem('name', name);
 
     window.location.replace('/admin');
+  }
+
+  if (clienttokenArray
+    && clienttokenArray.length === 2
+    && clienttokenArray[1].indexOf("batch=") !== -1) {
+    getBatch = clienttokenArray[1].split("batch=")[1];
   }
 
   var api = '/api/v1';
@@ -36,10 +47,28 @@ $(document).ready(function () {
           getCentre(+($centres.val()));
         })
       } else {
-        alert('No Centres.');
+        $.toast({
+          heading: 'Warning',
+          icon: 'error',
+          text: `No Centres`,
+          position: 'top-right',
+          stack: 4,
+          hideAfter: 4000,
+          showHideTransition: 'slide',
+          loaderBg: '#fc4f4f;'
+        });
       }
     }).fail((err) => {
-      alert('No Centres.');
+      $.toast({
+        heading: 'Warning',
+        icon: 'error',
+        text: `No Centres`,
+        position: 'top-right',
+        stack: 4,
+        hideAfter: 4000,
+        showHideTransition: 'slide',
+        loaderBg: '#fc4f4f;'
+      });
       console.log(err);
     });
 
@@ -52,10 +81,28 @@ $(document).ready(function () {
       if (centreData.success) {
         showBatchesAndRooms(centreData.data);
       } else {
-        alert('Unknown Centre')
+        $.toast({
+          heading: 'Warning',
+          icon: 'error',
+          text: `Unknown Centres`,
+          position: 'top-right',
+          stack: 4,
+          hideAfter: 4000,
+          showHideTransition: 'slide',
+          loaderBg: '#fc4f4f;'
+        });
       }
     }).fail((err) => {
-      alert('Unknown Centre.');
+      $.toast({
+        heading: 'Warning',
+        icon: 'error',
+        text: `Unknown Centres`,
+        position: 'top-right',
+        stack: 4,
+        hideAfter: 4000,
+        showHideTransition: 'slide',
+        loaderBg: '#fc4f4f;'
+      });
       console.log(err);
     });
   }
@@ -109,7 +156,7 @@ $(document).ready(function () {
               </div>
           `);
 
-        $.get(`${api}/centres/${centre.id}/batches`).done((data) => {
+        $.get(`${api}/centres/${centre.id}/batches/?batch=${getBatch}`).done((data) => {
           if (data.success) {
             let batches = data.data;
 
@@ -205,18 +252,54 @@ $(document).ready(function () {
               }
             });
           } else {
-            alert('There are no Batches');
+            $.toast({
+              heading: 'Warning',
+              icon: 'error',
+              text: `There are no Batches`,
+              position: 'top-right',
+              stack: 4,
+              hideAfter: 4000,
+              showHideTransition: 'slide',
+              loaderBg: '#fc4f4f;'
+            })
           }
         }).fail((err) => {
-          alert('No Batches At This Centre.');
+          $.toast({
+            heading: 'Warning',
+            icon: 'error',
+            text: `No Batches At This Centre`,
+            position: 'top-right',
+            stack: 4,
+            hideAfter: 4000,
+            showHideTransition: 'slide',
+            loaderBg: '#fc4f4f;'
+          });
           console.log(err)
         })
       } else {
-        alert('No Rooms At This Centre.');
+        $.toast({
+          heading: 'Warning',
+          icon: 'error',
+          text: `No Rooms At This Centre.`,
+          position: 'top-right',
+          stack: 4,
+          hideAfter: 4000,
+          showHideTransition: 'slide',
+          loaderBg: '#fc4f4f;'
+        });
       }
 
     }).fail((err) => {
-      alert('No Rooms At This Centre.');
+      $.toast({
+        heading: 'Warning',
+        icon: 'error',
+        text: `No Rooms At This Centre.`,
+        position: 'top-right',
+        stack: 4,
+        hideAfter: 4000,
+        showHideTransition: 'slide',
+        loaderBg: '#fc4f4f;'
+      });
       console.log(err)
     });
   }

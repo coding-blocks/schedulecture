@@ -9,6 +9,7 @@
     <link rel='stylesheet' href="./bower_components/jquery-ui/themes/base/jquery-ui.css"/>
     <link rel="stylesheet" href='./bower_components/fullcalendar-scheduler/dist/scheduler.css'>
     <link rel="stylesheet" href="./bower_components/components-font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="./bower_components/jquery-toast-plugin/src/jquery.toast.css">
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -20,25 +21,25 @@
                 SCHEDULECTURE
             </div>
         </div>
-
+        
         <div class="col-sm-8 text-center mt-auto mb-auto" style="color: #eee;font-size: 16px">
             Centre: &nbsp;
             <select id="centres" style="background-color: #343a40; color: #eee;padding: 3px">
             </select>
         </div>
-
+        
         <div class="col-sm-2 text-center mt-auto mb-auto">
-
+            
             <button class="btn btn-info" style="padding: 5px 15px;font-size: 14px; border-radius: 0.25rem; cursor: pointer; background-color: #02B3E4" onclick="document.location.href = '/users/login/cb'">Login</button>
-
+        
         </div>
     </div>
-
+    
     <div class="row no-gutters">
         <div id="calendarContainer" class="col-sm-10 ml-auto mr-auto wrapper"
              style="padding: 10px; background-color: #F4F6F9">
             <div id="colors" class="row text-center" style="height: 20px;width: 100%">
-
+            
             </div>
             <hr>
             <div id='calendar'></div>
@@ -54,7 +55,7 @@
 <script src='./bower_components/fullcalendar-scheduler/dist/scheduler.js'></script>
 <script src="./bower_components/popper.js/dist/umd/popper.js"></script>
 <script src="./bower_components/bootstrap/dist/js/bootstrap.js"></script>
-
+<script src="./bower_components/jquery-toast-plugin/src/jquery.toast.js"></script>
 
 <script src="./index.js"></script>
 </body>
