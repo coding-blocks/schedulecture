@@ -246,7 +246,13 @@ router.delete('/:id',passport.authenticate('bearer'), function (req, res) {
 
 // get all batches
 router.get('/:id/batches', function (req, res) {
-    db.actions.centres.getBatches(req.params.id, function(err, batches) {
+    let conditions = {};
+    conditions.centreId = +req.params.id;
+    if (req.query.batch && req.query.batch !== 'all') {
+      conditions.name = req.query.batch
+    }
+
+    db.actions.centres.getBatches(conditions, function(err, batches) {
         if(err){
             debug("ERROR" + err);
             res.status(500).send({
