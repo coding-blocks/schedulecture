@@ -54,11 +54,29 @@ $(document).ready(function () {
           getFilters(+($centres.val()));
         })
       } else {
-        alert('No Centres.');
+        $.toast({
+          heading: 'Warning',
+          icon: 'error',
+          text: `No Centres`,
+          position: 'top-right',
+          stack: 4,
+          hideAfter: 4000,
+          showHideTransition: 'slide',
+          loaderBg: '#fc4f4f;'
+        })
       }
     }).fail((err) => {
-      alert('No Centres.');
-      console.log(err);/**/
+      $.toast({
+        heading: 'Warning',
+        icon: 'error',
+        text: `No Centres`,
+        position: 'top-right',
+        stack: 4,
+        hideAfter: 4000,
+        showHideTransition: 'slide',
+        loaderBg: '#fc4f4f;'
+      });
+      console.log(err);
     });
 
   }
@@ -68,10 +86,28 @@ $(document).ready(function () {
       if (centreData.success) {
         showBatchesAndRooms(centreData.data);
       } else {
-        alert('Unknown Centre')
+        $.toast({
+          heading: 'Warning',
+          icon: 'error',
+          text: `Unknown Centre`,
+          position: 'top-right',
+          stack: 4,
+          hideAfter: 4000,
+          showHideTransition: 'slide',
+          loaderBg: '#fc4f4f;'
+        })
       }
     }).fail((err) => {
-      alert('Unknown Centre.');
+      $.toast({
+        heading: 'Warning',
+        icon: 'error',
+        text: `Unknown Centre`,
+        position: 'top-right',
+        stack: 4,
+        hideAfter: 4000,
+        showHideTransition: 'slide',
+        loaderBg: '#fc4f4f;'
+      });
       console.log(err);
     });
   }
@@ -735,18 +771,54 @@ $(document).ready(function () {
             });
 
           } else {
-            alert('There are no Batches');
+            $.toast({
+              heading: 'Warning',
+              icon: 'error',
+              text: `No Batches At This Centre.`,
+              position: 'top-right',
+              stack: 4,
+              hideAfter: 4000,
+              showHideTransition: 'slide',
+              loaderBg: '#fc4f4f;'
+            })
           }
         }).fail((err) => {
-          alert('No Batches At This Centre.');
+          $.toast({
+            heading: 'Warning',
+            icon: 'error',
+            text: `No Batches At This Centre.`,
+            position: 'top-right',
+            stack: 4,
+            hideAfter: 4000,
+            showHideTransition: 'slide',
+            loaderBg: '#fc4f4f;'
+          })
           console.log(err)
         })
       } else {
-        alert('No Rooms At This Centre.');
+        $.toast({
+          heading: 'Warning',
+          icon: 'error',
+          text: `No Rooms At This Centre.`,
+          position: 'top-right',
+          stack: 4,
+          hideAfter: 4000,
+          showHideTransition: 'slide',
+          loaderBg: '#fc4f4f;'
+        })
       }
 
     }).fail((err) => {
-      alert('No Rooms At This Centre.');
+      $.toast({
+        heading: 'Warning',
+        icon: 'error',
+        text: `No Rooms At This Centre.`,
+        position: 'top-right',
+        stack: 4,
+        hideAfter: 4000,
+        showHideTransition: 'slide',
+        loaderBg: '#fc4f4f;'
+      })
       console.log(err)
     });
 
@@ -794,10 +866,28 @@ $(document).ready(function () {
       }
     }).done(function (data) {
       if (!data.success) {
-        alert('Could Not Update The Lecture');
+        $.toast({
+          heading: 'Warning',
+          icon: 'error',
+          text: `Could Not Update The Lecture`,
+          position: 'top-right',
+          stack: 4,
+          hideAfter: 4000,
+          showHideTransition: 'slide',
+          loaderBg: '#fc4f4f;'
+        })
       }
     }).fail(function (err) {
-      alert('Could Not Update The Lecture');
+      $.toast({
+        heading: 'Warning',
+        icon: 'error',
+        text: `Could Not Update The Lecture`,
+        position: 'top-right',
+        stack: 4,
+        hideAfter: 4000,
+        showHideTransition: 'slide',
+        loaderBg: '#fc4f4f;'
+      })
       console.log(err);
     })
   }
