@@ -86,7 +86,16 @@ $(document).ready(function () {
           if (res.success === true) {
             window.location.reload();
           } else {
-            window.alert('Could Not Delete The Teacher Right Now!')
+            $.toast({
+              heading: 'Warning',
+              icon: 'error',
+              text: `Could Not Delete The Teacher Right Now!`,
+              position: 'top-right',
+              stack: 4,
+              hideAfter: 4000,
+              showHideTransition: 'slide',
+              loaderBg: '#fc4f4f;'
+            })
           }
         })
       })
@@ -126,7 +135,16 @@ $(document).ready(function () {
         console.log("could not add the teacher right now")
       }
     }).fail(function (err) {
-      alert('Could not add teacher right now');
+      $.toast({
+        heading: 'Warning',
+        icon: 'error',
+        text: `Could Not add The Teacher Right Now!`,
+        position: 'top-right',
+        stack: 4,
+        hideAfter: 4000,
+        showHideTransition: 'slide',
+        loaderBg: '#fc4f4f;'
+      })
     })
   }
   })

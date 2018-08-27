@@ -84,10 +84,28 @@ $(document).ready(function () {
                 window.location.reload();
               }
               else {
-                console.log("could not add the batch right now")
+                $.toast({
+                  heading: 'Warning',
+                  icon: 'error',
+                  text: `Could Not Add The Batch Right Now!`,
+                  position: 'top-right',
+                  stack: 4,
+                  hideAfter: 4000,
+                  showHideTransition: 'slide',
+                  loaderBg: '#fc4f4f;'
+                })
               }
             }).fail(function (err) {
-              alert("could not add the batch right now")
+              $.toast({
+                heading: 'Warning',
+                icon: 'error',
+                text: `Could Not Add The Batch Right Now!`,
+                position: 'top-right',
+                stack: 4,
+                hideAfter: 4000,
+                showHideTransition: 'slide',
+                loaderBg: '#fc4f4f;'
+              })
             })
 
           }
@@ -159,7 +177,16 @@ $(document).ready(function () {
           if (res.success === true) {
             window.location.reload();
           } else {
-            window.alert('Could Not Delete The Course Right Now!')
+            $.toast({
+              heading: 'Warning',
+              icon: 'error',
+              text: `Could Not Delete The Course Right Now!`,
+              position: 'top-right',
+              stack: 4,
+              hideAfter: 4000,
+              showHideTransition: 'slide',
+              loaderBg: '#fc4f4f;'
+            })
           }
         })
       })
@@ -255,10 +282,28 @@ $(document).ready(function () {
 
         }
         else {
-          console.log("could not add the centre right now")
+          $.toast({
+            heading: 'Warning',
+            icon: 'error',
+            text: `Could Not Add The Centre Right Now!`,
+            position: 'top-right',
+            stack: 4,
+            hideAfter: 4000,
+            showHideTransition: 'slide',
+            loaderBg: '#fc4f4f;'
+          })
         }
       }).fail(function (err) {
-        alert("could not add the centre right now");
+        $.toast({
+          heading: 'Warning',
+          icon: 'error',
+          text: `Could Not Add The Centre Right Now!`,
+          position: 'top-right',
+          stack: 4,
+          hideAfter: 4000,
+          showHideTransition: 'slide',
+          loaderBg: '#fc4f4f;'
+        })
       })
 
     }

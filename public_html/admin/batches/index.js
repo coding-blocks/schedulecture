@@ -152,7 +152,16 @@ $(document).ready(function () {
           if (res.success) {
             window.location.reload();
           } else {
-            window.alert('Could Not Delete The Centre Right Now!')
+            $.toast({
+              heading: 'Warning',
+              icon: 'error',
+              text: `Could Not Delete The Centre Right Now!`,
+              position: 'top-right',
+              stack: 4,
+              hideAfter: 4000,
+              showHideTransition: 'slide',
+              loaderBg: '#fc4f4f;'
+            })
           }
         })
       })
@@ -170,11 +179,29 @@ $(document).ready(function () {
           if (res.success) {
             window.location.reload();
           } else {
-            window.alert('Could Not Archive The Batch Right Now!')
+            $.toast({
+              heading: 'Warning',
+              icon: 'error',
+              text: `Could Not Archive The Batch Right Now!`,
+              position: 'top-right',
+              stack: 4,
+              hideAfter: 4000,
+              showHideTransition: 'slide',
+              loaderBg: '#fc4f4f;'
+            })
           }
         }).fail(function (err) {
           console.log(err)
-          alert('Could Not Archive The Batch Right now!');
+          $.toast({
+            heading: 'Warning',
+            icon: 'error',
+            text: `Could Not Archive The Batch Right Now!`,
+            position: 'top-right',
+            stack: 4,
+            hideAfter: 4000,
+            showHideTransition: 'slide',
+            loaderBg: '#fc4f4f;'
+          })
         })
       })
 
@@ -276,7 +303,16 @@ $(document).ready(function () {
           if (res.success === true) {
             window.location.reload();
           } else {
-            window.alert('Could Not Delete The Batch Right Now!')
+            $.toast({
+              heading: 'Warning',
+              icon: 'error',
+              text: `Could Not Delete The Batch Right Now!`,
+              position: 'top-right',
+              stack: 4,
+              hideAfter: 4000,
+              showHideTransition: 'slide',
+              loaderBg: '#fc4f4f;'
+            })
           }
         })
       })
@@ -364,8 +400,16 @@ $(document).ready(function () {
         }
       }).fail(function (err) {
         console.log(err);
-        alert('Could not add the batch');
-      });
+        $.toast({
+          heading: 'Warning',
+          icon: 'error',
+          text: `Could Not Add The Batch Right Now!`,
+          position: 'top-right',
+          stack: 4,
+          hideAfter: 4000,
+          showHideTransition: 'slide',
+          loaderBg: '#fc4f4f;'
+        })      });
     }
   });
 
