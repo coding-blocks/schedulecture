@@ -175,6 +175,11 @@ $(document).ready(function () {
 
           }
           $('input[type="checkbox"]').off('change');
+          for (let i = 0; i < batchesData.data.length; i++) {
+            if (batchesData.data[i].name === getBatch) {
+              $(`input[type="checkbox"][value="${batchesData.data[i].id}"]`).prop('checked', true)
+            }
+          }
 
           $('input[type="checkbox"]').change(function () {
 
