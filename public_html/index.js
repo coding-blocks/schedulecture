@@ -31,7 +31,6 @@ $(document).ready(function () {
   var api = '/api/v1';
   var eventsData;
 
-  getCentres();
 
   $('#filters').show();
 
@@ -80,6 +79,8 @@ $(document).ready(function () {
     });
 
   }
+
+  getCentres();
 
   function getCentre(centreId) {
     $.get(`${api}/centres/${centreId}`).done((centreData) => {
@@ -236,7 +237,6 @@ $(document).ready(function () {
     const events = [];
     const resources = [];
     const colors = ['#EB5667', '#1E88E5', '#B96BC6', '#28B294', '#FF8F00', '#31C6C7'];
-    let batchColors = {};
     let colorCounter = 0;
 
     $('#calendar').remove();
@@ -263,6 +263,7 @@ $(document).ready(function () {
             id: room.id,
             title: room.name,
             eventColor: currentColor,
+            capacity: room.capacity,
             centreId: room.centreId
           });
           $colors.append(`
@@ -274,63 +275,39 @@ $(document).ready(function () {
         });
 
         $colors.append(`
-          <div class="col">
-          </div>
-          <div class="col">
-          </div>
-        `);
+              <div class="col">
+              </div>
+              <div class="col">
+              </div>
+          `);
 
         $.get(`${api}/centres/${centre.id}/batches/?batch=${getBatch}`).done((data) => {
           if (data.success) {
             let batches = data.data;
 
             batches.forEach(function (batch) {
-              
-              const $lectures = $(`#batch-${batch.id}`);
-              let lectures = batch.lectures.sort(function (batch1, batch2) {
-                return batch1.id - batch2.id;
-              });
+              let lectures = batch.lectures;
               lectures.forEach((lecture) => {
-                let eventObject = {
-                  lectureId: lecture.id,
-                  title: lecture.name,
-                  batchCapacity: batch.size,
-                  batchName: batch.name,
-                  batchId: batch.id,
-                  teacherId: batch.teacher.id,
-                  teacherName: batch.teacher.name,
-                  courseName: batch.course.name,
-                  stick: true
-                };
-
                 if (lecture.startTime && lecture.endTime) {
-
-                  events.push(Object.assign({}, eventObject, {
+                  events.push({
+                    lectureId: lecture.id,
+                    title: lecture.name,
                     start: moment.utc(lecture.startTime),
                     end: moment.utc(lecture.endTime),
+                    stick: true,
                     resourceId: lecture.roomId,
-                  }));
-
-                } else {
-                  $lectures.append(`
-                    <a id="lecture-${lecture.id}" class="list-group-item" data-parent="#batch-${batch.id}">
-                        ${lecture.name}
-                    </a>
-                  `);
-
-                  const $lecture = $(`#lecture-${lecture.id}`);
-
-                  $lecture.data('event', Object.assign({}, eventObject, {
-                    hours: batch.hoursPerLecture !== null ? batch.hoursPerLecture : batch.course.hours,
-                    start: moment().startOf('day'),
-                    defaultRoom: batch.roomId,
-                    defaultTime: batch.defaultTime,
-                  }));
+                    batchCapacity: batch.size,
+                    batchId: batch.id,
+                    batchName: batch.name,
+                    teacherId: batch.teacher.id,
+                    teacherName: batch.teacher.name,
+                    courseName: batch.course.name
+                  });
                 }
               });
 
             });
-            $('#calendar').css('overflow-y', 'scroll');
+
             eventsData = events.slice();
             $('#calendar').fullCalendar({
               // put your options and callbacks here
@@ -377,6 +354,7 @@ $(document).ready(function () {
                   groupByDateAndResource: true,
                   dateIncrement: {days: 1}
                 }
+
               },
               eventMouseover: function (event, jsEvent, view) {
                 var index = -1;
@@ -399,9 +377,7 @@ $(document).ready(function () {
                     `
                   }).tooltip('show');
               }
-
             });
-
           } else {
             $.toast({
               heading: 'Warning',
@@ -454,4 +430,4 @@ $(document).ready(function () {
       console.log(err)
     });
   }
-})
+});
