@@ -1,8 +1,6 @@
 
 body {
     background-color: #F4F6F9;
-    /*height: 100vh;*/
-    /*overflow-y: hidden;*/
 }
 
 .container-fluid {
@@ -12,7 +10,6 @@ body {
 
 #side-menu {
     height: 100vh;
-    /*position: fixed;*/
     background-color: #343a40;
     padding: 0;
     overflow-x: hidden;
@@ -22,9 +19,6 @@ body {
     background-color: #343a40;
     z-index: 10;
     height: auto;
-    /*position: fixed;*/
-    /*top: 0px;*/
-    /*width: 100%;*/
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -181,21 +175,15 @@ ul {
 }
 
 .titlerow {
-    /*background-color: white;*/
     height: auto;
     padding: 30px;
     padding-top: 0;
     padding-bottom: 0;
-    /*box-shadow: #DDD 0 0 8px 1px ;*/
-    /*border-radius: .125rem;*/
 }
 
 .minicourses {
-    /*background-color: white;*/
     height: auto;
     padding: 20px;
-    /*box-shadow: #DDD 0 0 8px 1px ;*/
-    /*border-radius: .125rem;*/
 }
 
 .minicourses-list {
@@ -213,13 +201,11 @@ ul {
 
 .minicourses-list-li-div {
     width: 100%;
-    /*padding-top: 10px;*/
     height: auto;
     border-bottom: solid 2px #EEE;
     background-color: white;
     box-shadow: #DDD 0 0 8px 1px;
     border-radius: .125rem;
-    /*cursor: pointer;*/
 }
 
 #minicourses-list > li {
